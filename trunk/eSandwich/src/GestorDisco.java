@@ -1,3 +1,4 @@
+package src;
 /**
  * Aquesta és la classe que interacciona amb la BD.
  *  @Author TDP
