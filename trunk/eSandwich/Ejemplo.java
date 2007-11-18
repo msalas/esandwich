@@ -8,6 +8,10 @@ public class Ejemplo {
 		this.ejemplo = ejemplo;
 		this.numero = numero;
 	}
+	public Ejemplo(String ejemplo) {
+		super();
+		this.ejemplo = ejemplo;
+	}
 	public Ejemplo() {
 		super();
 		// TODO Auto-generated constructor stub

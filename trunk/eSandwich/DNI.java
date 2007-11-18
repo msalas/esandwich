@@ -1,4 +1,4 @@
-package src;
+
 /**
 * Tiene y nos proporciona la información necesaria de los números de 
 * DNI de los trabajadores.

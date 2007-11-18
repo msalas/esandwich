@@ -1,4 +1,4 @@
-package src;
+
 /**
 * Tiene y nos proporciona la información necesaria de los números de NIF de los trabajadores.
 * @author F. Javier Cano Llamas (Ing. Inf. Gestión)
