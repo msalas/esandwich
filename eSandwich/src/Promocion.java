@@ -8,7 +8,7 @@ public class Promocion implements Serializable{
 	private int idSandwich;
 	private String valor;
 	private int puntosMinimos;
-	//private Producto producto;
+	private Producto producto;
 	private Date fechaBaja = null;
 	
 	public Promocion (long pId, int pIdTipoPromocion, int pIdSandwich, String pValor,
@@ -66,5 +66,13 @@ public class Promocion implements Serializable{
 
 	public void setValor(String valor) {
 		this.valor = valor;
+	}
+
+	public Producto getProducto() {
+		return producto;
+	}
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
 	}
 }
