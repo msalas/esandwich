@@ -1,4 +1,4 @@
-package src;
+
 import java.io.Serializable;
 
 public class Empleado extends Usuario implements Serializable  {
