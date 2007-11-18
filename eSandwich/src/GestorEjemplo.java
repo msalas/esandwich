@@ -66,7 +66,7 @@ public void insertarEjemplo(String ejemplo, int numero) throws errorSQL, errorCo
 		
 		// Obtener id de la sequencia
 		stmt = con.createStatement();
-		String consulta = "SELECT next_id from ejemplo_seq";
+		String consulta = "SELECT nextval('ejemplo_seq')";
 		ResultSet rs = stmt.executeQuery(consulta);
 		if(rs.next()) id= rs.getInt(1); 
 		rs.close();
