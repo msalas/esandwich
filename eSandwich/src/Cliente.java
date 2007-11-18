@@ -1,5 +1,4 @@
 package src;
-import Usuario;
 
 import java.io.Serializable;
 
