@@ -24,9 +24,9 @@ public class GestorEmpleado {
 		String codEmpleado = "";
 		int id = 0;
 		
-		// Primero se ha de consultar para ver si existe.
 		
-		
+		// Falta verificar campos: verifCampos(pEmpleado);
+				
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexión!");
 		
@@ -39,7 +39,6 @@ public class GestorEmpleado {
 		try {
 			gd.begin();
 			
-			// Pendiante de Marc
 			strSQL = "SELECT nextval ('persona_id_seq')";
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(strSQL);
@@ -60,16 +59,56 @@ public class GestorEmpleado {
 				codEmpleado = codEmpleado  + id;	
 			}
 					
-			
-			// Pendiante de Marc
-			strSQL = "INSERT INTO empleados ()";			
+			strSQL = "INSERT INTO persona (nif,nombre,apellido1,"
+				+ "apellido2,direccion,poblacion,telefono," 
+				+ "movil,email) "
+				+ "VALUES (?,?,?,?,?,?,?,?,?)";			
+					
 			pstmt = con.prepareStatement(strSQL);
 			
-			//Las pstmt.setString (por ejemplo) pendiente de Marc
+			pstmt.setString(1,pEmpleado.getNif().toString());
+			pstmt.setString(2,pEmpleado.getNombre());
+			pstmt.setString(3,pEmpleado.getApellido1());
+			pstmt.setString(4,pEmpleado.getApellido2());
+			pstmt.setString(5,pEmpleado.getDireccion());
+			pstmt.setString(6,pEmpleado.getPoblacion());
+			pstmt.setString(7,pEmpleado.getTelefono());
+			pstmt.setString(8,pEmpleado.getMovil());
+			pstmt.setString(9,pEmpleado.getEmail());
 			
 			gd.commit();
 			pstmt.execute();
 			pstmt.close();
+			pstmt = null;
+			
+			strSQL = "INSERT INTO usuario (cod-usuario,password,desactivado) "
+				+ "VALUES (?,?,?)";
+
+			pstmt = con.prepareStatement(strSQL);
+			
+			pstmt.setInt(1,id);
+			pstmt.setString(2,pEmpleado.getPassword());
+			pstmt.setBoolean(3, false);
+						
+			gd.commit();
+			pstmt.execute();
+			pstmt.close();
+			pstmt = null;
+			
+			strSQL = "INSERT INTO empleado (cod-empleado,id-rol) "
+				+ "VALUES (?,?)";
+
+			pstmt = con.prepareStatement(strSQL);
+			
+			pstmt.setInt(1,id);
+			pstmt.setInt(2,pEmpleado.getRol().getId());
+						
+			gd.commit();
+			pstmt.execute();
+			pstmt.close();
+			pstmt = null;
+
+			
 		} catch (SQLException e) {
 			gd.rollback();
 			throw new errorSQL (e.toString());
