@@ -6,12 +6,12 @@ public class Promocion implements Serializable{
 	private long id;
 	private int idTipoPromocion;
 	private int idSandwich;
-	private String valor;
+	private double valor;
 	private int puntosMinimos;
 	private Producto producto;
 	private Date fechaBaja = null;
 	
-	public Promocion (long pId, int pIdTipoPromocion, int pIdSandwich, String pValor,
+	public Promocion (long pId, int pIdTipoPromocion, int pIdSandwich, double pValor,
 			int pPuntosMinimos) {
 		id = pId;
 		idTipoPromocion = pIdTipoPromocion;
@@ -60,11 +60,11 @@ public class Promocion implements Serializable{
 		this.puntosMinimos = puntosMinimos;
 	}
 
-	public String getValor() {
+	public double getValor() {
 		return valor;
 	}
 
-	public void setValor(String valor) {
+	public void setValor(double valor) {
 		this.valor = valor;
 	}
 
