@@ -18,6 +18,8 @@ public class GestorEmpleado {
 		gd.abrirConexion();
 	}
 
+	// Hay que devolver un String (el codigo creado)
+	
 	public void addEmpleado(Empleado pEmpleado) throws errorSQL, 
 	errorConexionBD{
 		String strSQL = "";
@@ -31,6 +33,7 @@ public class GestorEmpleado {
 		else throw new errorConexionBD("No hay conexión!");
 		
 		// Para montar código de usuario...
+		// MARC: Aun no lo necesitas
 		codEmpleado = pEmpleado.getRol().getLetraRol();
 		
 		PreparedStatement pstmt = null;
@@ -38,13 +41,15 @@ public class GestorEmpleado {
 					
 		try {
 			gd.begin();
-			
+	//MARC: Este codigo no hace falta, ya que el insert crea el id automaticamente
+/*			
 			strSQL = "SELECT nextval ('persona_id_seq')";
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(strSQL);
 			if (rs.next()) id = rs.getInt(1);
 			rs.close();
 			stmt.close();
+			
 			
 			if (id < 10) {
 				codEmpleado = codEmpleado + "000" + id;	
@@ -57,8 +62,9 @@ public class GestorEmpleado {
 			}
 			if (id > 999) {
 				codEmpleado = codEmpleado  + id;	
-			}
-					
+			}*/
+
+			// Anyadir a la sentencia RETURNING id
 			strSQL = "INSERT INTO persona (nif,nombre,apellido1,"
 				+ "apellido2,direccion,poblacion,telefono," 
 				+ "movil,email) "
@@ -77,7 +83,16 @@ public class GestorEmpleado {
 			pstmt.setString(9,pEmpleado.getEmail());
 			
 			gd.commit();
-			pstmt.execute();
+	
+			// MARC: 
+//			pstmt.execute();
+			
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) id = rs.getInt(1);
+			rs.close();			
+			
+			// FI MODIFICACIO MARC
+			
 			pstmt.close();
 			pstmt = null;
 			

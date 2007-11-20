@@ -3,7 +3,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public abstract class Persona implements Serializable {
+	// Este atributo desaparece y pasa al Usuario
 	private long id;
+	
 	private NIF nif;	
 	private String nombre;
 	private String apellido1;
