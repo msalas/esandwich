@@ -110,8 +110,15 @@ public class GestorEmpleado {
 
 			
 		} catch (SQLException e) {
-			gd.rollback();
-			throw new errorSQL (e.toString());
+			switch (e.getErrorCode()){
+			case -268: //Tengo que validar este código (este es de INFORMIX)
+				throw new GestorEmpleadoException("Este usuario ya existe");
+			default: 
+				{
+					gd.rollback();
+					throw new errorSQL("Error SQL numero: " + e.getErrorCode());
+				}
+			}
 		}
 	}
 	
