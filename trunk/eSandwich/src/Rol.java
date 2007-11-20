@@ -5,11 +5,12 @@ import java.util.Date;
 public class Rol implements Serializable{
 	private int id;
 	private String descripcion = "";
-	private Date fechaBaja = null;
+	private String letraRol = "";
 	
-	public Rol(int pId, String pDescripcion) {
+	public Rol(int pId, String pDescripcion,String pLetraRol) {
 		id = pId;
 		descripcion = pDescripcion;
+		letraRol = pLetraRol; 
 	}
 
 	public String getDescripcion() {
@@ -20,19 +21,19 @@ public class Rol implements Serializable{
 		this.descripcion = descripcion;
 	}
 
-	public Date getFechaBaja() {
-		return fechaBaja;
-	}
-
-	public void setFechaBaja(Date fechaBaja) {
-		this.fechaBaja = fechaBaja;
-	}
-
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getLetraRol() {
+		return letraRol;
+	}
+
+	public void setLetraRol(String letraRol) {
+		this.letraRol = letraRol;
 	}
 }
