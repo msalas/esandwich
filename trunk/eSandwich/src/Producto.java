@@ -1,17 +1,21 @@
 
 public class Producto {
 
-	long idProducto;
+	int idProducto;
 	String descripcion;
 	String descripcionAmpliada;
 	int existencias;
 	
-	public Producto(long idProducto, String descripcion, String descripcionAmpliada, int existencias){
+	public Producto(int idProducto, String descripcion, String descripcionAmpliada, int existencias){
 		super();
 		this.idProducto=idProducto;
 		this.descripcion=descripcion;
 		this.descripcionAmpliada=descripcionAmpliada;
 		this.existencias=existencias;
+	}
+	
+	public Producto(){
+		super();
 	}
 	
 	public String getDescripcion() {
@@ -30,11 +34,11 @@ public class Producto {
 		this.descripcionAmpliada = descripcionAmpliada;
 	}
 	
-	public long getIdProducto() {
+	public int getIdProducto() {
 		return idProducto;
 	}
 	
-	public void setIdProducto(long idProducto) {
+	public void setIdProducto(int idProducto) {
 		this.idProducto = idProducto;
 	}
 

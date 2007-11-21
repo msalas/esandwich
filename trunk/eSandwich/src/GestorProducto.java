@@ -40,7 +40,7 @@ public class GestorProducto {
 		return v;
 	}
 	
-	public Vector<Producto> listaProductoPorFamilia(long idFamilia) throws errorSQL, errorConexionBD{
+	public Vector<Producto> listaProductoPorFamilia(int idFamilia) throws errorSQL, errorConexionBD{
 		
 		Vector<Producto> v = new Vector<Producto>();
 		Producto p = null;
@@ -66,7 +66,7 @@ public class GestorProducto {
 		return v;
 	}
 	
-	public void insertarProducto(long idProducto, String descripcion, String descripcionAmpliada, int existencias) throws errorSQL, errorConexionBD {
+	public void insertarProducto(int idProducto, String descripcion, String descripcionAmpliada, int existencias) throws errorSQL, errorConexionBD {
 	
 		String p;
 		PreparedStatement pstmt = null;
@@ -79,7 +79,7 @@ public class GestorProducto {
 			gd.begin();
 			p=	"INSERT INTO producto (id, descripcion, descripcionampliada, existencias)" + "VALUES (?,?,?,?) RETURNING id" ;			
 			pstmt = con.prepareStatement(p);
-			pstmt.setLong(1,id);
+			pstmt.setInt(1,id);
 			pstmt.setString(2,descripcion);
 			pstmt.setString(3,descripcionAmpliada);
 			pstmt.setInt(4, existencias);
@@ -95,7 +95,7 @@ public class GestorProducto {
 
 	}
 	
-	public void eliminaProducto(long idProducto) throws errorSQL, errorConexionBD {
+	public void eliminaProducto(int idProducto) throws errorSQL, errorConexionBD {
 
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
@@ -119,7 +119,7 @@ public class GestorProducto {
 
 	}
 	
-	public Producto consultaProducto(long idProducto) throws errorSQL, errorConexionBD {
+	public Producto consultaProducto(int idProducto) throws errorSQL, errorConexionBD {
 		
 		
 		Producto p = null;
@@ -134,7 +134,7 @@ public class GestorProducto {
 			if(rs.next()) id= rs.getInt(1); 
 			rs.close();
 			stmt.close();
-			p = new Producto(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getInt(4));
+			p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
 			
 		} catch (SQLException e) {
 			throw new errorSQL(e.toString());
