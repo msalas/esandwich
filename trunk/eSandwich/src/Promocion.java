@@ -3,21 +3,24 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Promocion implements Serializable{
-	private long id;
+	private int id;
 	private int idTipoPromocion;
 	private int idSandwich;
+	private int idProducto;	
 	private double valor;
 	private int puntosMinimos;
-	private Producto producto;
 	private Date fechaBaja = null;
 	
-	public Promocion (long pId, int pIdTipoPromocion, int pIdSandwich, double pValor,
-			int pPuntosMinimos) {
+	public Promocion() {		
+	}
+	public Promocion (int pId,int pIdTipoPromocion, int pIdSandwich, int pIdProducto
+			,double pValor,int pPuntosMinimos) {
 		id = pId;
 		idTipoPromocion = pIdTipoPromocion;
 		idSandwich = pIdSandwich;
 		valor = pValor;
-		puntosMinimos = pPuntosMinimos;		
+		puntosMinimos = pPuntosMinimos;
+		idProducto = pIdProducto;
 	}
 
 	public Date getFechaBaja() {
@@ -26,14 +29,6 @@ public class Promocion implements Serializable{
 
 	public void setFechaBaja(Date fechaBaja) {
 		this.fechaBaja = fechaBaja;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public int getIdSandwich() {
@@ -67,12 +62,18 @@ public class Promocion implements Serializable{
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
-
-	public Producto getProducto() {
-		return producto;
+	public int getIdProducto() {
+		return idProducto;
+	}
+	public void setIdProducto(int idProducto) {
+		this.idProducto = idProducto;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public void setProducto(Producto producto) {
-		this.producto = producto;
-	}
+	
 }

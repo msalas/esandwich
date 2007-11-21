@@ -97,7 +97,7 @@ public class GestorEmpleado {
 			
 		} catch (SQLException e) {
 			switch (e.getErrorCode()){
-			case -268: //Tengo que validar este código (este es de INFORMIX)
+			case 23505:
 				throw new GestorEmpleadoException("Este usuario ya existe");
 			default: 
 				{
@@ -179,7 +179,7 @@ public class GestorEmpleado {
 			
 		} catch (SQLException e) {
 			switch (e.getErrorCode()){
-			case -268: //Tengo que validar este código (este es de INFORMIX)
+			case 23505: 
 				throw new GestorEmpleadoException("Este usuario ya existe");
 			default: 
 				{
@@ -209,7 +209,7 @@ public class GestorEmpleado {
 				+ "FROM persona,usuario,empleado "
 				+ "WHERE empleado.cod-empleado = usuario.cod-usuario AND "
 				+ "empleado.cod-empleado = persona.id "
-				+ "WHERE cod-empleado=" + pId;
+				+ "AND cod-empleado = " + pId;
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(strSQL);
 			if (rs.next()){
@@ -283,9 +283,11 @@ public class GestorEmpleado {
 	
 
 	
-	private Empleado montaEmpleado(ResultSet rs) throws errorSQL {
+	private Empleado montaEmpleado(ResultSet rs) throws errorSQL, errorConexionBD {
 		Empleado Emp = null;
+		GestorRol gRol = null;
 		Emp = new Empleado();
+		gRol = new GestorRol();
 		try {
 			Emp.setId(rs.getInt("cod-empleado"));
 			Emp.setNif(rs.getString("nif"));
@@ -300,7 +302,7 @@ public class GestorEmpleado {
 			Emp.setCodUsuario(rs.getString("codUsuario"));
 			Emp.setPassword(rs.getString("password"));
 			Emp.setDesactivado(rs.getBoolean("desactivado"));
-			// Falta GestorRol consulta de rol por id (id-rol) y que nos de objeto Rol
+			Emp.setRol(gRol.consultaRol(rs.getInt("id-rol")));
 		}
 		catch (SQLException e) {
 			throw new errorSQL(e.toString());
