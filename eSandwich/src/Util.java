@@ -29,4 +29,11 @@ public class Util {
 		return res;
 		
 	}
+	
+	public static int getNumDeCodigo(String codUsuario) {
+		int n = 0;
+		n = Integer.parseInt(codUsuario.substring(1));		
+		return n;
+	}
+	
 }

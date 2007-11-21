@@ -1,11 +1,15 @@
 
 import java.io.Serializable;
-import java.util.Date;
+
 
 public class Rol implements Serializable{
 	private int id;
 	private String descripcion = "";
 	private String letraRol = "";
+	
+	public Rol() {
+		
+	}
 	
 	public Rol(int pId, String pDescripcion,String pLetraRol) {
 		id = pId;

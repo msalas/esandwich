@@ -7,6 +7,9 @@ public class TipoPromocion implements Serializable{
 	private String descripcion = "";
 	private Date fechaBaja = null;
 	
+	public TipoPromocion() {		
+	}
+	
 	public TipoPromocion(int pId, String pDescripcion) {
 		id = pId;
 		descripcion = pDescripcion;
