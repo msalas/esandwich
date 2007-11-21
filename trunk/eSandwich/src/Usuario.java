@@ -12,10 +12,14 @@ public abstract class Usuario extends Persona implements Serializable {
 	private String password = "";
 	private boolean desactivado = false;
 
-	public Usuario(long pId,int pDni, String pNombre, String pApellido1, String pApellido2,
+	public Usuario() {
+		super();
+	}
+	
+	public Usuario(int pId,String pNif, String pNombre, String pApellido1, String pApellido2,
 			String pDireccion, String pPoblacion, String pTelefono, String pMovil,
 			String pEmail, String pCodUsuario, String pPassword,boolean pDesactivado) {
-		super(pId,pDni, pNombre, pApellido1, pApellido2, pDireccion, pPoblacion,				
+		super(pId,pNif, pNombre, pApellido1, pApellido2, pDireccion, pPoblacion,				
 				pTelefono, pMovil, pEmail);
 		codUsuario = pCodUsuario;
 		password = pPassword;
