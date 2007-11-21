@@ -1,6 +1,3 @@
-import java.io.Serializable;
-import java.rmi.Naming;
-import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
