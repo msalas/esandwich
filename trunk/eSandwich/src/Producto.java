@@ -15,10 +15,12 @@ public class Producto implements Serializable {
 		this.existencias=existencias;
 	}
 	
-	public Producto(){
-		super();
+
+	public Producto() {
+		
 	}
-	
+
+
 	public String getDescripcion() {
 		return descripcion;
 	}
