@@ -1,13 +1,14 @@
+import java.io.Serializable;
 
-public class FacturacionSandwich {
+public class FacturacionSandwich implements Serializable {
 
-	long idSandwich;
+	int idSandwich;
 
-	public long getIdSandwich() {
+	public int getIdSandwich() {
 		return idSandwich;
 	}
 
-	public void setIdSandwich(long idSandwich) {
+	public void setIdSandwich(int idSandwich) {
 		this.idSandwich = idSandwich;
 	}
 	

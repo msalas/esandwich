@@ -99,14 +99,14 @@ public class GestorProducto {
 
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
-		Producto p=null;
+		
 		String pr;
 		PreparedStatement pstmt = null;
-		Statement stmt = null;		
+		
 		try {
 			gd.begin();
 			
-			pr= "DELETE FROM producto(id, descripcion, descripcionampliada, existencias) WHERE p.id = '"+ idProducto+"'";
+			pr= "DELETE FROM producto WHERE p.id = '"+ idProducto+"'";
 			
 			gd.commit();
 			pstmt.execute();

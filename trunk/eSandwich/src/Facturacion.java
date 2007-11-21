@@ -1,31 +1,32 @@
+import java.io.Serializable;
 
-public class Facturacion {
+public class Facturacion implements Serializable {
 
-	long unidades;
-	long idLinea;
-	float importe;
+	int unidades;
+	int idLinea;
+	int importe;
 	
-	public long getIdLinea() {
+	public int getIdLinea() {
 		return idLinea;
 	}
 	
-	public void setIdLinea(long idLinea) {
+	public void setIdLinea(int idLinea) {
 		this.idLinea = idLinea;
 	}
 	
-	public float getImporte() {
+	public int getImporte() {
 		return importe;
 	}
 	
-	public void setImporte(float importe) {
+	public void setImporte(int importe) {
 		this.importe = importe;
 	}
 	
-	public long getUnidades() {
+	public int getUnidades() {
 		return unidades;
 	}
 	
-	public void setUnidades(long unidades) {
+	public void setUnidades(int unidades) {
 		this.unidades = unidades;
 	}
 		
