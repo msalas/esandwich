@@ -43,7 +43,7 @@ public class GestorSandwich {
 			
 			while(rs.next()){
 				 sandwich= new Sandwich();
-				 sandwich.setIdProducto(rs.getLong(1));
+				 sandwich.setIdProducto(rs.getInt(1));
 				 sandwich.setDescripcion(rs.getString(2));
 				 sandwich.setPrecio(rs.getFloat(3));
 				 sandwich.setTipoSandwich(new GestorTipoSandwich().leePorId(rs.getInt(4)));

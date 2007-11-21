@@ -14,6 +14,10 @@ public class Producto {
 		this.existencias=existencias;
 	}
 	
+	public Producto() {
+		
+	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
