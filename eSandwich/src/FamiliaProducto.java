@@ -1,8 +1,14 @@
+import java.io.Serializable;
 
-public class FamiliaProducto {
+public class FamiliaProducto implements Serializable{
 
-	long idFamilia;
+	int idFamilia;
 	String descripcion;
+	
+	public FamiliaProducto(int idFamilia, String descripcion){
+		this.idFamilia=idFamilia;
+		this.descripcion=descripcion;
+	}
 	
 	public String getDescripcion() {
 		return descripcion;
@@ -16,7 +22,7 @@ public class FamiliaProducto {
 		return idFamilia;
 	}
 	
-	public void setIdFamilia(long idFamilia) {
+	public void setIdFamilia(int idFamilia) {
 		this.idFamilia = idFamilia;
 	}
 		
