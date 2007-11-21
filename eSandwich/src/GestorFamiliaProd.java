@@ -70,14 +70,14 @@ public class GestorFamiliaProd {
 
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
-		
+		FamiliaProducto f=null;
 		String fp;
 		PreparedStatement pstmt = null;
 		
 		try {
 			gd.begin();
 			
-			fp= "DELETE FROM familia WHERE fp.id = '"+ idFamilia+"'";
+			fp= "DELETE FROM familia WHERE f.id = '"+ idFamilia+"'";
 			
 			gd.commit();
 			pstmt.execute();
