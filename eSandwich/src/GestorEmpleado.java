@@ -32,6 +32,7 @@ public class GestorEmpleado {
 		
 		
 		PreparedStatement pstmt = null;
+		Statement stmt = null;
 					
 		try {
 			gd.begin();
@@ -39,10 +40,7 @@ public class GestorEmpleado {
 			strSQL = "INSERT INTO persona (nif,nombre,apellido1,"
 				+ "apellido2,direccion,poblacion,telefono," 
 				+ "movil,email) "
-				+ "VALUES (?,?,?,?,?,?,?,?,?) returning id into ?";
-			
-			
-			
+				+ "VALUES (?,?,?,?,?,?,?,?,?)";
 					
 			pstmt = con.prepareStatement(strSQL);
 			
@@ -55,13 +53,20 @@ public class GestorEmpleado {
 			pstmt.setString(7,pEmpleado.getTelefono());
 			pstmt.setString(8,pEmpleado.getMovil());
 			pstmt.setString(9,pEmpleado.getEmail());			
-			pstmt.setInt(10,id);
-			
+	
 			gd.commit();
 			pstmt.execute();
 			pstmt.close();
 			pstmt = null;
+			
+			strSQL = "select currval('persona_id_seq')";
 
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(strSQL);
+			if (rs.next()) id = rs.getInt(1);
+			rs.close();
+			stmt.close();
+			
 			strSQL = "INSERT INTO usuario (cod-usuario,password,desactivado) "
 				+ "VALUES (?,?,?)";
 
