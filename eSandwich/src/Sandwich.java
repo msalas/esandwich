@@ -4,6 +4,11 @@ import java.util.Date;
 
 public class Sandwich extends Producto implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private float precio;
 	private TipoSandwich tipoSandwich;
 	private IngredienteSandwich []ingredienteSandwich;
@@ -38,6 +43,12 @@ public class Sandwich extends Producto implements Serializable {
 	}
 	public void setTipoSandwich(TipoSandwich tipoSandwich) {
 		this.tipoSandwich = tipoSandwich;
+	}
+	
+	public String toString(){
+		String cadena="";
+		cadena="Identificador:"+this.getIdProducto()+" Nombre:"+this.getDescripcion()+" TipoSandwich:"+this.getTipoSandwich().getDescripcion();
+		return cadena;
 	}
 	
 	

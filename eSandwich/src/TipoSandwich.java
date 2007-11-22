@@ -6,6 +6,12 @@ import java.util.Date;
 public class TipoSandwich implements Serializable {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 	private int id;
 	private String descripcion;
 	private Date fechaBaja;
