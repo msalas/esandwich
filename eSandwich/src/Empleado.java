@@ -2,6 +2,7 @@
 import java.io.Serializable;
 
 public class Empleado extends Usuario implements Serializable  {
+	private static final long serialVersionUID = 1L;	
 	private Rol rol;
 
 	public Empleado() {

@@ -6,7 +6,7 @@ public class TipoPromocion implements Serializable{
 	private int id;
 	private String descripcion = "";
 	private Date fechaBaja = null;
-	
+	private static final long serialVersionUID = 1L;
 	public TipoPromocion() {		
 	}
 	
