@@ -4,18 +4,19 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class RMILoginImpl extends UnicastRemoteObject implements
     RMILoginInterface, Serializable {
-  
-  /**Version serializable*/
-  private static final long serialVersionUID = 1L;
-  
-  private GestorLogin gestorLogin = null;
 
-  public RMILoginImpl() throws RemoteException{
+  /** Version serializable */
+  private static final long serialVersionUID = 1L;
+
+  private GestorLogin       gestorLogin      = null;
+
+  public RMILoginImpl() throws RemoteException {
     super();
     System.out.println("RMILoginImpl()");
     try {
       gestorLogin = new GestorLogin();
-      gestorLogin.abrirConexion();
+      // Ya lo hace el gestorlogin en el constructor
+      // gestorLogin.abrirConexion();
 
     } catch (errorConexionBD e) {
       System.err.println("Error abriendo la conexion: " + e);

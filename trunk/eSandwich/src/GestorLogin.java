@@ -1,53 +1,62 @@
+import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class GestorLogin extends GestorDisco {
+public class GestorLogin implements RMILoginInterface {
 
-  public static final String tabla = "usuario";
+  private GestorDisco gd;
+
+  // public static final String tabla = "usuario";
 
   public GestorLogin() throws errorConexionBD {
     super();
     try {
-      abrirConexion();
+      gd = new GestorDisco();
+      gd.abrirConexion();
 
     } catch (errorConexionBD ecb) {
       System.err.println("Error conectando a la BDD.\n" + ecb);
     }
   }
 
-  public void login(String login, String clave) {
+  public void login(String login, String clave) throws RemoteException {
     System.out.println("GestorLogin.login()");
 
     ResultSet rs;
+    String user = null;
+    String pass = null;
     try {
-      Statement stmt = getConexion().createStatement();
+      Statement stmt = gd.getConexion().createStatement();
       System.out.println("Statement creado");
 
-      String sSQL = "SELECT * FROM " + tabla + " WHERE nombre='" + login + "'";
+      String sSQL = "SELECT * FROM usuario,persona "
+          + " WHERE usuario.\"cod-usuario\"=persona.id AND nif='" + login + "'";
       System.out.println("Ejecutando: " + sSQL);
       rs = stmt.executeQuery(sSQL);
 
       if (!rs.next()) {
-        throw new SQLException("Login no encontrado");
+        String msg = "Login no encontrado";
+        System.err.println(msg);
+        throw new RemoteException(msg);
       } else {
-        String l = rs.getString("nombre");
-        String c = rs.getString("clave");
-
-        if (l.equals(login)) {
-          if (c.equals(clave)) {
-            System.out.println("Clave correcta");
-            return;
-          } else {
-            // TODO ponerlo en ventana gráfica
-            throw new SQLException("Clave incorrecat");
-          }
-        }
+        user = rs.getString("nombre");
+        pass = rs.getString("password");
+        System.out.println("Obtenidos login/pass");
       }
 
     } catch (SQLException e) {
       System.err.println("Error en GestorLogin.login(): " + e);
       // e.printStackTrace();
+    }
+    if (user.equals(login)) {
+      if (pass.equals(clave)) {
+        System.out.println("Clave correcta");
+        return;
+      } else {
+        // TODO ponerlo en ventana gráfica
+        throw new RemoteException("Clave incorrecta");
+      }
     }
 
   }

@@ -12,7 +12,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-public class Login extends JFrame {
+public class VistaLogin extends JFrame {
 
   private static final long serialVersionUID  = 1L;
 
@@ -32,7 +32,7 @@ public class Login extends JFrame {
   /**
    * This is the default constructor
    */
-  public Login() {
+  public VistaLogin() {
     super();
     initialize();
   }
@@ -132,6 +132,7 @@ public class Login extends JFrame {
     return btnLogin;
   }
 
+  
   protected void doActionPerformed() {
     System.out.println("Login.doActionPerformed()");
     codigo = getTxtCClient().getText();
@@ -141,6 +142,7 @@ public class Login extends JFrame {
     doConexionRMI();
     
     // TODO: Iniciar Aplicación
+    
 
   }
 
@@ -149,7 +151,7 @@ public class Login extends JFrame {
 
     try {
       rmiLoginInterface = (RMILoginInterface) Naming
-          .lookup("rmi://localhost:1100/RMILoginService");
+          .lookup("rmi://localhost:1099/RMILoginService");
       System.out.println("rmiLoginInterface obtenido");
       rmiLoginInterface.login(codigo, clave);
       
@@ -166,7 +168,7 @@ public class Login extends JFrame {
   }
 
   public static void main(String[] args) {
-    Login app = new Login();
+    VistaLogin app = new VistaLogin();
     app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     app.setVisible(true);
   }
