@@ -10,6 +10,7 @@ public class Promocion implements Serializable{
 	private double valor;
 	private int puntosMinimos;
 	private Date fechaBaja = null;
+	private static final long serialVersionUID = 1L;
 	
 	public Promocion() {		
 	}

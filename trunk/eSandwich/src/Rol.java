@@ -6,7 +6,7 @@ public class Rol implements Serializable{
 	private int id;
 	private String descripcion = "";
 	private String letraRol = "";
-	
+	private static final long serialVersionUID = 1L;
 	public Rol() {
 		
 	}
