@@ -51,43 +51,38 @@ public Vector<Ejemplo> listaEjemplos() throws errorSQL, errorConexionBD{
 
 // Suponer que en la BD tenemos una tabla ejemplo(id, nombre, numero)
 // Suponer que tambien hay una tabla sequencia ejemplo_seq(id)
-public void insertarEjemplo(String ejemplo, int numero) throws errorSQL, errorConexionBD {
+public String insertarEjemplo(Ejemplo ej) throws errorSQL, errorConexionBD {
 
+	String res;
+	
 	if(gd.isConectado()) con = gd.getConexion();
 	else throw new errorConexionBD("No hay conexion!");
 
-	PreparedStatement pstmt = null;
 	Statement stmt = null;
-
+	ResultSet rs = null;
 	int id = 0;
 	
 	try {
 		
 		gd.begin();
 		
-		// Obtener id de la sequencia
+		// Insercion, modificacion o borrado
 		stmt = con.createStatement();
-		String consulta = "SELECT nextval('ejemplo_seq')";
-		ResultSet rs = stmt.executeQuery(consulta);
-		if(rs.next()) id= rs.getInt(1); 
+		rs = stmt.executeQuery("insert into ejemplo values("+ej.getEjemplo()+","+ej.getNumero()+") returning id;");
+		if (rs.next()) id = rs.getInt(1);
 		rs.close();
 		stmt.close();
 		
-		// Insercion, modificacion o borrado
-		pstmt = con.prepareStatement("insert into ejemplo values(?,?,?);");
-		pstmt.setInt(1,id);
-		pstmt.setString(2,ejemplo);
-		pstmt.setInt(3,numero);
-		
 		gd.commit();
-		pstmt.execute();
-		pstmt.close();
-	
+		
+		res = Util.generarCodigo(id);
+		
 	} catch (SQLException e) {
 		gd.rollback();
 		throw new errorSQL(e.toString());
 	}
 
+	return res; 
 }
 
 public void liberarRecursos(){

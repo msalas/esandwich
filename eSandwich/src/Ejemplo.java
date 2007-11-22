@@ -1,5 +1,7 @@
+import java.io.Serializable;
 
-public class Ejemplo {
+
+public class Ejemplo implements Serializable{
 
 	String ejemplo;
 	int numero;
