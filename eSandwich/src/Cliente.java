@@ -13,6 +13,7 @@ public class Cliente extends Usuario implements Serializable  {
 			String pDireccion, String pPoblacion, String pTelefono, String pMovil,
 			String pEmail, String pCodUsuario, String pPassword,
 			boolean pDesactivado, String pTarjetaCredito) {
+    
 		super(pId, pNif, pNombre, pApellido1, pApellido2, pDireccion, pPoblacion,				
 			pTelefono, pMovil, pEmail, pCodUsuario, pPassword, pDesactivado);	
 		tarjetaCredito = pTarjetaCredito;		
