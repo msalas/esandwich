@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
+import java.lang.Integer;
 
 public class GestorStock {
 	private GestorDisco gd;
@@ -143,11 +144,41 @@ public class GestorStock {
 	
 	//si les necessitem les dessarrollem, però no els hi veig gaire sentit
 	
-	public void restaStock(int id, int uni){	
+	public void restaStock(int idp, int uni)throws errorSQL, errorConexionBD{	
+		
+		if(gd.isConectado()) con = gd.getConexion();
+		else throw new errorConexionBD("No hay conexion!");
+		Statement stmt = null;
+		Producto p = null;
+		int id = 0;
+		try {
+			stmt = con.createStatement();
+			String st = "UPDATE producto SET id = "+idp+" WHERE producto(existencias) = p.existencias - " + uni; 
+			stmt.executeUpdate(st);
+			stmt.close();
+		}
+		catch (SQLException e) {
+			throw new errorSQL(e.toString());}
 	}
 	
-	public void sumaStock(int id, int uni){
+	public void sumaStock(int idp, int uni)throws errorSQL, errorConexionBD{
+		
+		if(gd.isConectado()) con = gd.getConexion();
+		else throw new errorConexionBD("No hay conexion!");
+		Statement stmt = null;
+		Producto p = null;
+		int id = 0;
+		try {
+			stmt = con.createStatement();
+			String st = "UPDATE producto SET id = "+idp+" WHERE producto(existencias) = p.existencias + " + uni; 
+			stmt.executeUpdate(st);
+			stmt.close();
+		}
+		catch (SQLException e) {
+			throw new errorSQL(e.toString());
+			}
 	}
+
 	
 	public void liberarRecursos(){
 		
