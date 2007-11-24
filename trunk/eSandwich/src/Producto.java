@@ -6,13 +6,17 @@ public class Producto implements Serializable {
 	String descripcion;
 	String descripcionAmpliada;
 	int existencias;
+	int idFamilia;
+	int precio;
 	
-	public Producto(int idProducto, String descripcion, String descripcionAmpliada, int existencias){
+	public Producto(int idProducto, String descripcion, String descripcionAmpliada, int existencias, int idFamilia, int precio){
 		super();
 		this.idProducto=idProducto;
 		this.descripcion=descripcion;
 		this.descripcionAmpliada=descripcionAmpliada;
 		this.existencias=existencias;
+		this.idFamilia=idFamilia;
+		this.precio=precio;
 	}
 	
 
@@ -51,6 +55,26 @@ public class Producto implements Serializable {
 
 	public void setExistencias(int existencias) {
 		this.existencias = existencias;
+	}
+
+
+	public int getIdFamilia() {
+		return idFamilia;
+	}
+
+
+	public void setIdFamilia(int idFamilia) {
+		this.idFamilia = idFamilia;
+	}
+
+
+	public int getPrecio() {
+		return precio;
+	}
+
+
+	public void setPrecio(int precio) {
+		this.precio = precio;
 	}
 		
 }

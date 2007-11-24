@@ -3,6 +3,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Vector;
 
 
@@ -29,7 +32,7 @@ public class GestorProducto {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery("SELECT * from producto");
 			while(rs.next()){
-				p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
+				p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getInt(5), rs.getInt(6));
 				v.add(p);
 			}
 			rs.close();
@@ -49,10 +52,10 @@ public class GestorProducto {
 		Statement stmt = null;
 		try {
 			stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-			String s = "SELECT p.id, p.descripcion,p.descripcionampliada, p.existencias from producto p, familia f where p.id=f.id and f.id='"+idFamilia+"'";
+			String s = "SELECT p.id, p.descripcion,p.descripcion_ampliada, p.existencias, p.id_familia, p.precio from producto p, familia f where p.id=f.id and f.id='"+idFamilia+"'";
 			ResultSet rs = stmt.executeQuery(s);
 			while(rs.next()){
-				p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
+				p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getInt(5), rs.getInt(6));
 				v.add(p);
 			}
 				
@@ -66,28 +69,32 @@ public class GestorProducto {
 		return v;
 	}
 	
-	public void insertarProducto(int idProducto, String descripcion, String descripcionAmpliada, int existencias) throws errorSQL, errorConexionBD {
+	public void insertarProducto(Producto p) throws  errorSQL, errorConexionBD {
 	
-		String p;
+		
 		PreparedStatement pstmt = null;
 		
-		int id = 0;
+		
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
 		
 		try {
 			gd.begin();
-			p=	"INSERT INTO producto (id, descripcion, descripcionampliada, existencias)" + "VALUES (?,?,?,?) RETURNING id" ;			
-			pstmt = con.prepareStatement(p);
-			pstmt.setInt(1,id);
-			pstmt.setString(2,descripcion);
-			pstmt.setString(3,descripcionAmpliada);
-			pstmt.setInt(4, existencias);
+			String s = "INSERT INTO producto (id, descripcion, descripcion_ampliada, existencias, id_familia, precio )"
+				+ "VALUES (?,?,?,?,?,?)";	
+			
+			
+			pstmt = con.prepareStatement(s);
+			pstmt.setInt(1,p.getIdProducto());
+			pstmt.setString(2,p.getDescripcion());
+			pstmt.setString(3,p.getDescripcionAmpliada());
+			pstmt.setInt(4, p.getExistencias());
+			pstmt.setInt(5,p.getIdFamilia());
+			pstmt.setInt(6,p.getPrecio());
 			gd.commit();
-			ResultSet rs = pstmt.executeQuery();
-			if(rs.next()) id = rs.getInt(1);
-			rs.close();
-		
+			pstmt.execute();
+			pstmt.close();
+			pstmt = null;		
 		} catch (SQLException e) {
 			gd.rollback();
 			throw new errorSQL(e.toString());
@@ -107,9 +114,8 @@ public class GestorProducto {
 			gd.begin();
 			
 			pr= "DELETE FROM producto WHERE p.id = '"+ idProducto+"'";
-			
+			pstmt.execute(pr);
 			gd.commit();
-			pstmt.execute();
 			pstmt.close();
 		
 		} catch (SQLException e) {
@@ -129,12 +135,12 @@ public class GestorProducto {
 		int id = 0;
 		try {
 			stmt = con.createStatement();
-			String consulta="SELECT from producto(id, descripcion, descripcionampliada, existencias) WHERE p.id=" + idProducto+ "'";
+			String consulta="SELECT from producto(id, descripcion, descripcion_ampliada, existencias, id_familia, precio ) WHERE p.id=" + idProducto+ "'";
 			ResultSet rs = stmt.executeQuery(consulta);
 			if(rs.next()) id= rs.getInt(1); 
 			rs.close();
 			stmt.close();
-			p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
+			p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6));
 			
 		} catch (SQLException e) {
 			throw new errorSQL(e.toString());
@@ -149,6 +155,15 @@ public class GestorProducto {
 		
 	}
 
-	
-	
+	public static void main(String[] arg) throws errorSQL,errorConexionBD{
+		
+		Producto p=new Producto(0,"bocata", "de chorizo", 5, 0, 4);
+		GestorProducto gp=new GestorProducto();
+		gp.insertarProducto(p);
+		Vector v=gp.listaProductos();
+		Iterator it=v.iterator();
+		while (it.hasNext()){
+			System.out.println(it.next());
+		}
+	}
 }
