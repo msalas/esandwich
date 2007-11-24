@@ -32,7 +32,7 @@ public class GestorRol {
 		try {
 			gd.begin();
 			
-			strSQL = "INSERT INTO rol (descripcion,letrarol) "
+			strSQL = "INSERT INTO rol (descripcion,letra_rol) "
 				+ "VALUES (?,?)";
 					
 			pstmt = con.prepareStatement(strSQL);
@@ -46,15 +46,8 @@ public class GestorRol {
 			pstmt = null;
 			
 		} catch (SQLException e) {
-			switch (e.getErrorCode()){
-			case 0:
-				throw new GestorRolException("Este rol ya existe");
-			default: 
-				{
-					gd.rollback();
-					throw new errorSQL("Error SQL numero: " + e.getErrorCode());
-				}
-			}
+			gd.rollback();
+			throw new errorSQL("Error SQL numero: " + e.getErrorCode());
 		}
 	}
 	
@@ -71,7 +64,7 @@ public class GestorRol {
 		try {
 			gd.begin();
 			
-			strSQL = "SELECT id, descripcion, letraRol "
+			strSQL = "SELECT id, descripcion, letra_Rol "
 				+ "FROM rol "
 				+ "WHERE id = " + pId;
 			stmt = con.createStatement();
@@ -98,7 +91,7 @@ public class GestorRol {
 		try {
 			pRol.setId(rs.getInt("id"));
 			pRol.setDescripcion(rs.getString("descripcion"));
-			pRol.setLetraRol(rs.getString("letraRol"));
+			pRol.setLetraRol(rs.getString("letra_Rol"));
 		}
 		catch (SQLException e) {
 			throw new errorSQL(e.toString());
@@ -118,7 +111,7 @@ public class GestorRol {
 		try {
 			GestorRol gRol = new GestorRol();
 			try {
-				//gRol.addRol(pRol);
+				gRol.addRol(pRol);
 				pRol = gRol.consultaRol(1);
 				System.out.println(pRol.getId());
 				System.out.println(pRol.getDescripcion());
@@ -133,6 +126,5 @@ public class GestorRol {
 			System.out.println(e.getMessage());
 		}
 		
-	}
-*/
+	}*/
 }

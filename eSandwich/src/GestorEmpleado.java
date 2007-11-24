@@ -66,18 +66,11 @@ public class GestorEmpleado {
 			stmt.close();
 
 		} catch (SQLException e) {
-			switch (e.getErrorCode()){
-			case 0:
-				throw new GestorEmpleadoException("Este usuario ya existe");
-			default: 
-				{
-					gd.rollback();
-					throw new errorSQL("Error SQL (persona) numero: " + e.getErrorCode());
-				}
-			}
+			gd.rollback();
+			throw new errorSQL("Error SQL (persona) numero: " + e.getErrorCode());
 		}
 		try {
-			strSQL = "INSERT INTO usuario (codusuario,password,desactivado) "
+			strSQL = "INSERT INTO usuario (cod_usuario,pasword,desactivado) "
 				+ "VALUES (?,?,?)";
 
 			pstmt = con.prepareStatement(strSQL);
@@ -95,7 +88,7 @@ public class GestorEmpleado {
 			throw new errorSQL("Error SQL (usuario) numero: " + e.getErrorCode());
 		}
 		try {
-			strSQL = "INSERT INTO empleado (codempleado,idrol) "
+			strSQL = "INSERT INTO empleado (cod_empleado,id_rol) "
 				+ "VALUES (?,?)";
 
 			pstmt = con.prepareStatement(strSQL);
@@ -368,8 +361,8 @@ public class GestorEmpleado {
 			GestorEmpleado gEmpl = new GestorEmpleado();
 			try {
 				gEmpl.addEmpleado(pEmpleado);
-				pEmpleado = gEmpl.consultaEmpleado(pEmpleado.getId());
-				gEmpl.setEmpleado(pEmpleado);
+				//pEmpleado = gEmpl.consultaEmpleado(pEmpleado.getId());
+				//gEmpl.setEmpleado(pEmpleado);
 			}
 			catch (errorSQL e) {
 				System.out.println(e.getMessage());
