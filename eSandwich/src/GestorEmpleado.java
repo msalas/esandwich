@@ -1,6 +1,5 @@
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -57,8 +56,7 @@ public class GestorEmpleado {
 			gd.commit();
 			pstmt.execute();
 			pstmt.close();
-			pstmt = null;
-			
+
 			strSQL = "select currval('persona_id_seq')";
 
 			stmt = con.createStatement();
@@ -66,8 +64,20 @@ public class GestorEmpleado {
 			if (rs.next()) id = rs.getInt(1);
 			rs.close();
 			stmt.close();
-			
-			strSQL = "INSERT INTO usuario (cod-usuario,password,desactivado) "
+
+		} catch (SQLException e) {
+			switch (e.getErrorCode()){
+			case 0:
+				throw new GestorEmpleadoException("Este usuario ya existe");
+			default: 
+				{
+					gd.rollback();
+					throw new errorSQL("Error SQL (persona) numero: " + e.getErrorCode());
+				}
+			}
+		}
+		try {
+			strSQL = "INSERT INTO usuario (codusuario,password,desactivado) "
 				+ "VALUES (?,?,?)";
 
 			pstmt = con.prepareStatement(strSQL);
@@ -75,13 +85,17 @@ public class GestorEmpleado {
 			pstmt.setInt(1,id);
 			pstmt.setString(2,pEmpleado.getPassword());
 			pstmt.setBoolean(3, false);
-						
+			
 			gd.commit();
 			pstmt.execute();
 			pstmt.close();
 			pstmt = null;
-			
-			strSQL = "INSERT INTO empleado (cod-empleado,id-rol) "
+		} catch (SQLException e) {
+			gd.rollback();
+			throw new errorSQL("Error SQL (usuario) numero: " + e.getErrorCode());
+		}
+		try {
+			strSQL = "INSERT INTO empleado (codempleado,idrol) "
 				+ "VALUES (?,?)";
 
 			pstmt = con.prepareStatement(strSQL);
@@ -93,18 +107,9 @@ public class GestorEmpleado {
 			pstmt.execute();
 			pstmt.close();
 			pstmt = null;
-
-			
 		} catch (SQLException e) {
-			switch (e.getErrorCode()){
-			case 23505:
-				throw new GestorEmpleadoException("Este usuario ya existe");
-			default: 
-				{
-					gd.rollback();
-					throw new errorSQL("Error SQL numero: " + e.getErrorCode());
-				}
-			}
+			gd.rollback();
+			throw new errorSQL("Error SQL (empleado) numero: " + e.getErrorCode());
 		}
 	}
 	
@@ -112,7 +117,7 @@ public class GestorEmpleado {
 	public void setEmpleado(Empleado pEmpleado) throws errorSQL, 
 	errorConexionBD{
 		String strSQL = "";
-		
+
 		// Falta verificar campos: verifCampos(pEmpleado);
 				
 		if(gd.isConectado()) con = gd.getConexion();
@@ -120,36 +125,52 @@ public class GestorEmpleado {
 		
 		
 		PreparedStatement pstmt = null;
-					
-		try {
+							
+		try {			
 			gd.begin();
-			
 			strSQL = "UPDATE persona SET nif=?,nombre=?,apellido1=?,"
 				+ "apellido2=?,direccion=?,poblacion=?,telefono=?," 
 				+ "movil=?,email=?,fechabaja=? "
-				+ "WHERE id = " + pEmpleado.getId();			
+				+ "WHERE id = " + pEmpleado.getId(); 
 
+			strSQL = "UPDATE persona SET fechabaja=? WHERE id = " + pEmpleado.getId();
+			
 			pstmt = con.prepareStatement(strSQL);
 			
+			
 			pstmt.setString(1,pEmpleado.getNif());
-			pstmt.setString(2,pEmpleado.getNombre());
+			pstmt.setString(2,pEmpleado.getNombre());			
 			pstmt.setString(3,pEmpleado.getApellido1());
 			pstmt.setString(4,pEmpleado.getApellido2());
 			pstmt.setString(5,pEmpleado.getDireccion());
 			pstmt.setString(6,pEmpleado.getPoblacion());
 			pstmt.setString(7,pEmpleado.getTelefono());
 			pstmt.setString(8,pEmpleado.getMovil());
-			pstmt.setString(9,pEmpleado.getEmail());
+			pstmt.setString(9,pEmpleado.getEmail());	
 			if (pEmpleado.getFechaBaja() != null) {
-				pstmt.setDate(10,(Date) pEmpleado.getFechaBaja());
-			}
+				pstmt.setDate(10,new java.sql.Date(pEmpleado.getFechaBaja().getTime()));
+			} 		
 			gd.commit();
 			pstmt.execute();
 			pstmt.close();
 			pstmt = null;
+
+		} catch (SQLException e) {
+			switch (e.getErrorCode()){
+			case 0: 
+				throw new GestorEmpleadoException("Este usuario ya existe");
+			default: 
+				{
+					gd.rollback();
+					throw new errorSQL("Error SQL (persona) numero: " + e.getErrorCode());
+				}
+			}
+		}
+		
+		try {
 			
 			strSQL = "UPDATE usuario SET password=?,desactivado=? "
-				+ "WHERE cod-usuario = " + pEmpleado.getId();
+				+ "WHERE codusuario = " + pEmpleado.getId();
 
 			pstmt = con.prepareStatement(strSQL);
 			
@@ -164,9 +185,14 @@ public class GestorEmpleado {
 			pstmt.execute();
 			pstmt.close();
 			pstmt = null;
-			
-			strSQL = "UPDATE empleado SET id-rol=? "
-				+ "WHERE cod-empleado = " + pEmpleado.getId();
+		} catch (SQLException e) {
+			gd.rollback();
+			throw new errorSQL("Error SQL (usuario) numero: " + e.getErrorCode());
+		}
+		
+		try {
+			strSQL = "UPDATE empleado SET idrol=? "
+				+ "WHERE codempleado = " + pEmpleado.getId();
 
 			pstmt = con.prepareStatement(strSQL);
 			
@@ -178,15 +204,8 @@ public class GestorEmpleado {
 			pstmt = null;
 			
 		} catch (SQLException e) {
-			switch (e.getErrorCode()){
-			case 23505: 
-				throw new GestorEmpleadoException("Este usuario ya existe");
-			default: 
-				{
-					gd.rollback();
-					throw new errorSQL("Error SQL numero: " + e.getErrorCode());
-				}
-			}
+			gd.rollback();
+			throw new errorSQL("Error SQL (empleado) numero: " + e.getErrorCode());
 		}
 	}
 
@@ -203,13 +222,13 @@ public class GestorEmpleado {
 		try {
 			gd.begin();
 			
-			strSQL = "SELECT cod-empleado,nif,nombre,apellido1,apellido2,"
+			strSQL = "SELECT codempleado,nif,nombre,apellido1,apellido2,"
 				+ "direccion,poblacion,telefono,movil,email,codUsuario,password,"
-				+ "desactivado,id-rol "
+				+ "desactivado,idrol "
 				+ "FROM persona,usuario,empleado "
-				+ "WHERE empleado.cod-empleado = usuario.cod-usuario AND "
-				+ "empleado.cod-empleado = persona.id "
-				+ "AND cod-empleado = " + pId;
+				+ "WHERE empleado.codempleado = usuario.codusuario AND "
+				+ "empleado.codempleado = persona.id "
+				+ "AND codempleado = " + pId;
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(strSQL);
 			if (rs.next()){
@@ -236,7 +255,7 @@ public class GestorEmpleado {
 		String strSQL = "";
 		String strConsulta  = "";
 		if (pIdRol > 0) {
-			strConsulta = "AND id-rol = " + pIdRol + " ";
+			strConsulta = "AND idrol = " + pIdRol + " ";
 		}
 		if (pNif != null) {
 			strConsulta = "AND nif like '" + pNif + "' ";
@@ -248,12 +267,12 @@ public class GestorEmpleado {
 			strConsulta = "AND apellido1 like '" + pApellido1 + "' ";
 		}
 
-		strSQL = "SELECT cod-empleado,nif,nombre,apellido1,apellido2,"
+		strSQL = "SELECT codempleado,nif,nombre,apellido1,apellido2,"
 				+ "direccion,poblacion,telefono,movil,email,codUsuario,password,"
-				+ "desactivado,id-rol "
+				+ "desactivado,idrol "
 				+ "FROM persona,usuario,empleado "
-				+ "WHERE empleado.cod-empleado = usuario.cod-usuario AND "
-				+ "empleado.cod-empleado = persona.id AND "
+				+ "WHERE empleado.codempleado = usuario.codusuario AND "
+				+ "empleado.codempleado = persona.id AND "
 				+ "desactivado = 0 "
 				+ strConsulta
 				+ "ORDER BY nif";
@@ -289,7 +308,7 @@ public class GestorEmpleado {
 		Emp = new Empleado();
 		gRol = new GestorRol();
 		try {
-			Emp.setId(rs.getInt("cod-empleado"));
+			Emp.setId(rs.getInt("codempleado"));
 			Emp.setNif(rs.getString("nif"));
 			Emp.setNombre(rs.getString("nombre"));
 			Emp.setApellido1(rs.getString("apellido1"));
@@ -302,7 +321,7 @@ public class GestorEmpleado {
 			Emp.setCodUsuario(rs.getString("codUsuario"));
 			Emp.setPassword(rs.getString("password"));
 			Emp.setDesactivado(rs.getBoolean("desactivado"));
-			Emp.setRol(gRol.consultaRol(rs.getInt("id-rol")));
+			Emp.setRol(gRol.consultaRol(rs.getInt("idrol")));
 		}
 		catch (SQLException e) {
 			throw new errorSQL(e.toString());
@@ -313,5 +332,54 @@ public class GestorEmpleado {
 	public void liberarRecursos(){	
 		gd.cerrarConexion();	
 	}
+
+/*	public static void main (String[] args) {
+		Empleado pEmpleado = new Empleado();		
+		Rol pRol = new Rol();
+		
+		try {
+			GestorRol gRol = new GestorRol();
+			try {
+				pRol = gRol.consultaRol(1);
+			}
+			catch (errorSQL e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		catch (errorConexionBD e) {
+			System.out.println(e.getMessage());
+		}
+		pEmpleado.setId(32);
+		pEmpleado.setNif("0000081N");
+		pEmpleado.setNombre("Diego");
+		pEmpleado.setApellido1("Java");
+		pEmpleado.setApellido2("Dificil");
+		pEmpleado.setDireccion("direccion 2");
+		pEmpleado.setPoblacion("poblacion 2");
+		pEmpleado.setTelefono("telefono 2");
+		pEmpleado.setMovil("movil 2");
+		pEmpleado.setEmail("email 2");
+		pEmpleado.setCodUsuario("codUsuario32");
+		pEmpleado.setPassword("123410");
+		pEmpleado.setDesactivado(false);
+		pEmpleado.setRol(pRol);
+
+		try {
+			GestorEmpleado gEmpl = new GestorEmpleado();
+			try {
+				//gEmpl.addEmpleado(pEmpleado);
+				//pEmpleado = gEmpl.consultaEmpleado(pEmpleado.getId());
+				gEmpl.setEmpleado(pEmpleado);
+			}
+			catch (errorSQL e) {
+				System.out.println(e.getMessage());
+			}
+			gEmpl.liberarRecursos();
+		}
+		catch (errorConexionBD e) {
+			System.out.println(e.getMessage());
+		}
+		
+	} */
 
 }
