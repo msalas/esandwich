@@ -333,7 +333,7 @@ public class GestorEmpleado {
 		gd.cerrarConexion();	
 	}
 
-/*	public static void main (String[] args) {
+	public static void main (String[] args) {
 		Empleado pEmpleado = new Empleado();		
 		Rol pRol = new Rol();
 		
@@ -349,7 +349,7 @@ public class GestorEmpleado {
 		catch (errorConexionBD e) {
 			System.out.println(e.getMessage());
 		}
-		pEmpleado.setId(32);
+		//pEmpleado.setId(32);
 		pEmpleado.setNif("0000081N");
 		pEmpleado.setNombre("Diego");
 		pEmpleado.setApellido1("Java");
@@ -367,8 +367,8 @@ public class GestorEmpleado {
 		try {
 			GestorEmpleado gEmpl = new GestorEmpleado();
 			try {
-				//gEmpl.addEmpleado(pEmpleado);
-				//pEmpleado = gEmpl.consultaEmpleado(pEmpleado.getId());
+				gEmpl.addEmpleado(pEmpleado);
+				pEmpleado = gEmpl.consultaEmpleado(pEmpleado.getId());
 				gEmpl.setEmpleado(pEmpleado);
 			}
 			catch (errorSQL e) {
@@ -380,6 +380,6 @@ public class GestorEmpleado {
 			System.out.println(e.getMessage());
 		}
 		
-	} */
+	} 
 
 }
