@@ -47,7 +47,7 @@ public class GestorRol {
 			
 		} catch (SQLException e) {
 			switch (e.getErrorCode()){
-			case 23505:
+			case 0:
 				throw new GestorRolException("Este rol ya existe");
 			default: 
 				{
@@ -71,7 +71,7 @@ public class GestorRol {
 		try {
 			gd.begin();
 			
-			strSQL = "SELECT descripcion, letraRol "
+			strSQL = "SELECT id, descripcion, letraRol "
 				+ "FROM rol "
 				+ "WHERE id = " + pId;
 			stmt = con.createStatement();
@@ -96,6 +96,7 @@ public class GestorRol {
 		Rol pRol = null;
 		pRol = new Rol();
 		try {
+			pRol.setId(rs.getInt("id"));
 			pRol.setDescripcion(rs.getString("descripcion"));
 			pRol.setLetraRol(rs.getString("letraRol"));
 		}
@@ -108,5 +109,30 @@ public class GestorRol {
 	public void liberarRecursos(){	
 		gd.cerrarConexion();	
 	}
-
+/*	public static void main (String[] args) {
+		Rol pRol = new Rol();
+		
+		pRol.setDescripcion("Admin");
+		pRol.setLetraRol("A");
+		
+		try {
+			GestorRol gRol = new GestorRol();
+			try {
+				//gRol.addRol(pRol);
+				pRol = gRol.consultaRol(1);
+				System.out.println(pRol.getId());
+				System.out.println(pRol.getDescripcion());
+				System.out.println(pRol.getLetraRol());
+			}
+			catch (errorSQL e) {
+				System.out.println(e.getMessage());
+			}
+			gRol.liberarRecursos();
+		}
+		catch (errorConexionBD e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+*/
 }
