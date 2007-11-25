@@ -39,27 +39,27 @@ public class GestorFamiliaProd {
 		return v;
 	}
 	
-	public void insertarFamiliaProducto(int idFamilia, String descripcion) throws errorSQL, errorConexionBD {
+	public void insertarFamiliaProducto(FamiliaProducto fp) throws errorSQL, errorConexionBD {
 		
-		String fp;
 		PreparedStatement pstmt = null;
 		
-		int id = 0;
+		
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
 		
 		try {
 			gd.begin();
-			fp=	"INSERT INTO familia (id, descripcion)" + "VALUES (?,?) RETURNING id" ;			
-			pstmt = con.prepareStatement(fp);
-			pstmt.setInt(1,id);
-			pstmt.setString(2,descripcion);
+			String s = "INSERT INTO familia (id, descripcion)"
+				+ "VALUES (?,?)";	
+						
+			pstmt = con.prepareStatement(s);
+			pstmt.setInt(1,fp.getIdFamilia());
+			pstmt.setString(2,fp.getDescripcion());
 			gd.commit();
-			ResultSet rs = pstmt.executeQuery();
-			if(rs.next()) id = rs.getInt(1);
-			rs.close();
-		} 
-		catch (SQLException e) {
+			pstmt.execute();
+			pstmt.close();
+			pstmt = null;		
+		} catch (SQLException e) {
 			gd.rollback();
 			throw new errorSQL(e.toString());
 		}
