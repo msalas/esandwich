@@ -18,7 +18,7 @@ public class FamiliaProducto implements Serializable{
 		this.descripcion = descripcion;
 	}
 	
-	public long getIdFamilia() {
+	public int getIdFamilia() {
 		return idFamilia;
 	}
 	

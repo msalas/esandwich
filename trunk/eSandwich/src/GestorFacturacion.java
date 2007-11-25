@@ -27,7 +27,7 @@ public class GestorFacturacion {
 		int id = 0;
 		try {
 			stmt = con.createStatement();
-			String consulta="SELECT from factura(id, id-pedido, fecha, importe) WHERE f.id=" + idFactura+ "'";
+			String consulta="SELECT from factura(id, id_pedido, fecha, importe) WHERE f.id=" + idFactura+ "'";
 			ResultSet rs = stmt.executeQuery(consulta);
 			if(rs.next()) id= rs.getInt(1); 
 			rs.close();
@@ -75,7 +75,7 @@ public class GestorFacturacion {
 		
 		try {
 			gd.begin();
-			p=	"INSERT INTO factura (id, id-pedido, fecha, importe)" + "VALUES (?,?,?,?) RETURNING id" ;			
+			p=	"INSERT INTO factura (id, id_pedido, fecha, importe)" + "VALUES (?,?,?,?) RETURNING id" ;			
 			pstmt = con.prepareStatement(p);
 			pstmt.setInt(1,id);
 			pstmt.setInt(2,idPedido);

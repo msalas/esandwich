@@ -157,9 +157,16 @@ public class GestorProducto {
 
 	public static void main(String[] arg) throws errorSQL,errorConexionBD{
 		
+		FamiliaProducto fp = new FamiliaProducto(0, "embutido");
+		
+		GestorFamiliaProd gpf= new GestorFamiliaProd();
+		gpf.insertarFamiliaProducto(fp);
+		
 		Producto p=new Producto(0,"bocata", "de chorizo", 5, 0, 4);
+		
 		GestorProducto gp=new GestorProducto();
 		gp.insertarProducto(p);
+		
 		Vector v=gp.listaProductos();
 		Iterator it=v.iterator();
 		while (it.hasNext()){

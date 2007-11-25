@@ -16,6 +16,8 @@ public class GestorFacturacionSandwich {
 		gd.abrirConexion();
 	}
 	
+	//AQUESTA NO TINC MOLT CLAR COM FUNCIONA
+	
 	public void insertarFacturacionSandwich (int idProducto) throws errorSQL, errorConexionBD{
 		
 		if(gd.isConectado()) con = gd.getConexion();
