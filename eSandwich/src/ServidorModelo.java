@@ -7,17 +7,17 @@ import java.rmi.RemoteException;
 
 public class ServidorModelo{
 	
-	private ServicioRemotoEjemplo sre;
-	private ServicioRemotoComprador scomp;
-	private ServicioRemotoCocina scoc;
-	private ServicioRemotoAdminAux  sadaux;
+	private ServiciosRemotosEjemplo sre;
+	private ServiciosRemotosComprador scomp;
+	private ServiciosRemotosCocina scoc;
+	private ServiciosRemotosAdminAux  sadaux;
 	
 	public ServidorModelo() throws errorConexionBD, RemoteException{
 
-		sre = new ServicioEjemploImpl();
-		scomp = new ServicioCompradorImpl();
-		scoc = new ServicioCocinaImpl();
-		sadaux = new ServicioAdminAuxImpl();
+		sre = new ServiciosEjemploImpl();
+		scomp = new ServiciosCompradorImpl();
+		scoc = new ServiciosCocinaImpl();
+		sadaux = new ServiciosAdminAuxImpl();
 		
 		 
 	}

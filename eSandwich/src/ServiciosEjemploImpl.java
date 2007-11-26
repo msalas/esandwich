@@ -3,11 +3,11 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Vector;
 
 
-public class ServicioEjemploImpl extends UnicastRemoteObject implements ServicioRemotoEjemplo {
+public class ServiciosEjemploImpl extends UnicastRemoteObject implements ServiciosRemotosEjemplo {
 
 	GestorEjemplo ge;
 	
-	public ServicioEjemploImpl() throws errorConexionBD, RemoteException{
+	public ServiciosEjemploImpl() throws errorConexionBD, RemoteException{
 		// Creamos los recursos que vamos a necesitar
 		ge = new GestorEjemplo();
 		

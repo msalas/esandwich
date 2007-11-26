@@ -2,10 +2,10 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 
-public class ServicioCocinaImpl extends UnicastRemoteObject implements ServicioRemotoCocina {
+public class ServiciosCocinaImpl extends UnicastRemoteObject implements ServiciosRemotosCocina {
 
 	
-	protected ServicioCocinaImpl() throws RemoteException {
+	protected ServiciosCocinaImpl() throws RemoteException {
 		super();
 		// TODO Auto-generated constructor stub
 	}

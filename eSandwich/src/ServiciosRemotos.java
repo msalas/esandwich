@@ -1,7 +1,7 @@
 import java.rmi.Remote;
 
 
-public interface ServicioRemoto extends Remote {
+public interface ServiciosRemotos extends Remote {
 
 	void desactivarRecursos();
 }
