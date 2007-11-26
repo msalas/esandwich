@@ -44,6 +44,6 @@ public abstract class Usuario extends Persona implements Serializable {
 	}
 	public String toString()
 	{
-		return (getNombre()+' '+getNif()+' '+getDireccion());
+		return (getNombre() + " " + getNif() + " " + getDireccion());
 	}	
 }
