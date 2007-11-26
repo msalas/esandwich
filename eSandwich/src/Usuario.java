@@ -7,7 +7,6 @@ public abstract class Usuario extends Persona implements Serializable {
 	// Mantener este atributo, ya que es diferente del id 
 	private String codUsuario = "";
 
-	// Afegir el int id;
 		
 	private String password = "";
 	private boolean desactivado = false;
