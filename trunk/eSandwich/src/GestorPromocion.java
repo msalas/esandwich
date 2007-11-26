@@ -1,5 +1,4 @@
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,26 +18,29 @@ public class GestorPromocion {
 		gd.abrirConexion();
 	}
 
-	public void addPromocion(Promocion pPro) throws errorSQL, 
+	public int addPromocion(Promocion pPro) throws errorSQL, 
 	errorConexionBD{
 		String strSQL = "";
+		int id = 0;
 
-		// Falta verificar campos: verifCampos(pRol);
+		// Falta verificar campos: verifCampos(pPro);
 				
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexión!");
 		
 		
 		PreparedStatement pstmt = null;
+		Statement stmt = null;
 					
 		try {
 			gd.begin();
 			
-			strSQL = "INSERT INTO promocion (id-tipopromocion,id-sandwich,"
-				+ "id-producto,valor,puntosminimos) "
+			strSQL = "INSERT INTO promocion (id_tipo_promocion,id_sandwich,"
+				+ "id_producto,valor,puntos_minimos) "
 				+ "VALUES (?,?,?,?,?)";
 					
 			pstmt = con.prepareStatement(strSQL);
+			
 			
 			pstmt.setInt(1, pPro.getIdTipoPromocion());
 			pstmt.setInt(2, pPro.getIdSandwich());
@@ -46,15 +48,23 @@ public class GestorPromocion {
 			pstmt.setDouble(4, pPro.getValor());
 			pstmt.setInt(5, pPro.getPuntosMinimos());
 	
-			gd.commit();
 			pstmt.execute();
 			pstmt.close();
-			pstmt = null;
+
+			strSQL = "select currval('promocion_id_seq')";
+
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(strSQL);
+			if (rs.next()) id = rs.getInt(1);
+			rs.close();
+			stmt.close();
 			
+			gd.commit();			
 		} catch (SQLException e) {
 			gd.rollback();
 			throw new errorSQL("Error SQL numero: " + e.getErrorCode());
 		}
+		return id;
 	}
 	
 	//Tanto para dar de baja como para modificar promocion
@@ -62,7 +72,7 @@ public class GestorPromocion {
 	errorConexionBD{
 		String strSQL = "";
 		
-		// Falta verificar campos: verifCampos(pEmpleado);
+		// Falta verificar campos: verifCampos(pProm);
 				
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexión!");
@@ -73,8 +83,8 @@ public class GestorPromocion {
 		try {
 			gd.begin();
 			
-			strSQL = "UPDATE promocion SET id-tipopromocion=?,id-sandwich=?,"
-				+ "id-producto=?,valor=?,puntosminimos=?,fechabaja=? "
+			strSQL = "UPDATE promocion SET id_tipo_promocion=?,id_sandwich=?,"
+				+ "id_producto=?,valor=?,puntos_minimos=?,fecha_baja=? "
 				+ "WHERE id = " + pProm.getId();			
 
 			pstmt = con.prepareStatement(strSQL);
@@ -82,20 +92,61 @@ public class GestorPromocion {
 			pstmt.setInt(1, pProm.getIdTipoPromocion());
 			pstmt.setInt(2, pProm.getIdSandwich());
 			pstmt.setInt(3, pProm.getIdProducto());
+			pstmt.setDouble(4, pProm.getValor());
+			pstmt.setInt(5, pProm.getPuntosMinimos());
 			if (pProm.getFechaBaja() != null) {
-				pstmt.setDate(10,(Date) pProm.getFechaBaja());
+				pstmt.setDate(6,new java.sql.Date(pProm.getFechaBaja().getTime()));
+			} else {
+				pstmt.setDate(6,null);
 			}
-			gd.commit();
+			
 			pstmt.execute();
 			pstmt.close();
 			pstmt = null;
-			
+			gd.commit();
 		} catch (SQLException e) {
 			gd.rollback();
 			throw new errorSQL("Error SQL numero: " + e.getErrorCode());
 		}
 	}
 
+	public Promocion consultaPromocion(int pId) throws errorSQL, 
+	errorConexionBD{
+		String strSQL = "";
+		Promocion pProm = null;
+		
+		if(gd.isConectado()) con = gd.getConexion();
+		else throw new errorConexionBD("No hay conexión!");
+
+		Statement stmt = null;
+					
+		try {
+			gd.begin();
+			
+			strSQL = "SELECT id,id_tipo_promocion,id_sandwich,"
+				+ "id_producto,valor,puntos_minimos,fecha_baja "
+				+ "FROM promocion "
+				+ "WHERE id = " + pId;			
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(strSQL);			
+			if (rs.next()){				
+				pProm = montaPromocion(rs);				
+			}
+			else {
+				throw new GestorPromocionException("No existe promoción");
+			}
+			rs.close();
+			stmt.close();
+			gd.commit();			
+		} 
+		catch (SQLException e) {
+			throw new GestorPromocionException("Error SQL numero: " + e.getErrorCode());			
+		}
+		return pProm;
+	}
+	
+	
+	//Excluimos a los que estan dados de baja
 	public Vector lista(int pId, int pIdSandwich, int pPuntos) throws errorSQL, errorConexionBD {
 		Vector v = new Vector();
 		String strSQL = "";
@@ -103,17 +154,19 @@ public class GestorPromocion {
 		
 		if (pIdSandwich > 0) {
 			pPuntos = pPuntos + 1;
-			strConsulta = " WHERE id-sandwich = " + pIdSandwich + " AND puntosminimos < " + pPuntos + " ";
+			strConsulta = " AND id_sandwich = " + pIdSandwich
+			+ " AND puntos_minimos < " + pPuntos ;
 		}
 
 		if (pId > 0) {
-			strConsulta = " WHERE id = " + pId + " ";
+			strConsulta = " AND id = " + pId + " ";
 		}
 		
 		
-		strSQL = "SELECT id,id-tipopromocion,id-sandwich,id-producto,valor,"
-				+ "puntosminimos,fechabaja"
+		strSQL = "SELECT id,id_tipo_promocion,id_sandwich,id_producto,valor,"
+				+ "puntos_minimos,fecha_baja "
 				+ "FROM promocion "
+				+ "WHERE fecha_baja IS NULL"
 				+ strConsulta;
 		
 		Promocion pPro = null;
@@ -124,6 +177,7 @@ public class GestorPromocion {
 		ResultSet rs = null;
 			
 		try {
+			gd.begin();
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(strSQL);
 			
@@ -133,6 +187,7 @@ public class GestorPromocion {
 			}				
 			rs.close();
 			stmt.close();
+			gd.commit();
 		} catch (SQLException e) {
 			throw new errorSQL(e.toString());
 		}
@@ -145,12 +200,13 @@ public class GestorPromocion {
 		Promocion pPro = null;
 		pPro = new Promocion();
 		try {
-			pPro.setIdTipoPromocion(rs.getInt("id-tipopromocion"));
-			pPro.setIdSandwich(rs.getInt("id-sandwich"));
-			pPro.setIdProducto(rs.getInt("id-producto"));
+			pPro.setId(rs.getInt("id"));
+			pPro.setIdTipoPromocion(rs.getInt("id_tipo_promocion"));
+			pPro.setIdSandwich(rs.getInt("id_sandwich"));
+			pPro.setIdProducto(rs.getInt("id_producto"));
 			pPro.setValor(rs.getDouble("valor"));
-			pPro.setPuntosMinimos(rs.getInt("puntosminimos"));
-			pPro.setFechaBaja(rs.getDate("fechabaja"));
+			pPro.setPuntosMinimos(rs.getInt("puntos_minimos"));
+			pPro.setFechaBaja(rs.getDate("fecha_baja"));
 		}
 		catch (SQLException e) {
 			throw new errorSQL(e.toString());
@@ -162,4 +218,56 @@ public class GestorPromocion {
 		gd.cerrarConexion();	
 	}
 
+	/*public static void main (String[] args) {
+		Promocion Prom = new Promocion();
+		GestorPromocion gProm = null;
+		Vector v;
+		int x;
+		int idAux = 0;
+
+		try {
+			gProm = new GestorPromocion();
+			try {
+				Prom.setIdTipoPromocion(1);
+				Prom.setIdSandwich(1);
+				Prom.setIdProducto(1);
+				Prom.setValor(100);
+				Prom.setPuntosMinimos(40);
+				idAux = gProm.addPromocion(Prom);
+				Prom.setId(idAux);				
+				Prom = gProm.consultaPromocion(Prom.getId());				
+				//System.out.println(Prom.toString());
+				
+				Prom.setValor(150);
+				gProm.setPromocion(Prom);
+				Prom = gProm.consultaPromocion(Prom.getId());
+				//System.out.println(Prom.toString());
+				
+				
+				Prom.setPuntosMinimos(35);
+				gProm.setPromocion(Prom);
+				v = gProm.lista(0,1,35);				
+				for (x=0;x<v.size();x++)
+					System.out.println((v.elementAt(x)).toString());
+
+				Prom.setFechaBaja(new java.util.Date());				
+				gProm.setPromocion(Prom);
+				v = gProm.lista(0,0,0);
+				for (x=0;x<v.size();x++)
+					System.out.println((v.elementAt(x)).toString()); 
+				
+				
+				gProm.liberarRecursos();
+			}
+			catch (errorSQL e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		catch (errorConexionBD e) {
+			System.out.println(e.getMessage());
+		}
+		
+	} */  
+	
+	
 }

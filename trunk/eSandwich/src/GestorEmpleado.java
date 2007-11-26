@@ -18,7 +18,7 @@ public class GestorEmpleado {
 		gd.abrirConexion();
 	}
 
-	public void addEmpleado(Empleado pEmpleado) throws errorSQL, 
+	public int addEmpleado(Empleado pEmpleado) throws errorSQL, 
 	errorConexionBD{
 		String strSQL = "";
 		int id = 0;
@@ -53,7 +53,6 @@ public class GestorEmpleado {
 			pstmt.setString(8,pEmpleado.getMovil());
 			pstmt.setString(9,pEmpleado.getEmail());			
 	
-			gd.commit();
 			pstmt.execute();
 			pstmt.close();
 
@@ -78,8 +77,7 @@ public class GestorEmpleado {
 			pstmt.setInt(1,id);
 			pstmt.setString(2,pEmpleado.getPassword());
 			pstmt.setBoolean(3, false);
-			
-			gd.commit();
+						
 			pstmt.execute();
 			pstmt.close();
 			pstmt = null;
@@ -96,14 +94,17 @@ public class GestorEmpleado {
 			pstmt.setInt(1,id);
 			pstmt.setInt(2,pEmpleado.getRol().getId());
 						
-			gd.commit();
+			
 			pstmt.execute();
 			pstmt.close();
 			pstmt = null;
+			
+			gd.commit();
 		} catch (SQLException e) {
 			gd.rollback();
 			throw new errorSQL("Error SQL (empleado) numero: " + e.getErrorCode());
 		}
+		return id;
 	}
 	
 	//Tanto para dar de baja como para modificar usuario
@@ -142,12 +143,11 @@ public class GestorEmpleado {
 			} else {
 				pstmt.setDate(10,null);
 			}
-				
-			gd.commit();
+			
 			pstmt.execute();
 			pstmt.close();
 			pstmt = null;
-
+			
 		} catch (SQLException e) {
 			gd.rollback();
 			throw new errorSQL("Error SQL (persona) numero: " + e.getErrorCode());
@@ -166,7 +166,7 @@ public class GestorEmpleado {
 			else {
 				pstmt.setBoolean(2, false);
 			}						
-			gd.commit();
+			
 			pstmt.execute();
 			pstmt.close();
 			pstmt = null;
@@ -183,10 +183,11 @@ public class GestorEmpleado {
 			
 			pstmt.setInt(1,pEmpleado.getRol().getId());
 						
-			gd.commit();
+			
 			pstmt.execute();
 			pstmt.close();
 			pstmt = null;
+			gd.commit();
 			
 		} catch (SQLException e) {
 			gd.rollback();
@@ -224,7 +225,7 @@ public class GestorEmpleado {
 			}
 			rs.close();
 			stmt.close();
-			
+			gd.commit();
 			return Emp;
 		} 
 		catch (SQLException e) {
@@ -258,7 +259,7 @@ public class GestorEmpleado {
 			}
 			rs.close();
 			stmt.close();
-			
+			gd.commit();
 			return existeAux;
 		} 
 		catch (SQLException e) {
@@ -303,6 +304,7 @@ public class GestorEmpleado {
 		ResultSet rs = null;
 			
 		try {
+			gd.begin();
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(strSQL);
 			
@@ -312,6 +314,7 @@ public class GestorEmpleado {
 			}				
 			rs.close();
 			stmt.close();
+			gd.commit();
 		} catch (SQLException e) {
 			throw new errorSQL(e.toString());
 		}
@@ -321,33 +324,39 @@ public class GestorEmpleado {
 
 	
 	private Empleado montaEmpleado(ResultSet rs) throws errorSQL, errorConexionBD {
-		Empleado Emp = null;
+		Empleado Emp = new Empleado();
 		GestorRol gRol = null;
 		Rol pRol = null; 
 		String codAuxEmpleado = "";
-		Emp = new Empleado();
-		gRol = new GestorRol();
 		try {
-			Emp.setId(rs.getInt("cod_empleado"));
-			Emp.setNif(rs.getString("nif"));
-			Emp.setNombre(rs.getString("nombre"));
-			Emp.setApellido1(rs.getString("apellido1"));
-			Emp.setApellido2(rs.getString("apellido2"));
-			Emp.setDireccion(rs.getString("direccion"));
-			Emp.setPoblacion(rs.getString("poblacion"));
-			Emp.setTelefono(rs.getString("telefono"));
-			Emp.setMovil(rs.getString("movil"));
-			Emp.setEmail(rs.getString("email"));		
-			Emp.setPassword(rs.getString("pasword"));
-			Emp.setDesactivado(rs.getBoolean("desactivado"));
-			pRol = gRol.consultaRol(rs.getInt("id_rol"));
-			Emp.setRol(pRol);
-			codAuxEmpleado = Util.generarCodigo(Emp.getId(), pRol.getLetraRol());
-			Emp.setCodUsuario(codAuxEmpleado);
+			gRol = new GestorRol();
+			try {
+				Emp.setId(rs.getInt("cod_empleado"));
+				Emp.setNif(rs.getString("nif"));
+				Emp.setNombre(rs.getString("nombre"));
+				Emp.setApellido1(rs.getString("apellido1"));
+				Emp.setApellido2(rs.getString("apellido2"));
+				Emp.setDireccion(rs.getString("direccion"));
+				Emp.setPoblacion(rs.getString("poblacion"));
+				Emp.setTelefono(rs.getString("telefono"));
+				Emp.setMovil(rs.getString("movil"));
+				Emp.setEmail(rs.getString("email"));		
+				Emp.setPassword(rs.getString("pasword"));
+				Emp.setDesactivado(rs.getBoolean("desactivado"));
+				pRol = gRol.consultaRol(rs.getInt("id_rol"));
+				Emp.setRol(pRol);
+				codAuxEmpleado = Util.generarCodigo(Emp.getId(), pRol.getLetraRol());
+				Emp.setCodUsuario(codAuxEmpleado);
+				gRol.liberarRecursos();
+			}
+			catch (SQLException e) {
+				throw new errorSQL(e.toString());
+			}
 		}
-		catch (SQLException e) {
-			throw new errorSQL(e.toString());
-		}		
+		catch (errorConexionBD e) {
+			System.out.println(e.getMessage());
+		}
+
 		return Emp;		
 	}
 	
@@ -355,10 +364,11 @@ public class GestorEmpleado {
 		gd.cerrarConexion();	
 	}
 
-	public static void main (String[] args) {
+/*	public static void main (String[] args) {
 		Empleado pEmpleado = new Empleado();		
 		Rol pRol = new Rol();
 		GestorEmpleado gEmpl = null;
+		int idAux = 0;
 		try {
 			GestorRol gRol = new GestorRol();
 			try {
@@ -371,7 +381,7 @@ public class GestorEmpleado {
 		catch (errorConexionBD e) {
 			System.out.println(e.getMessage());
 		}
-		pEmpleado.setNif("0000085N");
+		pEmpleado.setNif("0000086N");
 		pEmpleado.setNombre("Eruka");
 		pEmpleado.setApellido1("Java");
 		pEmpleado.setApellido2("Dificil");
@@ -388,18 +398,25 @@ public class GestorEmpleado {
 			gEmpl = new GestorEmpleado();
 			try {
 				if (!gEmpl.existeNif(pEmpleado.getNif())) {
-					gEmpl.addEmpleado(pEmpleado);
+					idAux = gEmpl.addEmpleado(pEmpleado);
 				}
 				else {
 					System.out.println("ERROR: Nif existente en empleados");
 				}
-				pEmpleado = gEmpl.consultaEmpleado(7);
+				pEmpleado.setId(2);
+				pEmpleado = gEmpl.consultaEmpleado(pEmpleado.getId());
 				System.out.println(pEmpleado.getCodUsuario());
-				pEmpleado.setId(7);
-				pEmpleado.setDireccion("Nueva direccion nueva");
+				
+				pEmpleado.setFechaBaja(new java.util.Date());
 				gEmpl.setEmpleado(pEmpleado);
+				
+				
 
 				Vector v = gEmpl.lista(1, null, null, null);
+				int x;
+				for (x=0;x<v.size();x++)
+					System.out.println((v.elementAt(x)).toString());
+				
 				gEmpl.liberarRecursos();
 			}
 			catch (errorSQL e) {
@@ -410,6 +427,6 @@ public class GestorEmpleado {
 			System.out.println(e.getMessage());
 		}
 		
-	} 
+	} */  
 
 }

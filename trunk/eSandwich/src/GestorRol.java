@@ -40,10 +40,10 @@ public class GestorRol {
 			pstmt.setString(1,pRol.getDescripcion());
 			pstmt.setString(2, pRol.getLetraRol());
 	
-			gd.commit();
 			pstmt.execute();
 			pstmt.close();
 			pstmt = null;
+			gd.commit();			
 			
 		} catch (SQLException e) {
 			gd.rollback();
@@ -77,7 +77,7 @@ public class GestorRol {
 			}
 			rs.close();
 			stmt.close();
-			
+			gd.commit();
 			return pRol;
 		} 
 		catch (SQLException e) {
