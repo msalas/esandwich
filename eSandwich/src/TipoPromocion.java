@@ -39,4 +39,10 @@ public class TipoPromocion implements Serializable{
 		this.id = id;
 	}
 
+	public String toString()
+	{
+		return (getId()+ " " +getDescripcion());
+	}	
+	
+	
 }

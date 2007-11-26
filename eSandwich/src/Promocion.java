@@ -76,5 +76,8 @@ public class Promocion implements Serializable{
 		this.id = id;
 	}
 
-	
+	public String toString()
+	{
+		return (getId()+ " " +getValor() + " " + getPuntosMinimos());
+	}	
 }
