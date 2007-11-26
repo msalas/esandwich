@@ -1,5 +1,3 @@
-import java.sql.Connection;
-
 
 public class GestorUsuario {
 
@@ -8,19 +6,10 @@ public class GestorUsuario {
 
 	public GestorUsuario() throws errorConexionBD {
 		super();
-	
-		// Si no usas el GestorDisco esto no hace falta 
-		//	gd = new GestorDisco();
-		//	gd.abrirConexion();
-		
-		// Pero hay que inicializar los gestores que usas aqui
-		// Asi mantienes la conexion
 		gEmp = new GestorEmpleado();
 		gCli = new GestorCliente();
 	}
 
-	// Se tiene que cambiar, tiene que devolver el tipo de Usuario que ha accedido
-	
 	public Usuario login(String codUsuario, String password, boolean isCliente) throws errorConexionBD, errorSQL{
 		Usuario rUsu = null;
 					
@@ -49,14 +38,11 @@ public class GestorUsuario {
 	
 	
 	public void liberarRecursos(){	
-	
-		// Liberar recursos de los gestores Cliente y Empleado
-		
 		gEmp.liberarRecursos();
 		gCli.liberarRecursos();
 	}
 
-	public static void main (String[] args) {
+/*	public static void main (String[] args) {
 		try {
 			GestorUsuario gUsu = new GestorUsuario();
 			try {
@@ -71,6 +57,6 @@ public class GestorUsuario {
 			System.out.println(e.getMessage());
 		}
 		
-	}
+	}*/
 	
 }
