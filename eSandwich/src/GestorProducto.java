@@ -90,7 +90,7 @@ public class GestorProducto {
 			pstmt.setString(3,p.getDescripcionAmpliada());
 			pstmt.setInt(4, p.getExistencias());
 			pstmt.setInt(5,p.getIdFamilia());
-			pstmt.setInt(6,p.getPrecio());
+			pstmt.setFloat(6,p.getPrecio());
 			gd.commit();
 			pstmt.execute();
 			pstmt.close();
