@@ -11,17 +11,17 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Vector;
 
-public class ServicioEjemploModelo{
+public class ServiciosEjemploModelo{
 
-ServicioRemotoEjemplo sre;
+ServiciosRemotosEjemplo sre;
 	
-	public ServicioEjemploModelo() throws MalformedURLException, RemoteException, NotBoundException{
+	public ServiciosEjemploModelo() throws MalformedURLException, RemoteException, NotBoundException{
 	     
 		   // System.setSecurityManager(new RMISecurityManager());
 		   // Es busca el servei ServicioX -- forward
 		   // Localitzem i instanciem objecte de la classe remota RemoteImpl
 		   // I obtenim el RemoteImplStub   
-		   sre = (ServicioRemotoEjemplo)Naming.lookup("rmi://localhost:1099/ServiciosEjemplo");
+		   sre = (ServiciosRemotosEjemplo)Naming.lookup("rmi://localhost:1099/ServiciosEjemplo");
 		 
 		
 	}
