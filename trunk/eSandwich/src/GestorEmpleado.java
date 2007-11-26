@@ -123,47 +123,39 @@ public class GestorEmpleado {
 			gd.begin();
 			strSQL = "UPDATE persona SET nif=?,nombre=?,apellido1=?,"
 				+ "apellido2=?,direccion=?,poblacion=?,telefono=?," 
-				+ "movil=?,email=?,fechabaja=? "
+				+ "movil=?,email=?,fecha_baja=? "
 				+ "WHERE id = " + pEmpleado.getId(); 
-
-			strSQL = "UPDATE persona SET fechabaja=? WHERE id = " + pEmpleado.getId();
 			
 			pstmt = con.prepareStatement(strSQL);
 			
-			
-			pstmt.setString(1,pEmpleado.getNif());
-			pstmt.setString(2,pEmpleado.getNombre());			
+			pstmt.setString(1,pEmpleado.getNif());						
+			pstmt.setString(2,pEmpleado.getNombre());
 			pstmt.setString(3,pEmpleado.getApellido1());
 			pstmt.setString(4,pEmpleado.getApellido2());
 			pstmt.setString(5,pEmpleado.getDireccion());
 			pstmt.setString(6,pEmpleado.getPoblacion());
 			pstmt.setString(7,pEmpleado.getTelefono());
 			pstmt.setString(8,pEmpleado.getMovil());
-			pstmt.setString(9,pEmpleado.getEmail());	
+			pstmt.setString(9,pEmpleado.getEmail());
 			if (pEmpleado.getFechaBaja() != null) {
 				pstmt.setDate(10,new java.sql.Date(pEmpleado.getFechaBaja().getTime()));
-			} 		
+			} else {
+				pstmt.setDate(10,null);
+			}
+				
 			gd.commit();
 			pstmt.execute();
 			pstmt.close();
 			pstmt = null;
 
 		} catch (SQLException e) {
-			switch (e.getErrorCode()){
-			case 0: 
-				throw new GestorEmpleadoException("Este usuario ya existe");
-			default: 
-				{
-					gd.rollback();
-					throw new errorSQL("Error SQL (persona) numero: " + e.getErrorCode());
-				}
-			}
+			gd.rollback();
+			throw new errorSQL("Error SQL (persona) numero: " + e.getErrorCode());
 		}
 		
 		try {
-			
-			strSQL = "UPDATE usuario SET password=?,desactivado=? "
-				+ "WHERE codusuario = " + pEmpleado.getId();
+			strSQL = "UPDATE usuario SET pasword=?,desactivado=? "
+				+ "WHERE cod_usuario = " + pEmpleado.getId();
 
 			pstmt = con.prepareStatement(strSQL);
 			
@@ -184,8 +176,8 @@ public class GestorEmpleado {
 		}
 		
 		try {
-			strSQL = "UPDATE empleado SET idrol=? "
-				+ "WHERE codempleado = " + pEmpleado.getId();
+			strSQL = "UPDATE empleado SET id_rol=? "
+				+ "WHERE cod_empleado = " + pEmpleado.getId();
 
 			pstmt = con.prepareStatement(strSQL);
 			
@@ -215,13 +207,13 @@ public class GestorEmpleado {
 		try {
 			gd.begin();
 			
-			strSQL = "SELECT codempleado,nif,nombre,apellido1,apellido2,"
-				+ "direccion,poblacion,telefono,movil,email,codUsuario,password,"
-				+ "desactivado,idrol "
+			strSQL = "SELECT cod_empleado,nif,nombre,apellido1,apellido2,"
+				+ "direccion,poblacion,telefono,movil,email,cod_Usuario,pasword,"
+				+ "desactivado,id_rol "
 				+ "FROM persona,usuario,empleado "
-				+ "WHERE empleado.codempleado = usuario.codusuario AND "
-				+ "empleado.codempleado = persona.id "
-				+ "AND codempleado = " + pId;
+				+ "WHERE empleado.cod_empleado = usuario.cod_usuario AND "
+				+ "empleado.cod_empleado = persona.id "
+				+ "AND cod_empleado = " + pId;
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(strSQL);
 			if (rs.next()){
@@ -240,6 +232,39 @@ public class GestorEmpleado {
 		}
 	}
 	
+	public boolean existeNif(String pNif) throws errorSQL, 
+	errorConexionBD{
+		String strSQL = "";
+		boolean existeAux;
+		
+		if(gd.isConectado()) con = gd.getConexion();
+		else throw new errorConexionBD("No hay conexión!");
+
+		Statement stmt = null;
+					
+		try {
+			gd.begin();
+			
+			strSQL = "SELECT nif "
+				+ "FROM persona "
+				+ "WHERE nif ='" + pNif + "' ";
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(strSQL);
+			if (rs.next()){
+				existeAux = true;
+			}
+			else {
+				existeAux = false;
+			}
+			rs.close();
+			stmt.close();
+			
+			return existeAux;
+		} 
+		catch (SQLException e) {
+			throw new GestorEmpleadoException("Error SQL numero: " + e.getErrorCode());			
+		}
+	}
 	
 	
 	//Excluimos a los que estan dados de baja
@@ -248,7 +273,7 @@ public class GestorEmpleado {
 		String strSQL = "";
 		String strConsulta  = "";
 		if (pIdRol > 0) {
-			strConsulta = "AND idrol = " + pIdRol + " ";
+			strConsulta = "AND id_rol = " + pIdRol + " ";
 		}
 		if (pNif != null) {
 			strConsulta = "AND nif like '" + pNif + "' ";
@@ -260,13 +285,13 @@ public class GestorEmpleado {
 			strConsulta = "AND apellido1 like '" + pApellido1 + "' ";
 		}
 
-		strSQL = "SELECT codempleado,nif,nombre,apellido1,apellido2,"
-				+ "direccion,poblacion,telefono,movil,email,codUsuario,password,"
-				+ "desactivado,idrol "
+		strSQL = "SELECT cod_empleado,nif,nombre,apellido1,apellido2,"
+				+ "direccion,poblacion,telefono,movil,email,cod_Usuario,pasword,"
+				+ "desactivado,id_rol "
 				+ "FROM persona,usuario,empleado "
-				+ "WHERE empleado.codempleado = usuario.codusuario AND "
-				+ "empleado.codempleado = persona.id AND "
-				+ "desactivado = 0 "
+				+ "WHERE empleado.cod_empleado = usuario.cod_usuario AND "
+				+ "empleado.cod_empleado = persona.id AND "
+				+ "desactivado = false "
 				+ strConsulta
 				+ "ORDER BY nif";
 		
@@ -298,10 +323,12 @@ public class GestorEmpleado {
 	private Empleado montaEmpleado(ResultSet rs) throws errorSQL, errorConexionBD {
 		Empleado Emp = null;
 		GestorRol gRol = null;
+		Rol pRol = null; 
+		String codAuxEmpleado = "";
 		Emp = new Empleado();
 		gRol = new GestorRol();
 		try {
-			Emp.setId(rs.getInt("codempleado"));
+			Emp.setId(rs.getInt("cod_empleado"));
 			Emp.setNif(rs.getString("nif"));
 			Emp.setNombre(rs.getString("nombre"));
 			Emp.setApellido1(rs.getString("apellido1"));
@@ -310,11 +337,13 @@ public class GestorEmpleado {
 			Emp.setPoblacion(rs.getString("poblacion"));
 			Emp.setTelefono(rs.getString("telefono"));
 			Emp.setMovil(rs.getString("movil"));
-			Emp.setEmail(rs.getString("email"));
-			Emp.setCodUsuario(rs.getString("codUsuario"));
-			Emp.setPassword(rs.getString("password"));
+			Emp.setEmail(rs.getString("email"));		
+			Emp.setPassword(rs.getString("pasword"));
 			Emp.setDesactivado(rs.getBoolean("desactivado"));
-			Emp.setRol(gRol.consultaRol(rs.getInt("idrol")));
+			pRol = gRol.consultaRol(rs.getInt("id_rol"));
+			Emp.setRol(pRol);
+			codAuxEmpleado = Util.generarCodigo(Emp.getId(), pRol.getLetraRol());
+			Emp.setCodUsuario(codAuxEmpleado);
 		}
 		catch (SQLException e) {
 			throw new errorSQL(e.toString());
@@ -329,7 +358,7 @@ public class GestorEmpleado {
 	public static void main (String[] args) {
 		Empleado pEmpleado = new Empleado();		
 		Rol pRol = new Rol();
-		
+		GestorEmpleado gEmpl = null;
 		try {
 			GestorRol gRol = new GestorRol();
 			try {
@@ -342,9 +371,8 @@ public class GestorEmpleado {
 		catch (errorConexionBD e) {
 			System.out.println(e.getMessage());
 		}
-		//pEmpleado.setId(32);
-		pEmpleado.setNif("0000081N");
-		pEmpleado.setNombre("Diego");
+		pEmpleado.setNif("0000085N");
+		pEmpleado.setNombre("Eruka");
 		pEmpleado.setApellido1("Java");
 		pEmpleado.setApellido2("Dificil");
 		pEmpleado.setDireccion("direccion 2");
@@ -352,22 +380,31 @@ public class GestorEmpleado {
 		pEmpleado.setTelefono("telefono 2");
 		pEmpleado.setMovil("movil 2");
 		pEmpleado.setEmail("email 2");
-		pEmpleado.setCodUsuario("codUsuario32");
 		pEmpleado.setPassword("123410");
 		pEmpleado.setDesactivado(false);
 		pEmpleado.setRol(pRol);
-
+		
 		try {
-			GestorEmpleado gEmpl = new GestorEmpleado();
+			gEmpl = new GestorEmpleado();
 			try {
-				gEmpl.addEmpleado(pEmpleado);
-				//pEmpleado = gEmpl.consultaEmpleado(pEmpleado.getId());
-				//gEmpl.setEmpleado(pEmpleado);
+				if (!gEmpl.existeNif(pEmpleado.getNif())) {
+					gEmpl.addEmpleado(pEmpleado);
+				}
+				else {
+					System.out.println("ERROR: Nif existente en empleados");
+				}
+				pEmpleado = gEmpl.consultaEmpleado(7);
+				System.out.println(pEmpleado.getCodUsuario());
+				pEmpleado.setId(7);
+				pEmpleado.setDireccion("Nueva direccion nueva");
+				gEmpl.setEmpleado(pEmpleado);
+
+				Vector v = gEmpl.lista(1, null, null, null);
+				gEmpl.liberarRecursos();
 			}
 			catch (errorSQL e) {
 				System.out.println(e.getMessage());
 			}
-			gEmpl.liberarRecursos();
 		}
 		catch (errorConexionBD e) {
 			System.out.println(e.getMessage());
