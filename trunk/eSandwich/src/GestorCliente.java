@@ -330,6 +330,9 @@ public class GestorCliente {
     return v;
   }
 
+  public void liberarRecursos(){	
+		gd.cerrarConexion();	
+	}
   public static void main(String[] args) {
     Cliente c = new Cliente();
     try {

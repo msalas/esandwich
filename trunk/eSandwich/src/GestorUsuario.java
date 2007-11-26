@@ -3,26 +3,34 @@ import java.sql.Connection;
 
 public class GestorUsuario {
 
-	GestorDisco gd;
-	Connection con = null;	
-	
+	GestorEmpleado gEmp;
+	GestorCliente gCli;
+
 	public GestorUsuario() throws errorConexionBD {
 		super();
-		gd = new GestorDisco();
-		gd.abrirConexion();
+	
+		// Si no usas el GestorDisco esto no hace falta 
+		//	gd = new GestorDisco();
+		//	gd.abrirConexion();
+		
+		// Pero hay que inicializar los gestores que usas aqui
+		// Asi mantienes la conexion
+		gEmp = new GestorEmpleado();
+		gCli = new GestorCliente();
 	}
 
-	public boolean login(String codUsuario, String password, boolean isCliente) throws errorConexionBD, errorSQL{
+	// Se tiene que cambiar, tiene que devolver el tipo de Usuario que ha accedido
+	
+	public Usuario login(String codUsuario, String password, boolean isCliente) throws errorConexionBD, errorSQL{
 		Usuario rUsu = null;
-		GestorEmpleado gEmp = null;
-		boolean ret = false;		
+					
 		int pId =0;
 		
 		pId = Util.getNumDeCodigo(codUsuario);
 		
-		if (isCliente == false) {
-			gEmp = new GestorEmpleado();
-			rUsu = gEmp.consultaEmpleado(pId);
+		if (isCliente) rUsu = gCli.getCliente(pId);
+		else rUsu = gEmp.consultaEmpleado(pId); 
+			
 			if (!rUsu.getPassword().equals(password)) {
 				throw new GestorUsuarioException();
 			}
@@ -35,16 +43,17 @@ public class GestorUsuario {
 			if (rUsu.isDesactivado()) {
 				throw new GestorUsuarioException("Usuario desactivado");
 			}
-			ret = true;
-		}
-		else {
-			// Se trata de un cliente
-		}			
-		return ret;
+		
+		return rUsu;
 	}
 	
+	
 	public void liberarRecursos(){	
-		gd.cerrarConexion();	
+	
+		// Liberar recursos de los gestores Cliente y Empleado
+		
+		gEmp.liberarRecursos();
+		gCli.liberarRecursos();
 	}
 
 	public static void main (String[] args) {

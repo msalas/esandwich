@@ -9,7 +9,6 @@ public class Sandwich extends Producto implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private float precio;
 	private TipoSandwich tipoSandwich;
 	private IngredienteSandwich []ingredienteSandwich;
 	private Date fechaBaja;
@@ -31,12 +30,6 @@ public class Sandwich extends Producto implements Serializable {
 	}
 	public void setIngredienteSandwich(IngredienteSandwich[] ingredienteSandwich) {
 		this.ingredienteSandwich = ingredienteSandwich;
-	}
-	public float getPrecio() {
-		return precio;
-	}
-	public void setPrecio(float precio) {
-		this.precio = precio;
 	}
 	public TipoSandwich getTipoSandwich() {
 		return tipoSandwich;
