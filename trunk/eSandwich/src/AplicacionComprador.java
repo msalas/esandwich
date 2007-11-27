@@ -5,8 +5,14 @@ import java.awt.Dimension;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import java.awt.Rectangle;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+
 import javax.swing.JMenu;
 
+
+// Falta cambiar los comentarios 
 public class AplicacionComprador extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -15,51 +21,44 @@ public class AplicacionComprador extends JFrame {
 
 	private JMenuBar jbarramenu = null;
 
-	private JMenu jlogin = null;
-
-	private JMenu jRegistre = null;
-
-	private JMenu jDadesPersonals = null;
-
-	private JMenu jPromocions = null;
-
-	private JMenu jStock = null;
-
-	private JMenu jFacturacio = null;
-
-	private JMenu jComandes = null;
-
-	private JMenuItem jRealitcomandes = null;
-
-	private JMenuItem jaltaarticle = null;
-
-	private JMenuItem jfactutotal = null;
-
-	private JMenuItem jFacturaciosand = null;
-
-	private JMenu jMenuComanda = null;
-
-	private JMenuItem jMenuItemIniciSesion = null;
-
-	private JMenuItem jMenuItemAlta = null;
-
-	private JMenuItem jMenuItemConsulta = null;
+	private JMenu jLogin = null;
 	
-	private JMenuItem jMenuItemModificar = null;
+	private JMenuItem jIniciarSesion = null;
+	
+	private JMenu jLogout = null;
 
-	private JMenuItem jMenuItemPromocionsPanell = null;
+	private JMenuItem jCerrarSesion = null;
 
-	private JMenuItem jMenuItemePunts = null;
+	private JMenu jRegistro = null;
 
-	private JMenuItem jMenuItemPromocions = null;
+	private JMenuItem jAltaRegistro = null;
 
-	private JMenu jMenuComanda1 = null;
+	private JMenu jDatosPersonales = null;
 
-	private JMenuItem jMenuItemCrearComanda = null;
+	private JMenuItem jConsultarDP = null;
+	
+	private JMenuItem jModificarDP = null;
 
+	private JMenu jPromociones = null;
+
+	private JMenuItem jPromocionesPanel = null;
+
+	private JMenuItem jPromocionesPuntos = null;
+
+	private JMenuItem jPromocionesSeleccion = null;
+
+	private JMenu jPedido = null;
+
+	private JMenuItem jRealizarPedido = null;
+
+	private ServiciosModelo sm = null;
+
+	private ControladorAplicacionComprador cac = null;
+	
 	/**
 	 * This is the default constructor
 	 */
+	
 	public AplicacionComprador() {
 		super();
 		initialize();
@@ -76,12 +75,60 @@ public class AplicacionComprador extends JFrame {
 		this.setContentPane(getJContentPane());
 		this.setTitle("eSandvitx");
 		
+		// Inicializamos modelo
 		
-		// Inicializamos controladores
+		try {
+			sm = new ServiciosCompradorModelo();
+			
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		jMenuItemIniciSesion.addActionListener(new ControladorInicioSesion());
+		// Inicializamos controlador para acciones del menu
+		
+		cac = new ControladorAplicacionComprador(this);
+		
+		jIniciarSesion.setActionCommand("IS");
+		jIniciarSesion.addActionListener(cac);
+		
+		jCerrarSesion.setActionCommand("CS");
+		jCerrarSesion.addActionListener(cac);
+		
+		jAltaRegistro.setActionCommand("AR");
+		jAltaRegistro.addActionListener(cac);
+		
+		jConsultarDP.setActionCommand("CDP");
+		jConsultarDP.addActionListener(cac);
+		
+		jModificarDP.setActionCommand("MDP");
+		jModificarDP.addActionListener(cac);
+		
+		jPromocionesPanel.setActionCommand("PPa");
+		jPromocionesPanel.addActionListener(cac);
+		
+		jPromocionesPuntos.setActionCommand("PPu");
+		jPromocionesPuntos.addActionListener(cac);
+		
+		jPromocionesSeleccion.setActionCommand("PS");
+		jPromocionesSeleccion.addActionListener(cac);
+		
+		jRealizarPedido.setActionCommand("RP");
+		jRealizarPedido.addActionListener(cac);
+		
+		//Desactivamos menus para cliente no registrado
+		
+		this.setMenuNoRegistrado();
+		
 	}
 
+	
 	/**
 	 * This method initializes jContentPane
 	 * 
@@ -103,11 +150,12 @@ public class AplicacionComprador extends JFrame {
 	private JMenuBar getJbarramenu() {
 		if (jbarramenu == null) {
 			jbarramenu = new JMenuBar();
-			jbarramenu.add(getJlogin());
-			jbarramenu.add(getJRegistre());
-			jbarramenu.add(getJDadesPersonals());
-			jbarramenu.add(getJPromocions());
-			jbarramenu.add(getJMenuComanda1());
+			jbarramenu.add(getJLogin());
+			jbarramenu.add(getJLogout());
+			jbarramenu.add(getJRegistro());
+			jbarramenu.add(getJDatosPersonales());
+			jbarramenu.add(getJPromociones());
+			jbarramenu.add(getJPedido());
 		}
 		return jbarramenu;
 	}
@@ -117,156 +165,13 @@ public class AplicacionComprador extends JFrame {
 	 * 	
 	 * @return javax.swing.JMenu	
 	 */
-	private JMenu getJlogin() {
-		if (jlogin == null) {
-			jlogin = new JMenu();
-			jlogin.setText("Login");
-			jlogin.add(getJMenuItemIniciSesion());
+	private JMenu getJLogin() {
+		if (jLogin == null) {
+			jLogin = new JMenu();
+			jLogin.setText("Login");
+			jLogin.add(getJIniciarSesion());
 		}
-		return jlogin;
-	}
-
-	/**
-	 * This method initializes jRegistre	
-	 * 	
-	 * @return javax.swing.JMenu	
-	 */
-	private JMenu getJRegistre() {
-		if (jRegistre == null) {
-			jRegistre = new JMenu();
-			jRegistre.setText("Registre");
-			jRegistre.add(getJMenuItemAlta());
-		}
-		return jRegistre;
-	}
-
-	/**
-	 * This method initializes jDadesPersonals	
-	 * 	
-	 * @return javax.swing.JMenu	
-	 */
-	private JMenu getJDadesPersonals() {
-		if (jDadesPersonals == null) {
-			jDadesPersonals = new JMenu();
-			jDadesPersonals.setText("Dades Personals");
-			jDadesPersonals.add(getJMenuItemConsulta());
-			jDadesPersonals.add(getJMenuItemModificar());
-		}
-		return jDadesPersonals;
-	}
-
-	/**
-	 * This method initializes jPromocions	
-	 * 	
-	 * @return javax.swing.JMenu	
-	 */
-	private JMenu getJPromocions() {
-		if (jPromocions == null) {
-			jPromocions = new JMenu();
-			jPromocions.setText("Promocions");
-			//jPromocions.add(getJStock());
-			jPromocions.add(getJMenuItemPromocionsPanell());
-			//jPromocions.add(getJFacturacio());
-			jPromocions.add(getJMenuItemePunts());
-			//jPromocions.add(getJComandes());
-			jPromocions.add(getJMenuItemPromocions());
-		}
-		return jPromocions;
-	}
-
-	/**
-	 * This method initializes jStock	
-	 * 	
-	 * @return javax.swing.JMenu	
-	 */
-	private JMenu getJStock() {
-		if (jStock == null) {
-			jStock = new JMenu();
-			jStock.setText("");
-			jStock.add(getJaltaarticle());
-		}
-		return jStock;
-	}
-
-	/**
-	 * This method initializes jFacturacio	
-	 * 	
-	 * @return javax.swing.JMenu	
-	 */
-	private JMenu getJFacturacio() {
-		if (jFacturacio == null) {
-			jFacturacio = new JMenu();
-			jFacturacio.setText("Facturació");
-			jFacturacio.add(getJfactutotal());
-			jFacturacio.add(getJFacturaciosand());
-		}
-		return jFacturacio;
-	}
-
-	/**
-	 * This method initializes jComandes	
-	 * 	
-	 * @return javax.swing.JMenu	
-	 */
-	private JMenu getJComandes() {
-		if (jComandes == null) {
-			jComandes = new JMenu();
-			jComandes.setText("Comandes");
-			jComandes.add(getJRealitcomandes());
-		}
-		return jComandes;
-	}
-
-	/**
-	 * This method initializes jRealitcomandes	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
-	private JMenuItem getJRealitcomandes() {
-		if (jRealitcomandes == null) {
-			jRealitcomandes = new JMenuItem();
-			jRealitcomandes.setText("Realitzar comandes");
-		}
-		return jRealitcomandes;
-	}
-
-	/**
-	 * This method initializes jaltaarticle	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
-	private JMenuItem getJaltaarticle() {
-		if (jaltaarticle == null) {
-			jaltaarticle = new JMenuItem();
-			jaltaarticle.setText("Alta Article");
-		}
-		return jaltaarticle;
-	}
-
-	/**
-	 * This method initializes jfactutotal	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
-	private JMenuItem getJfactutotal() {
-		if (jfactutotal == null) {
-			jfactutotal = new JMenuItem();
-			jfactutotal.setText("Facturació total");
-		}
-		return jfactutotal;
-	}
-
-	/**
-	 * This method initializes jFacturaciosand	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
-	private JMenuItem getJFacturaciosand() {
-		if (jFacturaciosand == null) {
-			jFacturaciosand = new JMenuItem();
-			jFacturaciosand.setText("Facturació per Sandvitx");
-		}
-		return jFacturaciosand;
+		return jLogin;
 	}
 
 	/**
@@ -274,38 +179,96 @@ public class AplicacionComprador extends JFrame {
 	 * 	
 	 * @return javax.swing.JMenuItem	
 	 */
-	private JMenuItem getJMenuItemIniciSesion() {
-		if (jMenuItemIniciSesion == null) {
-			jMenuItemIniciSesion = new JMenuItem();
-			jMenuItemIniciSesion.setText("Inici Sessió");
+	private JMenuItem getJIniciarSesion() {
+		if (jIniciarSesion == null) {
+			jIniciarSesion = new JMenuItem();
+			jIniciarSesion.setText("Inicar Sesión");
 		}
-		return jMenuItemIniciSesion;
+		return jIniciarSesion;
 	}
 
+	/**
+	 * This method initializes jLogout	
+	 * 	
+	 * @return javax.swing.JMenu	
+	 */
+	private JMenu getJLogout() {
+		if (jLogout == null) {
+			jLogout = new JMenu();
+			jLogout.setText("Logout");
+			jLogout.add(getJCerrarSesion());
+		}
+		return jLogout;
+	}
+
+	/**
+	 * This method initializes jCerrarSesion	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJCerrarSesion() {
+		if (jCerrarSesion == null) {
+			jCerrarSesion = new JMenuItem();
+			jCerrarSesion.setText("Cerrar Sesión");
+		}
+		return jIniciarSesion;
+	}
+	
+	/**
+	 * This method initializes jRegistre	
+	 * 	
+	 * @return javax.swing.JMenu	
+	 */
+	private JMenu getJRegistro() {
+		if (jRegistro == null) {
+			jRegistro = new JMenu();
+			jRegistro.setText("Registro");
+			jRegistro.add(getJAltaRegistro());
+		}
+		return jRegistro;
+	}
+
+	
 	/**
 	 * This method initializes jMenuItemAlta	
 	 * 	
 	 * @return javax.swing.JMenuItem	
 	 */
-	private JMenuItem getJMenuItemAlta() {
-		if (jMenuItemAlta == null) {
-			jMenuItemAlta = new JMenuItem();
-			jMenuItemAlta.setText("Alta");
+	private JMenuItem getJAltaRegistro() {
+		if (jAltaRegistro == null) {
+			jAltaRegistro = new JMenuItem();
+			jAltaRegistro.setText("Alta");
 		}
-		return jMenuItemAlta;
+		return jAltaRegistro;
+	}
+	
+	/**
+	 * This method initializes jDadesPersonals	
+	 * 	
+	 * @return javax.swing.JMenu	
+	 */
+	private JMenu getJDatosPersonales() {
+		if (jDatosPersonales == null) {
+			jDatosPersonales = new JMenu();
+			jDatosPersonales.setText("Dades Personals");
+			jDatosPersonales.add(getJConsultarDP());
+			jDatosPersonales.add(getJModificarDP());
+		}
+		return jDatosPersonales;
 	}
 
+	
 	/**
 	 * This method initializes jMenuItemConsulta	
 	 * 	
 	 * @return javax.swing.JMenuItem	
 	 */
-	private JMenuItem getJMenuItemConsulta() {
-		if (jMenuItemConsulta == null) {
-			jMenuItemConsulta = new JMenuItem();
-			jMenuItemConsulta.setText("Consulta");
+	private JMenuItem getJConsultarDP() {
+		if (jConsultarDP == null) {
+			jConsultarDP = new JMenuItem();
+			jConsultarDP.setText("Consulta");
 		}
-		return jMenuItemConsulta;
+		return jConsultarDP;
 	}
 	
 	/**
@@ -313,26 +276,42 @@ public class AplicacionComprador extends JFrame {
 	 * 	
 	 * @return javax.swing.JMenuItem	
 	 */
-	private JMenuItem getJMenuItemModificar() {
-		if (jMenuItemModificar == null) {
-			jMenuItemModificar = new JMenuItem();
-			jMenuItemModificar.setText("Modificar");
+	private JMenuItem getJModificarDP() {
+		if (jModificarDP == null) {
+			jModificarDP = new JMenuItem();
+			jModificarDP.setText("Modificar");
 		}
-		return jMenuItemModificar;
+		return jModificarDP;
 	}
 
-
+	
+	/**
+	 * This method initializes jPromocions	
+	 * 	
+	 * @return javax.swing.JMenu	
+	 */
+	private JMenu getJPromociones() {
+		if (jPromociones == null) {
+			jPromociones = new JMenu();
+			jPromociones.setText("Promocions");
+			jPromociones.add(getJPromocionesPanel());
+			jPromociones.add(getJPromocionesPuntos());
+			jPromociones.add(getJPromocionesSeleccion());
+		}
+		return jPromociones;
+	}
+	
 	/**
 	 * This method initializes jMenuItemPromocionsPanell	
 	 * 	
 	 * @return javax.swing.JMenuItem	
 	 */
-	private JMenuItem getJMenuItemPromocionsPanell() {
-		if (jMenuItemPromocionsPanell == null) {
-			jMenuItemPromocionsPanell = new JMenuItem();
-			jMenuItemPromocionsPanell.setText("Panell Promocions");
+	private JMenuItem getJPromocionesPanel() {
+		if (jPromocionesPanel == null) {
+			jPromocionesPanel = new JMenuItem();
+			jPromocionesPanel.setText("Panel Promociones");
 		}
-		return jMenuItemPromocionsPanell;
+		return jPromocionesPanel;
 	}
 
 	/**
@@ -340,12 +319,12 @@ public class AplicacionComprador extends JFrame {
 	 * 	
 	 * @return javax.swing.JMenuItem	
 	 */
-	private JMenuItem getJMenuItemePunts() {
-		if (jMenuItemePunts == null) {
-			jMenuItemePunts = new JMenuItem();
-			jMenuItemePunts.setText("Consulta ePunts");
+	private JMenuItem getJPromocionesPuntos() {
+		if (jPromocionesPuntos == null) {
+			jPromocionesPuntos = new JMenuItem();
+			jPromocionesPuntos.setText("Consulta ePunts");
 		}
-		return jMenuItemePunts;
+		return jPromocionesPuntos;
 	}
 
 	/**
@@ -353,41 +332,45 @@ public class AplicacionComprador extends JFrame {
 	 * 	
 	 * @return javax.swing.JMenuItem	
 	 */
-	private JMenuItem getJMenuItemPromocions() {
-		if (jMenuItemPromocions == null) {
-			jMenuItemPromocions = new JMenuItem();
-			jMenuItemPromocions.setText("Promocions");
+	private JMenuItem getJPromocionesSeleccion() {
+		if (jPromocionesSeleccion == null) {
+			jPromocionesSeleccion = new JMenuItem();
+			jPromocionesSeleccion.setText("Promocions");
 		}
-		return jMenuItemPromocions;
+		return jPromocionesSeleccion;
 	}
+	
+
+	
 
 	/**
-	 * This method initializes jMenuComanda1	
+	 * This method initializes jComandes	
 	 * 	
 	 * @return javax.swing.JMenu	
 	 */
-	private JMenu getJMenuComanda1() {
-		if (jMenuComanda1 == null) {
-			jMenuComanda1 = new JMenu();
-			jMenuComanda1.setText("Comanda");
-			jMenuComanda1.add(getJMenuItemCrearComanda());
+	private JMenu getJPedido() {
+		if (jPedido == null) {
+			jPedido = new JMenu();
+			jPedido.setText("Comandes");
+			jPedido.add(getJRealizarPedido());
 		}
-		return jMenuComanda1;
+		return jPedido;
 	}
 
 	/**
-	 * This method initializes jMenuItemCrearComanda	
+	 * This method initializes jRealitcomandes	
 	 * 	
 	 * @return javax.swing.JMenuItem	
 	 */
-	private JMenuItem getJMenuItemCrearComanda() {
-		if (jMenuItemCrearComanda == null) {
-			jMenuItemCrearComanda = new JMenuItem();
-			jMenuItemCrearComanda.setText("Iniciar Comanda");
+	private JMenuItem getJRealizarPedido() {
+		if (jRealizarPedido == null) {
+			jRealizarPedido = new JMenuItem();
+			jRealizarPedido.setText("Realizar pedido");
 		}
-		return jMenuItemCrearComanda;
+		return jRealizarPedido;
 	}
 
+	
    public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -396,4 +379,38 @@ public class AplicacionComprador extends JFrame {
         });
     }
 
+public ServiciosModelo getSm() {
+	return sm;
+}
+
+public void setSm(ServiciosModelo sm) {
+	this.sm = sm;
+}
+
+public void setMenuRegistrado() {
+	// Mostramos ...
+	jLogout.setVisible(true);
+	jDatosPersonales.setVisible(true);
+	jPromociones.setVisible(true);
+	jPedido.setVisible(true);
+	
+	// No mostramos
+	jLogin.setVisible(false);
+	jRegistro.setVisible(false);
+	
+}
+
+public void setMenuNoRegistrado() {
+	
+	// Mostramos ...
+	jLogin.setVisible(true);
+	jRegistro.setVisible(true);
+	jPedido.setVisible(true);
+	
+	// No mostramos
+	jLogout.setVisible(false);
+	jDatosPersonales.setVisible(false);
+	jPromociones.setVisible(false);
+			
+}
 }  //  @jve:decl-index=0:visual-constraint="24,-126"
