@@ -23,7 +23,7 @@ public class GestorTipoPromocion {
 		String strSQL = "";
 		int id = 0;
 
-		// Falta verificar campos: verifCampos(pTipoProm);
+		verifCampos(pTipProm);
 				
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexión!");
@@ -100,7 +100,7 @@ public class GestorTipoPromocion {
 	errorConexionBD{
 		String strSQL = "";
 		
-		// Falta verificar campos: verifCampos(pTipoProm);
+		verifCampos(pTipoProm);
 				
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexión!");
@@ -167,6 +167,11 @@ public class GestorTipoPromocion {
 		return v;
 	}
 
+	private void verifCampos(TipoPromocion tPro) throws GestorTipoPromocionException {
+		if (!Util.compruebaCampoTamano(tPro.getDescripcion().toCharArray(), 100)) 
+			throw new GestorTipoPromocionException("Error tamaño campo descripción");
+	}
+	
 	
 	private TipoPromocion montaTipoPromocion(ResultSet rs) throws errorSQL {
 		TipoPromocion pTipProm = new TipoPromocion();
