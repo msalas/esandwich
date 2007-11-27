@@ -4,7 +4,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 
-public class ServiciosAccesoModelo {
+public class ServiciosAccesoModelo extends ServiciosModelo{
 
 	ServiciosRemotosAcceso sra;
 		
@@ -14,7 +14,7 @@ public class ServiciosAccesoModelo {
 			
 		}
 
-		public ServiciosModelo login(String usuario, String password, boolean isCliente) throws errorConexionBD, errorSQL{
+		public ServiciosModelo login(String usuario, String password, boolean isCliente) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
 			
 			Usuario u;
 			ServiciosModelo s = null;
