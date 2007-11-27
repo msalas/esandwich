@@ -12,4 +12,13 @@ public class ServiciosCompradorRegistradoModelo extends
 		
 	}
 
+	// Ejemplo 
+	public String aaa(){
+		
+		
+		// Se puede usar src porque lo heredamos, asi que no hace falta crear otra conexion
+		
+		//src.loquesea();
+		return null;
+	}
 }
