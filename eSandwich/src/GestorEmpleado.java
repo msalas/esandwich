@@ -24,7 +24,7 @@ public class GestorEmpleado {
 		int id = 0;
 		
 		
-		// Falta verificar campos: verifCampos(pEmpleado);
+		verifCampos(pEmpleado);
 				
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexión!");
@@ -112,7 +112,7 @@ public class GestorEmpleado {
 	errorConexionBD{
 		String strSQL = "";
 
-		// Falta verificar campos: verifCampos(pEmpleado);
+		verifCampos(pEmpleado);
 				
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexión!");
@@ -321,6 +321,10 @@ public class GestorEmpleado {
 		return v;
 	}
 	
+	private void verifCampos(Empleado pEmpl) throws GestorEmpleadoException {
+		if (!Util.compruebaCampo(pEmpl.getPassword().toCharArray())) 
+			throw new GestorEmpleadoException("Error en password");
+	}
 
 	
 	private Empleado montaEmpleado(ResultSet rs) throws errorSQL, errorConexionBD {

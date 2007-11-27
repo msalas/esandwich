@@ -36,4 +36,21 @@ public class Util {
 		return n;
 	}
 	
+	public static boolean compruebaCampo(char[] pCamp) {
+		int x;
+		boolean correcto = true;
+		for (x=0;x<pCamp.length;x++) {
+			// Si tiene numeros o letras es correcto
+			if (Character.isDigit(pCamp[x]) || !Character.isLetter(pCamp[x])) {
+				correcto = true;
+			}
+			else {
+				correcto = false;
+				break;
+			}				
+		}
+		return correcto;
+	}
+	
+	
 }
