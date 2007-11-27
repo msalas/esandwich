@@ -182,7 +182,7 @@ public class AplicacionComprador extends JFrame {
 	private JMenuItem getJIniciarSesion() {
 		if (jIniciarSesion == null) {
 			jIniciarSesion = new JMenuItem();
-			jIniciarSesion.setText("Inicar Sesión");
+			jIniciarSesion.setText("Iniciar Sesión");
 		}
 		return jIniciarSesion;
 	}
@@ -211,7 +211,7 @@ public class AplicacionComprador extends JFrame {
 			jCerrarSesion = new JMenuItem();
 			jCerrarSesion.setText("Cerrar Sesión");
 		}
-		return jIniciarSesion;
+		return jCerrarSesion;
 	}
 	
 	/**
