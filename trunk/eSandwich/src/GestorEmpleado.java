@@ -322,8 +322,39 @@ public class GestorEmpleado {
 	}
 	
 	private void verifCampos(Empleado pEmpl) throws GestorEmpleadoException {
+		if (!Util.compruebaCampoNif(pEmpl.getNif().toCharArray())) 
+			throw new GestorEmpleadoException("Error en NIF");
+
+		if (!Util.compruebaCampoTamano(pEmpl.getNombre().toCharArray(), 50)) 
+			throw new GestorEmpleadoException("Error tamaño campo nombre");
+
+		if (!Util.compruebaCampoTamano(pEmpl.getApellido1().toCharArray(), 100)) 
+			throw new GestorEmpleadoException("Error tamaño campo primer apellido");
+			
+		if (!Util.compruebaCampoTamano(pEmpl.getApellido2().toCharArray(), 100)) 
+			throw new GestorEmpleadoException("Error tamaño campo segundo apellido");
+
+		if (!Util.compruebaCampoTamano(pEmpl.getDireccion().toCharArray(), 100)) 
+			throw new GestorEmpleadoException("Error tamaño campo dirección");
+			
+		if (!Util.compruebaCampoTamano(pEmpl.getPoblacion().toCharArray(), 100)) 
+			throw new GestorEmpleadoException("Error tamaño campo población");
+
+		if (!Util.compruebaCampoTamano(pEmpl.getTelefono().toCharArray(), 16)) 
+			throw new GestorEmpleadoException("Error tamaño campo teléfono");
+			
+		if (!Util.compruebaCampoTamano(pEmpl.getMovil().toCharArray(), 16)) 
+			throw new GestorEmpleadoException("Error tamaño campo móvil");
+
+		if (!Util.compruebaCampoTamano(pEmpl.getEmail().toCharArray(), 100)) 
+			throw new GestorEmpleadoException("Error tamaño campo e-mail");
+			
+			
 		if (!Util.compruebaCampo(pEmpl.getPassword().toCharArray())) 
 			throw new GestorEmpleadoException("Error en password");
+		if (!Util.compruebaCampoTamano(pEmpl.getPassword().toCharArray(), 10)) 
+			throw new GestorEmpleadoException("Error tamaño campo password");
+
 	}
 
 	

@@ -35,13 +35,42 @@ public class Util {
 		n = Integer.parseInt(codUsuario.substring(1));		
 		return n;
 	}
+
+	public static boolean compruebaCampoNif(char[] pCamp) {
+		int x;
+		boolean correcto = true;
+		if (pCamp.length != 9) {
+			correcto = false;
+		}
+		else {
+			for (x=0;x<pCamp.length - 1;x++) {
+				if (Character.isDigit(pCamp[x])) {
+					correcto = true;
+				}
+				else {
+					correcto = false;
+					break;
+				}				
+			}
+			if (correcto = true) {
+				if (Character.isLetter(pCamp[8])) {
+					correcto = true;
+				}
+				else {
+					correcto = false;
+				}
+			}
+		}
+		return correcto;
+	}
+	
 	
 	public static boolean compruebaCampo(char[] pCamp) {
 		int x;
 		boolean correcto = true;
 		for (x=0;x<pCamp.length;x++) {
 			// Si tiene numeros o letras es correcto
-			if (Character.isDigit(pCamp[x]) || !Character.isLetter(pCamp[x])) {
+			if (Character.isDigit(pCamp[x]) || Character.isLetter(pCamp[x])) {
 				correcto = true;
 			}
 			else {
@@ -51,6 +80,21 @@ public class Util {
 		}
 		return correcto;
 	}
+
+	public static boolean IsNumeric(String s){
+		for(int i=0;i<s.length();i++){
+			if(s.charAt(i) < '0' || s.charAt(i)> '9' ){
+				return false;
+			}
+		}
+		return true;
+	}
 	
+	public static boolean compruebaCampoTamano(char[] pCamp, int tamanoMax) {
+		boolean correcto = true;
+		if (pCamp.length > tamanoMax || pCamp.length == 0) 
+			correcto = false;
+		return correcto;
+	}
 	
 }

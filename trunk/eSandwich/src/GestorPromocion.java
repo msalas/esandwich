@@ -23,7 +23,7 @@ public class GestorPromocion {
 		String strSQL = "";
 		int id = 0;
 
-		// Falta verificar campos: verifCampos(pPro);
+		verifCampos(pPro);
 				
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexión!");
@@ -72,7 +72,7 @@ public class GestorPromocion {
 	errorConexionBD{
 		String strSQL = "";
 		
-		// Falta verificar campos: verifCampos(pProm);
+		verifCampos(pProm);
 				
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexión!");
@@ -194,6 +194,14 @@ public class GestorPromocion {
 		return v;
 	}
 	
+	private void verifCampos(Promocion Pro) throws GestorPromocionException {
+		String str = Double.toString(Pro.getValor());
+		if (!Util.IsNumeric(str)) 
+			throw new GestorPromocionException("Valor a de ser un dato numérico");
+		str = Integer.toString(Pro.getPuntosMinimos());
+		if (!Util.IsNumeric(str))
+			throw new GestorPromocionException("Puntos mínimos a de ser un dato numérico");
+	}
 	
 	
 	private Promocion montaPromocion(ResultSet rs) throws errorSQL {

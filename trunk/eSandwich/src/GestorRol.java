@@ -21,7 +21,7 @@ public class GestorRol {
 	errorConexionBD{
 		String strSQL = "";
 
-		// Falta verificar campos: verifCampos(pRol);
+		verifCampos(pRol);
 				
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexión!");
@@ -98,6 +98,14 @@ public class GestorRol {
 		}		
 		return pRol;		
 	}
+	
+	private void verifCampos(Rol pRol) throws GestorRolException {
+		if (!Util.compruebaCampoTamano(pRol.getDescripcion().toCharArray(), 50)) 
+			throw new GestorRolException("Error tamaño campo descripción");
+		if (!Util.compruebaCampoTamano(pRol.getLetraRol().toCharArray(), 1)) 
+			throw new GestorRolException("Error tamaño campo letra ROL");
+	}
+	
 	
 	public void liberarRecursos(){	
 		gd.cerrarConexion();	
