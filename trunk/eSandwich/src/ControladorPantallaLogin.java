@@ -9,7 +9,7 @@ public class ControladorPantallaLogin implements ActionListener {
 
 	PantallaLogin pl = null;
 	AplicacionComprador ac = null;
-	ServiciosCompradorRegistradoModelo scrm = null;
+	ServiciosCompradorModelo scrm = null;
 	
 	public ControladorPantallaLogin(PantallaLogin pantallaLogin, AplicacionComprador ac) {
 		pl = pantallaLogin;	
@@ -20,7 +20,7 @@ public class ControladorPantallaLogin implements ActionListener {
 	
 		// Se ha pulsado boton para hacer login
 		
-		 scrm = (ServiciosCompradorRegistradoModelo) ac.getSm();
+		 scrm = (ServiciosCompradorModelo) ac.getSm();
 		
 		 try {
 			scrm =  (ServiciosCompradorRegistradoModelo) scrm.login((pl.getTxtCUsuario()).getText(),(pl.getTxtPassword()).getText(),true);
