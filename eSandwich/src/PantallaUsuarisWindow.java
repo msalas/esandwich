@@ -1,10 +1,8 @@
 
 
 import javax.swing.JPanel;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.BorderFactory;
 import javax.swing.border.BevelBorder;
@@ -16,8 +14,9 @@ import java.awt.Dimension;
 import javax.swing.JComboBox;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.JDialog;
 
-public class PantallaUsuarisWindow extends JFrame {
+public class PantallaUsuarisWindow extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jContentPane = null;
@@ -48,19 +47,23 @@ public class PantallaUsuarisWindow extends JFrame {
 	private JCheckBox jCheckBoxDeshabilitar = null;
 	private JLabel jLabelDeshabilitar = null;
 	private JButton jButtonCancellar = null;
-	private JLabel jLabel = null;
 	private JComboBox jComboBox = null;
 	private JLabel jLabel1 = null;
 	private JLabel jLabel2 = null;
 	private JLabel jLabel3 = null;
+	private AplicacionEmpleado ae;
+	private ControladorAplicacionEmpleado cpl = null;
 	/**
 	 * This is the default constructor
 	 */
-	public PantallaUsuarisWindow() {
-		super();
+
+	public PantallaUsuarisWindow(AplicacionEmpleado ae){
+		super(ae,"Alta empleado",true);
+		this.ae = ae;
 		initialize();
 	}
-
+	
+	
 	/**
 	 * This method initializes this
 	 * 
@@ -69,8 +72,10 @@ public class PantallaUsuarisWindow extends JFrame {
 	private void initialize() {
 		this.setSize(494, 384);
 		this.setContentPane(getJContentPane());
-		this.setTitle("Alta Usuari");
+		cpl = new ControladorAplicacionEmpleado(ae);
+		jButtonCrear.addActionListener(cpl);
 	}
+	
 
 	/**
 	 * This method initializes jContentPane	
