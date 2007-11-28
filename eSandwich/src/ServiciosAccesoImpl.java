@@ -2,30 +2,30 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 public class ServiciosAccesoImpl extends UnicastRemoteObject implements
-		ServiciosRemotosAcceso {
+    ServiciosRemotosAcceso {
 
-	GestorUsuario gu;
+  GestorUsuario gu;
 
-	protected ServiciosAccesoImpl() throws RemoteException, errorConexionBD {
-		super();
-		gu = new GestorUsuario();
+  protected ServiciosAccesoImpl() throws RemoteException, errorConexionBD {
+    super();
+    gu = new GestorUsuario();
 
-	}
+  }
 
-	public Usuario login(String usuario, String password, boolean esCliente)
-			throws errorConexionBD, errorSQL {
+  public Usuario login(String usuario, String password, boolean esCliente)
+      throws errorConexionBD, errorSQL, RemoteException {
 
-		return gu.login(usuario, password, esCliente);
-	}
+    return gu.login(usuario, password, esCliente);
+  }
 
-	public void logout() {
+  public void logout() throws RemoteException {
 
-	}
+  }
 
-	public void desactivarRecursos() {
+  public void desactivarRecursos() {
 
-		gu.liberarRecursos();
+    gu.liberarRecursos();
 
-	}
+  }
 
 }

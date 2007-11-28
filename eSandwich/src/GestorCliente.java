@@ -23,12 +23,17 @@ public class GestorCliente {
     try {
       gd.begin();
 
-      sql = "DELETE FROM cliente WHERE cod_cliente = '" + id + "'";
+      sql = "DELETE FROM cliente WHERE cod_cliente =" + id;
       System.out.println("Ejecutando: " + sql);
       stmt = gd.getConexion().createStatement();
-
       stmt.executeUpdate(sql);
+
       System.out.println("executeUpdate");
+
+      sql = "DELETE FROM persona WHERE id =" + id;
+      System.out.println("Ejecutando: " + sql);
+      stmt.executeUpdate(sql);
+
       gd.commit();
       System.out.println("commit");
       stmt.close();
@@ -99,11 +104,24 @@ public class GestorCliente {
     System.out.println("GestorCliente.addCliente()");
     String sql;
     PreparedStatement pstmt = null;
+    Statement stmt = null;
+    ResultSet rs = null;
     int nuevoId = 0;
 
     try {
+      // Precondición el NIF no existe en BDD
+      sql = "SELECT nif FROM persona WHERE nif='" + cli.getNif() + "'";
+      System.out.println("Ejecuando: " + sql);
+      stmt = gd.getConexion().createStatement();
+
+      rs = stmt.executeQuery(sql);
+
+      if(rs.next()){
+        throw new errorSQL("NIF duplicado en INSERT");
+      }
+      
+      // Primero insertamos en persona -------------------------------
       gd.begin();
-      // Primero inserttamos en persona -------------------------------
       sql = "INSERT INTO persona(nif, nombre, apellido1, apellido2, "
           + "direccion, poblacion,telefono, movil, email, fecha_baja)"
           + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
@@ -113,18 +131,14 @@ public class GestorCliente {
       pstmt.setString(1, cli.getNif());// nif character varying(9),
       pstmt.setString(2, cli.getNombre());// nombre character varying(50),
       pstmt.setString(3, cli.getApellido1());// apellido1 character
-      // varying(100),
       pstmt.setString(4, cli.getApellido2());// apellido2 character
-      // varying(100),
       pstmt.setString(5, cli.getDireccion());// direccion character
-      // varying(100),
       pstmt.setString(6, cli.getPoblacion());// poblacion character
-      // varying(100),
       pstmt.setString(7, cli.getTelefono());// telefono character varying(16),
       pstmt.setString(8, cli.getMovil());// movil character varying(16),
       pstmt.setString(9, cli.getEmail());// email character varying(100),
       pstmt.setDate(10, (java.sql.Date) cli.getFechaBaja());// fecha_baja date,
-      ResultSet rs = pstmt.executeQuery();
+      rs = pstmt.executeQuery();
       System.out.println("Devolviendo el nuevo ID");
       if (rs.next()) {
         nuevoId = rs.getInt(1);
@@ -338,8 +352,8 @@ public class GestorCliente {
     try {
       GestorCliente gCli = new GestorCliente();
       try {
-        c.setId(0);
-        c.setNif("12345678");
+        c.setId(2);
+        c.setNif("12345679");
         c.setNombre("Pepe");
         c.setApellido1("Pérez");
         c.setApellido2("Gómez");
@@ -351,12 +365,12 @@ public class GestorCliente {
         c.setCodUsuario("2");
         c.setTarjetaCredito("123456789");
 
-        // gCli.elimina(c);
-        // gCli.addCliente(c);
+//        gCli.elimina(c);
+         gCli.addCliente(c);
         // gCli.getCliente(0);
         // System.out.println(gCli.lista());
-//        System.out.println(gCli.listaPorApellidos("Pérez", "Gómez"));
-        System.out.println(gCli.listaPorNomre("Pepe"));
+        // System.out.println(gCli.listaPorApellidos("Pérez", "Gómez"));
+        // System.out.println(gCli.listaPorNomre("Pepe"));
         // Vector<Cliente> v = gCli.lista();
         // for (int i = 0; i < v.size(); i++) {
         // System.out.println("Elemento " + i + ": " + v.get(i).getId() + "-"
