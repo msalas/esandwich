@@ -23,9 +23,6 @@ public class GestorUsuario {
 			if (!rUsu.getPassword().equals(password)) {
 				throw new GestorUsuarioException();
 			}
-			if (!rUsu.getPassword().equals(password)) {
-				throw new GestorUsuarioException();
-			}
 			if (rUsu.getFechaBaja() != null) {
 				throw new GestorUsuarioException("Usuario dado de baja");
 			}
