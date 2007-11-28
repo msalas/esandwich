@@ -10,8 +10,11 @@ import javax.swing.JTextField;
 
 
 public class PantallaLogin extends JDialog {
-	
+	private static final long serialVersionUID = 1L;
+
 	private AplicacionComprador ac;
+	
+	private AplicacionEmpleado ae;
 
 	private JPanel jContentPane = null;
 
@@ -32,9 +35,14 @@ public class PantallaLogin extends JDialog {
 	public PantallaLogin(AplicacionComprador ac){
 		super(ac,"Iniciar Sesión ...",true);
 		this.ac = ac;
-		initialize();
+		initializeAc();
 	}
 
+	public PantallaLogin(AplicacionEmpleado ae){
+		super(ae,"Iniciar Sesión ...",true);
+		this.ae = ae;
+		initializeAe();
+	}
 
 	
 	/**
@@ -42,13 +50,21 @@ public class PantallaLogin extends JDialog {
 	 * 
 	 * @return void
 	 */
-	private void initialize() {
+	private void initializeAc() {
 		this.setSize(300, 200);
 		this.setContentPane(getJContentPane());
 		cpl = new ControladorPantallaLogin(this,ac);
 		btnLogin.addActionListener(cpl);
 	}
 
+	private void initializeAe() {
+		this.setSize(300, 200);
+		this.setContentPane(getJContentPane());
+		cpl = new ControladorPantallaLogin(this,ae);
+		btnLogin.addActionListener(cpl);
+	}
+	
+	
 	/**
 	 * This method initializes jContentPane
 	 * 

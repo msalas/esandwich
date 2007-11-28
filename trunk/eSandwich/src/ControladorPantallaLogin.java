@@ -9,12 +9,19 @@ public class ControladorPantallaLogin implements ActionListener {
 
 	PantallaLogin pl = null;
 	AplicacionComprador ac = null;
+	AplicacionEmpleado ae = null;
 	ServiciosCompradorModelo scrm = null;
 	
 	public ControladorPantallaLogin(PantallaLogin pantallaLogin, AplicacionComprador ac) {
 		pl = pantallaLogin;	
 		this.ac = ac;
 	}
+
+	public ControladorPantallaLogin(PantallaLogin pantallaLogin, AplicacionEmpleado ae) {
+		pl = pantallaLogin;	
+		this.ae = ae;
+	}
+
 
 	public void actionPerformed(ActionEvent arg0) {
 	
