@@ -3,6 +3,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.Vector;
 
 public class GestorFamiliaProd {
@@ -26,7 +28,7 @@ public class GestorFamiliaProd {
 		ResultSet rs = null;
 		try {
 			stmt = con.createStatement();
-			rs = stmt.executeQuery("SELECT * from FamiliaProductos");
+			rs = stmt.executeQuery("SELECT * from familia");
 			while(rs.next()){
 				fp = new FamiliaProducto(rs.getInt(1), rs.getString(2));
 				v.add(fp);
@@ -70,15 +72,15 @@ public class GestorFamiliaProd {
 
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
-		FamiliaProducto f=null;
+		
 		String fp;
-		PreparedStatement pstmt = null;
+		PreparedStatement pstmt;
 		
 		try {
 			gd.begin();
 			
-			fp= "DELETE FROM familia WHERE f.id = '"+ idFamilia+"'";
-			
+			fp= "DELETE FROM familia WHERE familia.id = '"+ idFamilia+"'";
+			pstmt = con.prepareStatement(fp);
 			gd.commit();
 			pstmt.execute();
 			pstmt.close();
@@ -90,26 +92,29 @@ public class GestorFamiliaProd {
 
 	}
 	
-	public FamiliaProducto consultaFamiliaProducto(int idFamilia) throws errorSQL, errorConexionBD {
-				
-		FamiliaProducto p = null;
+	public FamiliaProducto consultaFamiliaProducto(int idFamilia) throws errorSQL, errorConexionBD {		
+		
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
-		Statement stmt = null;
-		int id = 0;
+		FamiliaProducto fp = new FamiliaProducto();
+		Statement st = null;
+		ResultSet rs=null;
+		String consulta="SELECT id, descripcion FROM familia WHERE familia.id=" + idFamilia;
 		try {
-			stmt = con.createStatement();
-			String consulta="SELECT from producto(id, descripcion) WHERE p.id=" + idFamilia+ "'";
-			ResultSet rs = stmt.executeQuery(consulta);
-			if(rs.next()) id= rs.getInt(1); 
+			st=con.createStatement();
+			rs=st.executeQuery(consulta);
+			
+			while (rs.next()){
+				fp.setIdFamilia(rs.getInt("id"));
+				fp.setDescripcion(rs.getString("descripcion"));
+			}
 			rs.close();
-			stmt.close();
-			p = new FamiliaProducto(rs.getInt(1), rs.getString(2));
+			st.close();
+			return fp;
 			
 		} catch (SQLException e) {
 			throw new errorSQL(e.toString());
-		}
-		return p;
+		}	
 	}
 	
 
@@ -119,6 +124,28 @@ public class GestorFamiliaProd {
 		
 	}
 
-	
+	public static void main(String[] arg) throws errorSQL,errorConexionBD{
+		
+		FamiliaProducto fp1 = new FamiliaProducto(2, "bebidas");
+		FamiliaProducto fp2 = new FamiliaProducto(3, "postres");
+		FamiliaProducto fp3 = new FamiliaProducto(4, "bolleria");
+		
+		GestorFamiliaProd gpf= new GestorFamiliaProd();
+		
+		gpf.insertarFamiliaProducto(fp1);
+		gpf.insertarFamiliaProducto(fp2);
+		gpf.insertarFamiliaProducto(fp3);
+		
+		for (Enumeration<FamiliaProducto> fp = (gpf.listaProductoPorFamilia()).elements() ; fp.hasMoreElements() ;) {
+			FamiliaProducto pd = fp.nextElement();
+			System.out.println(pd.toString());
+			}
+
+		FamiliaProducto fp=gpf.consultaFamiliaProducto(0);
+		System.out.println(fp.toString());
+			
+		gpf.eliminaFamiliaProducto(4);
+				
+		}
 	
 }

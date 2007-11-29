@@ -3,7 +3,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
+//import java.util.Date;
+//import java.util.Iterator;
+//import java.util.Vector;
+import java.util.Vector;
 
 
 public class GestorFacturacion {
@@ -19,40 +22,43 @@ public class GestorFacturacion {
 	
 	public Facturacion consultaFactura(int idFactura) throws errorSQL, errorConexionBD {
 		
-		
-		Facturacion f = null;
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
-		Statement stmt = null;
-		int id = 0;
+		Statement st = null;
+		ResultSet rs=null;
+		String consulta="SELECT id, id_pedido, fecha, importe FROM factura WHERE factura.id=" + idFactura;
+		Facturacion f = new Facturacion();
 		try {
-			stmt = con.createStatement();
-			String consulta="SELECT from factura(id, id_pedido, fecha, importe) WHERE f.id=" + idFactura+ "'";
-			ResultSet rs = stmt.executeQuery(consulta);
-			if(rs.next()) id= rs.getInt(1); 
-			rs.close();
-			stmt.close();
-			f = new Facturacion(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getInt(4));
+			st=con.createStatement();
+			rs=st.executeQuery(consulta);
 			
-		} catch (SQLException e) {
+			while (rs.next()){
+				f.setId(rs.getInt("id"));
+				f.setIdPedido(rs.getInt("id_pedido"));
+				f.setFecha(rs.getDate("fecha"));
+				f.setImporte(rs.getInt("importe"));
+			}
+			rs.close();
+			st.close();
+			return f;
+		} 
+		catch (SQLException e) {
 			throw new errorSQL(e.toString());
-		}
-		return f;
+		}		
 	}
 	
 	public void eliminaFactura(int idFactura) throws errorSQL, errorConexionBD {
 
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
-		Facturacion f=null;
+		
 		String pr;
-		PreparedStatement pstmt = null;
+		PreparedStatement pstmt;
 		
 		try {
 			gd.begin();
-			
-			pr= "DELETE FROM factura WHERE f.id = '"+ idFactura+"'";
-			
+			pr= "DELETE FROM factura WHERE factura.id = '"+ idFactura+"'";
+			pstmt = con.prepareStatement(pr);
 			gd.commit();
 			pstmt.execute();
 			pstmt.close();
@@ -61,45 +67,60 @@ public class GestorFacturacion {
 			gd.rollback();
 			throw new errorSQL(e.toString());
 		}
-
 	}
 	
-	public void insertarFactura(int id, int idPedido, Date fecha, int importe) throws errorSQL, errorConexionBD {
+	public void insertarFactura(Facturacion f) throws errorSQL, errorConexionBD {
 		
-		String p;
+		
 		PreparedStatement pstmt = null;
 		
-		int i = 0;
+		
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
 		
 		try {
 			gd.begin();
-			p=	"INSERT INTO factura (id, id_pedido, fecha, importe)" + "VALUES (?,?,?,?) RETURNING id" ;			
+			String p=	"INSERT INTO factura (id, id_pedido, fecha, importe)" + "VALUES (?,?,?,?)" ;			
 			pstmt = con.prepareStatement(p);
-			pstmt.setInt(1,id);
-			pstmt.setInt(2,idPedido);
-			pstmt.setTimestamp(3,new java.sql.Timestamp ( fecha.getTime()));
-			pstmt.setInt(4, importe);
+			pstmt.setInt(1,f.getId());
+			pstmt.setInt(2,f.getIdPedido());
+			pstmt.setTimestamp(3,new java.sql.Timestamp (f.getFecha().getTime()));
+			pstmt.setInt(4, f.getImporte());
 			gd.commit();
-			ResultSet rs = pstmt.executeQuery();
-			if(rs.next()) i = rs.getInt(1);
-			rs.close();
+			pstmt.execute();
+			pstmt.close();
+			pstmt = null;	
 		
 		} catch (SQLException e) {
 			gd.rollback();
 			throw new errorSQL(e.toString());
 		}
-
 	}
 	
 	
-	// FALTA LLISTAR PER DATES
+	// FALTA LLISTAR PER DATES; no se com es fa
+	
+	public Vector<Facturacion> listaFacturas() throws errorSQL, errorConexionBD{
+		
+		Vector<Facturacion> v = new Vector<Facturacion>();
+		return v;
+	
+	}
 	
 
 	public void liberarRecursos(){
 		
-		gd.cerrarConexion();
-		
+		gd.cerrarConexion();	
 	}
+	
+	public static void main(String[] arg) throws errorSQL,errorConexionBD{
+		
+		//no se com entrar les dates, quin format tenen
+		//Facturacion f = new Facturacion(0, 0,date(Gener,01,2008), 15);
+		
+		GestorFacturacion gf= new GestorFacturacion();
+		//gf.insertarFactura(f);
+		System.out.println(gf.consultaFactura(0));
+	}
+	
 }
