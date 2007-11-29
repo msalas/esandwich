@@ -75,7 +75,10 @@ public class AplicacionEmpleado extends JFrame {
 		// Inicializamos modelo
 		
 		try {
-			sm = new ServiciosEmpleadoModelo();
+			
+			// Cuando el empleado no se ha logineado solo debe tener acceso a 
+			// login, no a mas servicios
+			sm = new ServiciosAccesoModelo();
 
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
