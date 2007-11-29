@@ -33,7 +33,7 @@ public class GestorProducto {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery("SELECT * from producto");
 			while(rs.next()){
-				p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getInt(5), rs.getInt(6));
+				p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getInt(5), rs.getFloat(6));
 				v.add(p);
 			}
 			rs.close();
@@ -56,7 +56,7 @@ public class GestorProducto {
 			String s = "SELECT * FROM producto WHERE producto.id_familia="+idFamilia;
 			ResultSet rs = stmt.executeQuery(s);
 			while(rs.next()){
-				p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getInt(5), rs.getInt(6));
+				p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getInt(5), rs.getFloat(6));
 				v.add(p);
 			}
 				
@@ -91,7 +91,7 @@ public class GestorProducto {
 			pstmt.setString(3,p.getDescripcionAmpliada());
 			pstmt.setInt(4, p.getExistencias());
 			pstmt.setInt(5,p.getIdFamilia());
-			pstmt.setInt(6,p.getPrecio());
+			pstmt.setFloat(6,p.getPrecio());
 			gd.commit();
 			pstmt.execute();
 			pstmt.close();
@@ -144,7 +144,7 @@ public class GestorProducto {
 				p.setDescripcionAmpliada(rs.getString("descripcion_ampliada"));
 				p.setExistencias(rs.getInt("existencias"));
 				p.setIdFamilia(rs.getInt("id_familia"));
-				p.setPrecio(rs.getInt("precio"));
+				p.setPrecio(rs.getFloat("precio"));
 			}
 			rs.close();
 			st.close();
