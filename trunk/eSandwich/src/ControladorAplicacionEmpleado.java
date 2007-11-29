@@ -5,10 +5,10 @@ import java.awt.event.ActionListener;
 public class ControladorAplicacionEmpleado implements ActionListener {
 
 	AplicacionEmpleado ae = null;
-	
+	ServiciosAdAuxModelo sam = null;
+
 	public ControladorAplicacionEmpleado(
 			AplicacionEmpleado aplicacionEmpleado) {
-		
 		ae = aplicacionEmpleado;
 	}
 
@@ -17,30 +17,16 @@ public class ControladorAplicacionEmpleado implements ActionListener {
 	
 		String action = evt.getActionCommand();
 		
-	if(action.equals("IS")){
+		if(action.equals("IS")){
 		
-		new PantallaLogin(ae);
+			new PantallaLogin(ae).setVisible(true);
 		
-	}else if(action.equals("CS")){
-	
-	}else if(action.equals("AR")){
-		
-		new PantallaUsuarisWindow(ae);
-		
-	}else if(action.equals("CDP")){
-		
-	}else if(action.equals("MDP")){
 
-	}else if(action.equals("PPa")){
+		}else if(action.equals("AR")){
 		
-	}else if(action.equals("PPu")){
-		
-	}else if(action.equals("PS")){
-	
-	}else if(action.equals("RP")){
+			new PantallaAltaEmpleado(ae).setVisible(true);			
 			
-	}
-	
+		}	
 	}
 
 }

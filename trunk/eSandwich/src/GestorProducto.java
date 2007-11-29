@@ -3,10 +3,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-//import java.text.ParseException;
-//import java.util.Collection;
-import java.util.Enumeration;
-//import java.util.Iterator;
+import java.text.ParseException;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Vector;
 
 
@@ -33,7 +32,7 @@ public class GestorProducto {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery("SELECT * from producto");
 			while(rs.next()){
-				p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getInt(5), rs.getFloat(6));
+				p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getInt(5), rs.getInt(6));
 				v.add(p);
 			}
 			rs.close();
@@ -52,11 +51,11 @@ public class GestorProducto {
 		else throw new errorConexionBD("No hay conexion!");
 		Statement stmt = null;
 		try {
-			stmt = con.createStatement();
-			String s = "SELECT * FROM producto WHERE producto.id_familia="+idFamilia;
+			stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			String s = "SELECT p.id, p.descripcion,p.descripcion_ampliada, p.existencias, p.id_familia, p.precio from producto p, familia f where p.id=f.id and f.id='"+idFamilia+"'";
 			ResultSet rs = stmt.executeQuery(s);
 			while(rs.next()){
-				p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getInt(5), rs.getFloat(6));
+				p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getInt(5), rs.getInt(6));
 				v.add(p);
 			}
 				
@@ -70,11 +69,11 @@ public class GestorProducto {
 		return v;
 	}
 	
-	public int insertarProducto(Producto p) throws  errorSQL, errorConexionBD {
+	public void insertarProducto(Producto p) throws  errorSQL, errorConexionBD {
 	
-		int id=0;
+		
 		PreparedStatement pstmt = null;
-		Statement stmt = null;
+		
 		
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
@@ -95,108 +94,61 @@ public class GestorProducto {
 			gd.commit();
 			pstmt.execute();
 			pstmt.close();
-			pstmt = null;
-			
-			String str = "select currval('id')";
-			stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(str);
-			if (rs.next()) id = rs.getInt(1);
-			rs.close();
-			stmt.close();
-					
+			pstmt = null;		
 		} catch (SQLException e) {
 			gd.rollback();
 			throw new errorSQL(e.toString());
 		}
-		return id;
+
 	}
 	
-	public int eliminaProducto(int idProducto) throws errorSQL, errorConexionBD {
+	public void eliminaProducto(int idProducto) throws errorSQL, errorConexionBD {
 
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
-		int id=idProducto;
+		
 		String pr;
-		PreparedStatement pstmt;
+		PreparedStatement pstmt = null;
 		
 		try {
 			gd.begin();
-			pr= "DELETE FROM producto WHERE producto.id = '"+ idProducto+"'";
-			pstmt = con.prepareStatement(pr);
+			
+			pr= "DELETE FROM producto WHERE p.id = '"+ idProducto+"'";
+			pstmt.execute(pr);
 			gd.commit();
-			pstmt.execute();
 			pstmt.close();
 		
 		} catch (SQLException e) {
 			gd.rollback();
 			throw new errorSQL(e.toString());
 		}
-		return id;
+
 	}
 	
 	public Producto consultaProducto(int idProducto) throws errorSQL, errorConexionBD {
 		
+		
+		Producto p = null;
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
-		Statement st = null;
-		ResultSet rs=null;
-		String consulta="SELECT id, descripcion, descripcion_ampliada, existencias, id_familia, precio FROM producto WHERE producto.id=" + idProducto;
-		Producto p = new Producto();
-		try {
-			st=con.createStatement();
-			rs=st.executeQuery(consulta);
-			
-			while (rs.next()){
-				p.setIdProducto(rs.getInt("id"));
-				p.setDescripcion(rs.getString("descripcion"));
-				p.setDescripcionAmpliada(rs.getString("descripcion_ampliada"));
-				p.setExistencias(rs.getInt("existencias"));
-				p.setIdFamilia(rs.getInt("id_familia"));
-				p.setPrecio(rs.getFloat("precio"));
-			}
-			rs.close();
-			st.close();
-			return p;
-		} 
-		catch (SQLException e) {
-			throw new errorSQL(e.toString());
-		}		
-	}
-	
-	public boolean existeProducto(int id) throws errorSQL, errorConexionBD{
-		String strSQL = "";
-		boolean existeProducto;
-		
-		if(gd.isConectado()) con = gd.getConexion();
-		else throw new errorConexionBD("No hay conexión!");
-
 		Statement stmt = null;
-					
+		int id = 0;
 		try {
-			gd.begin();
-			
-			strSQL = "SELECT id "
-				+ "FROM producto "
-				+ "WHERE id ='" + id + "' ";
 			stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(strSQL);
-			if (rs.next()){
-				existeProducto = true;
-			}
-			else {
-				existeProducto = false;
-			}
+			String consulta="SELECT from producto(id, descripcion, descripcion_ampliada, existencias, id_familia, precio ) WHERE p.id=" + idProducto+ "'";
+			ResultSet rs = stmt.executeQuery(consulta);
+			if(rs.next()) id= rs.getInt(1); 
 			rs.close();
 			stmt.close();
-			gd.commit();
-			return existeProducto;
-		} 
-		catch (SQLException e) {
+			p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6));
+			
+		} catch (SQLException e) {
 			throw new errorSQL(e.toString());
 		}
+		return p;
 	}
 	
-	
+
 	public void liberarRecursos(){
 		
 		gd.cerrarConexion();
@@ -205,43 +157,20 @@ public class GestorProducto {
 
 	public static void main(String[] arg) throws errorSQL,errorConexionBD{
 		
-		GestorProducto gp=new GestorProducto();
-		FamiliaProducto fp1 = new FamiliaProducto(0, "embutidos");
-		FamiliaProducto fp2 = new FamiliaProducto(1, "pan");
+		FamiliaProducto fp = new FamiliaProducto(0, "embutido");
 		
 		GestorFamiliaProd gpf= new GestorFamiliaProd();
-		gpf.insertarFamiliaProducto(fp1);
-		gpf.insertarFamiliaProducto(fp2);
+		gpf.insertarFamiliaProducto(fp);
 		
-		Producto pr1=new Producto(0,"longaniza", "extra", 100, 0, 15);
-		Producto pr2=new Producto(1,"panecillo", "blanco", 10, 1, 8);
-		Producto pr3=new Producto(2,"jamon", "curado del pais", 1000, 0, 10);
-		Producto pr4=new Producto(3,"coca", "de cereales", 1, 1, 23);
-		Producto pr5=new Producto(4,"queso", "cabra", 15, 0, 17);
-			
-		gp.insertarProducto(pr1);
-		gp.insertarProducto(pr2);
-		gp.insertarProducto(pr3);
-		gp.insertarProducto(pr4);
-		gp.insertarProducto(pr5);
+		Producto p=new Producto(0,"bocata", "de chorizo", 5, 0, 4);
 		
+		GestorProducto gp=new GestorProducto();
+		gp.insertarProducto(p);
 		
-		for (Enumeration<Producto> p = (gp.listaProductos()).elements() ; p.hasMoreElements() ;) {
-			Producto pd = p.nextElement();
-			System.out.println(pd.toString());
+		Vector v=gp.listaProductos();
+		Iterator it=v.iterator();
+		while (it.hasNext()){
+			System.out.println(it.next());
 		}
-		
-		
-		Producto p=gp.consultaProducto(0);
-		System.out.println(p.toString());
-			
-		gp.eliminaProducto(0);
-		
-		
-		for (Enumeration<Producto> p1 = (gp.listaProductoPorFamilia(0)).elements() ; p1.hasMoreElements() ;) {
-		Producto pd = p1.nextElement();
-		System.out.println(pd.toString());
-		}
-		
 	}
 }

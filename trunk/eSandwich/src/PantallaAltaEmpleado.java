@@ -16,7 +16,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JDialog;
 
-public class PantallaUsuarisWindow extends JDialog {
+public class PantallaAltaEmpleado extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jContentPane = null;
@@ -52,12 +52,13 @@ public class PantallaUsuarisWindow extends JDialog {
 	private JLabel jLabel2 = null;
 	private JLabel jLabel3 = null;
 	private AplicacionEmpleado ae;
-	private ControladorAplicacionEmpleado cpl = null;
+	private ControladorPantallaAltaEmpleado cpl = null;  //  @jve:decl-index=0:
+	private Empleado emp = null;
 	/**
 	 * This is the default constructor
 	 */
 
-	public PantallaUsuarisWindow(AplicacionEmpleado ae){
+	public PantallaAltaEmpleado(AplicacionEmpleado ae){
 		super(ae,"Alta empleado",true);
 		this.ae = ae;
 		initialize();
@@ -72,7 +73,8 @@ public class PantallaUsuarisWindow extends JDialog {
 	private void initialize() {
 		this.setSize(494, 384);
 		this.setContentPane(getJContentPane());
-		cpl = new ControladorAplicacionEmpleado(ae);
+		cpl = new ControladorPantallaAltaEmpleado(this,ae);
+		jButtonCrear.setActionCommand("ARX");
 		jButtonCrear.addActionListener(cpl);
 	}
 	
@@ -398,12 +400,17 @@ public class PantallaUsuarisWindow extends JDialog {
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getJButtonCancellar() {
+	public JButton getJButtonCancellar() {
 		if (jButtonCancellar == null) {
 			jButtonCancellar = new JButton();
 			jButtonCancellar.setLocation(new Point(299, 307));
 			jButtonCancellar.setText("Cancel·lar");
 			jButtonCancellar.setSize(new Dimension(95, 28));
+			jButtonCancellar.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					dispose();
+				}
+			});
 		}
 		return jButtonCancellar;
 	}
@@ -422,4 +429,32 @@ public class PantallaUsuarisWindow extends JDialog {
 		return jComboBox;
 	}
 
-}  //  @jve:decl-index=0:visual-constraint="10,10"
+
+	public Empleado montaEmpleado() {
+		Empleado auxEmp = new Empleado();
+		auxEmp.setNif("0000086N");
+		auxEmp.setNombre("Eruka");
+		auxEmp.setApellido1("Java");
+		auxEmp.setApellido2("Dificil");
+		auxEmp.setDireccion("direccion 2");
+		auxEmp.setPoblacion("poblacion 2");
+		auxEmp.setTelefono("telefono 2");
+		auxEmp.setMovil("movil 2");
+		auxEmp.setEmail("email 2");
+		auxEmp.setPassword("123410");
+		auxEmp.setDesactivado(false);
+		//emp.setRol(pRol);
+		return auxEmp;
+	}
+
+
+	public Empleado getEmp() {
+		setEmp(montaEmpleado());
+		return emp;
+	}
+
+
+	public void setEmp(Empleado emp) {
+		this.emp = emp;
+	}
+}

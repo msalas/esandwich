@@ -16,10 +16,6 @@ public class Facturacion implements Serializable {
 		this.importe=importe;
 	}
 	
-	public Facturacion (){
-		super();
-	}
-	
 	public int getImporte() {
 		return importe;
 	}
@@ -52,7 +48,4 @@ public class Facturacion implements Serializable {
 		this.idPedido = idPedido;
 	}
 		
-	public String toString(){
-		return "id: " + id + "\nid pedido: "+idPedido + "\nfecha: "+ fecha + "\nimporte: "+ importe; 
-	}
 }

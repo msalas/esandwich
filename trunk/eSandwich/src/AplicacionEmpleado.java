@@ -7,6 +7,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import javax.swing.JMenu;
+import java.awt.Dimension;
+import javax.swing.SwingConstants;
 
 
 // Falta cambiar los comentarios 
@@ -16,42 +18,23 @@ public class AplicacionEmpleado extends JFrame {
 
 	private JPanel jContentPane = null;
 
-	private JMenuBar jbarramenu = null;
-
-	private JMenu jLogin = null;
-	
-	private JMenuItem jIniciarSesion = null;
-	
-	private JMenu jLogout = null;
-
-	private JMenuItem jCerrarSesion = null;
-
-	private JMenu jRegistro = null;
-
-	private JMenuItem jAltaRegistro = null;
-
-	private JMenu jDatosPersonales = null;
-
-	private JMenuItem jConsultarDP = null;
-	
-	private JMenuItem jModificarDP = null;
-
-	private JMenu jPromociones = null;
-
-	private JMenuItem jPromocionesPanel = null;
-
-	private JMenuItem jPromocionesPuntos = null;
-
-	private JMenuItem jPromocionesSeleccion = null;
-
-	private JMenu jPedido = null;
-
-	private JMenuItem jRealizarPedido = null;
-
-	private ServiciosModelo sm = null;
+	private ServiciosModelo sm = null;  //  @jve:decl-index=0:
 
 	private ControladorAplicacionEmpleado cae = null;
-	
+
+	private JMenuBar jJMenuBar = null;
+
+	private JMenu jMenuSesion = null;
+
+	private JMenuItem jMenuItemLogin = null;
+
+	private JMenuItem jMenuItemLogout = null;
+
+	private JMenu jMenuEmpleados = null;
+
+	private JMenuItem jMenuItemAltaEmpleado = null;
+
+
 	/**
 	 * This is the default constructor
 	 */
@@ -68,16 +51,13 @@ public class AplicacionEmpleado extends JFrame {
 	 */
 	private void initialize() {
 		this.setSize(536, 362);
-		this.setJMenuBar(getJbarramenu());
+		this.setJMenuBar(getJJMenuBar());
 		this.setContentPane(getJContentPane());
 		this.setTitle("eSandvitx");
 		
 		// Inicializamos modelo
 		
-		try {
-			
-			// Cuando el empleado no se ha logineado solo debe tener acceso a 
-			// login, no a mas servicios
+/*		try {
 			sm = new ServiciosAccesoModelo();
 
 		} catch (MalformedURLException e) {
@@ -89,39 +69,20 @@ public class AplicacionEmpleado extends JFrame {
 		} catch (NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} */ 
 		
 		// Inicializamos controlador para acciones del menu
 		
 		cae = new ControladorAplicacionEmpleado(this);
 		
-		jIniciarSesion.setActionCommand("IS");
-		jIniciarSesion.addActionListener(cae);
-		
-		jCerrarSesion.setActionCommand("CS");
-		jCerrarSesion.addActionListener(cae);
-		
-		jAltaRegistro.setActionCommand("AR");
-		jAltaRegistro.addActionListener(cae);
-		
-		jConsultarDP.setActionCommand("CDP");
-		jConsultarDP.addActionListener(cae);
-		
-		jModificarDP.setActionCommand("MDP");
-		jModificarDP.addActionListener(cae);
-		
-		jPromocionesPanel.setActionCommand("PPa");
-		jPromocionesPanel.addActionListener(cae);
-		
-		jPromocionesPuntos.setActionCommand("PPu");
-		jPromocionesPuntos.addActionListener(cae);
-		
-		jPromocionesSeleccion.setActionCommand("PS");
-		jPromocionesSeleccion.addActionListener(cae);
-		
-		jRealizarPedido.setActionCommand("RP");
-		jRealizarPedido.addActionListener(cae);
-		
+		jMenuItemLogin.setActionCommand("IS");
+		jMenuItemLogin.addActionListener(cae);
+
+		jMenuItemLogout.setActionCommand("CS");
+		jMenuItemLogout.addActionListener(cae);
+
+		jMenuItemAltaEmpleado.setActionCommand("AR");
+		jMenuItemAltaEmpleado.addActionListener(cae);
 	}
 
 	
@@ -134,254 +95,120 @@ public class AplicacionEmpleado extends JFrame {
 		if (jContentPane == null) {
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
+			jContentPane.setPreferredSize(new Dimension(1, 1));
 		}
 		return jContentPane;
 	}
 
 	/**
-	 * This method initializes jbarramenu	
+	 * This method initializes jJMenuBar	
 	 * 	
 	 * @return javax.swing.JMenuBar	
 	 */
-	private JMenuBar getJbarramenu() {
-		if (jbarramenu == null) {
-			jbarramenu = new JMenuBar();
-			jbarramenu.add(getJLogin());
-			jbarramenu.add(getJLogout());
-			jbarramenu.add(getJRegistro());
-			jbarramenu.add(getJDatosPersonales());
-			jbarramenu.add(getJPromociones());
-			jbarramenu.add(getJPedido());
+	private JMenuBar getJJMenuBar() {
+		if (jJMenuBar == null) {
+			jJMenuBar = new JMenuBar();
+			jJMenuBar.setPreferredSize(new Dimension(418, 23));
+			jJMenuBar.add(getJMenuSesion());
+			jJMenuBar.add(getJMenuEmpleados());
 		}
-		return jbarramenu;
+		return jJMenuBar;
 	}
 
+
 	/**
-	 * This method initializes jlogin	
+	 * This method initializes jMenuSesion	
 	 * 	
 	 * @return javax.swing.JMenu	
 	 */
-	private JMenu getJLogin() {
-		if (jLogin == null) {
-			jLogin = new JMenu();
-			jLogin.setText("Login");
-			jLogin.add(getJIniciarSesion());
+	private JMenu getJMenuSesion() {
+		if (jMenuSesion == null) {
+			jMenuSesion = new JMenu();
+			jMenuSesion.setPreferredSize(new Dimension(60, 5));
+			jMenuSesion.setRolloverEnabled(false);
+			jMenuSesion.setHorizontalAlignment(SwingConstants.LEADING);
+			jMenuSesion.setHorizontalTextPosition(SwingConstants.TRAILING);
+			jMenuSesion.setSize(new Dimension(50, 21));
+			jMenuSesion.setText("Sesión");
+			jMenuSesion.add(getJMenuItemLogin());
+			jMenuSesion.add(getJMenuItemLogout());
 		}
-		return jLogin;
+		return jMenuSesion;
 	}
 
 	/**
-	 * This method initializes jMenuItemIniciSesion	
+	 * This method initializes jMenuItemLogin	
 	 * 	
 	 * @return javax.swing.JMenuItem	
 	 */
-	private JMenuItem getJIniciarSesion() {
-		if (jIniciarSesion == null) {
-			jIniciarSesion = new JMenuItem();
-			jIniciarSesion.setText("Iniciar Sesión");
+	private JMenuItem getJMenuItemLogin() {
+		if (jMenuItemLogin == null) {
+			jMenuItemLogin = new JMenuItem();
+			jMenuItemLogin.setPreferredSize(new Dimension(63, 21));
+			jMenuItemLogin.setText("Login");
 		}
-		return jIniciarSesion;
+		return jMenuItemLogin;
 	}
 
 	/**
-	 * This method initializes jLogout	
+	 * This method initializes jMenuItemLogout	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemLogout() {
+		if (jMenuItemLogout == null) {
+			jMenuItemLogout = new JMenuItem();
+			jMenuItemLogout.setText("Logout");
+		}
+		return jMenuItemLogout;
+	}
+
+	/**
+	 * This method initializes jMenuEmpleados	
 	 * 	
 	 * @return javax.swing.JMenu	
 	 */
-	private JMenu getJLogout() {
-		if (jLogout == null) {
-			jLogout = new JMenu();
-			jLogout.setText("Logout");
-			jLogout.add(getJCerrarSesion());
+	private JMenu getJMenuEmpleados() {
+		if (jMenuEmpleados == null) {
+			jMenuEmpleados = new JMenu();
+			jMenuEmpleados.setPreferredSize(new Dimension(75, 5));
+			jMenuEmpleados.setText("Empleados");
+			jMenuEmpleados.add(getJMenuItemAltaEmpleado());
 		}
-		return jLogout;
+		return jMenuEmpleados;
 	}
 
 	/**
-	 * This method initializes jCerrarSesion	
+	 * This method initializes jMenuItemAltaEmpleado	
 	 * 	
 	 * @return javax.swing.JMenuItem	
 	 */
-	private JMenuItem getJCerrarSesion() {
-		if (jCerrarSesion == null) {
-			jCerrarSesion = new JMenuItem();
-			jCerrarSesion.setText("Cerrar Sesión");
+	private JMenuItem getJMenuItemAltaEmpleado() {
+		if (jMenuItemAltaEmpleado == null) {
+			jMenuItemAltaEmpleado = new JMenuItem();
+			jMenuItemAltaEmpleado.setText("Alta");
+			jMenuItemAltaEmpleado.setPreferredSize(new Dimension(63, 21));
 		}
-		return jCerrarSesion;
-	}
-	
-	/**
-	 * This method initializes jRegistre	
-	 * 	
-	 * @return javax.swing.JMenu	
-	 */
-	private JMenu getJRegistro() {
-		if (jRegistro == null) {
-			jRegistro = new JMenu();
-			jRegistro.setText("Registro");
-			jRegistro.add(getJAltaRegistro());
-		}
-		return jRegistro;
+		return jMenuItemAltaEmpleado;
 	}
 
-	
-	/**
-	 * This method initializes jMenuItemAlta	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
-	private JMenuItem getJAltaRegistro() {
-		if (jAltaRegistro == null) {
-			jAltaRegistro = new JMenuItem();
-			jAltaRegistro.setText("Alta");
-		}
-		return jAltaRegistro;
-	}
-	
-	/**
-	 * This method initializes jDadesPersonals	
-	 * 	
-	 * @return javax.swing.JMenu	
-	 */
-	private JMenu getJDatosPersonales() {
-		if (jDatosPersonales == null) {
-			jDatosPersonales = new JMenu();
-			jDatosPersonales.setText("Dades Personals");
-			jDatosPersonales.add(getJConsultarDP());
-			jDatosPersonales.add(getJModificarDP());
-		}
-		return jDatosPersonales;
-	}
-
-	
-	/**
-	 * This method initializes jMenuItemConsulta	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
-	private JMenuItem getJConsultarDP() {
-		if (jConsultarDP == null) {
-			jConsultarDP = new JMenuItem();
-			jConsultarDP.setText("Consulta");
-		}
-		return jConsultarDP;
-	}
-	
-	/**
-	 * This method initializes jMenuItemModificar	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
-	private JMenuItem getJModificarDP() {
-		if (jModificarDP == null) {
-			jModificarDP = new JMenuItem();
-			jModificarDP.setText("Modificar");
-		}
-		return jModificarDP;
-	}
-
-	
-	/**
-	 * This method initializes jPromocions	
-	 * 	
-	 * @return javax.swing.JMenu	
-	 */
-	private JMenu getJPromociones() {
-		if (jPromociones == null) {
-			jPromociones = new JMenu();
-			jPromociones.setText("Promocions");
-			jPromociones.add(getJPromocionesPanel());
-			jPromociones.add(getJPromocionesPuntos());
-			jPromociones.add(getJPromocionesSeleccion());
-		}
-		return jPromociones;
-	}
-	
-	/**
-	 * This method initializes jMenuItemPromocionsPanell	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
-	private JMenuItem getJPromocionesPanel() {
-		if (jPromocionesPanel == null) {
-			jPromocionesPanel = new JMenuItem();
-			jPromocionesPanel.setText("Panel Promociones");
-		}
-		return jPromocionesPanel;
-	}
-
-	/**
-	 * This method initializes jMenuItemePunts	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
-	private JMenuItem getJPromocionesPuntos() {
-		if (jPromocionesPuntos == null) {
-			jPromocionesPuntos = new JMenuItem();
-			jPromocionesPuntos.setText("Consulta ePunts");
-		}
-		return jPromocionesPuntos;
-	}
-
-	/**
-	 * This method initializes jMenuItemPromocions	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
-	private JMenuItem getJPromocionesSeleccion() {
-		if (jPromocionesSeleccion == null) {
-			jPromocionesSeleccion = new JMenuItem();
-			jPromocionesSeleccion.setText("Promocions");
-		}
-		return jPromocionesSeleccion;
-	}
-	
-
-	
-
-	/**
-	 * This method initializes jComandes	
-	 * 	
-	 * @return javax.swing.JMenu	
-	 */
-	private JMenu getJPedido() {
-		if (jPedido == null) {
-			jPedido = new JMenu();
-			jPedido.setText("Comandes");
-			jPedido.add(getJRealizarPedido());
-		}
-		return jPedido;
-	}
-
-	/**
-	 * This method initializes jRealitcomandes	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
-	private JMenuItem getJRealizarPedido() {
-		if (jRealizarPedido == null) {
-			jRealizarPedido = new JMenuItem();
-			jRealizarPedido.setText("Realizar pedido");
-		}
-		return jRealizarPedido;
-	}
-
-	
-   public static void main(String args[]) {
+	public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AplicacionEmpleado().setVisible(true);
+            	AplicacionEmpleado app = new AplicacionEmpleado();
+                app.setVisible(true);
+                app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             }
         });
     }
 
-public ServiciosModelo getSm() {
-	return sm;
-}
+	public ServiciosModelo getSm() {
+		return sm;
+	}
 
-public void setSm(ServiciosModelo sm) {
-	this.sm = sm;
-}
+	public void setSm(ServiciosModelo sm) {
+		this.sm = sm;
+	}
 
 
 }  //  @jve:decl-index=0:visual-constraint="24,-126"

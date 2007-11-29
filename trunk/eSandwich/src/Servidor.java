@@ -16,6 +16,8 @@ import java.rmi.RemoteException;
  */
 public class Servidor extends JFrame {
 
+  
+  private static final long serialVersionUID = 1L;
   private JButton        jButton1;
   private JButton        jButton2;
   private JLabel         jLabel1;

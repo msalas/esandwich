@@ -5,10 +5,6 @@ public class FamiliaProducto implements Serializable{
 	int idFamilia;
 	String descripcion;
 	
-	public FamiliaProducto(){
-		super();
-	}
-	
 	public FamiliaProducto(int idFamilia, String descripcion){
 		this.idFamilia=idFamilia;
 		this.descripcion=descripcion;
@@ -29,9 +25,5 @@ public class FamiliaProducto implements Serializable{
 	public void setIdFamilia(int idFamilia) {
 		this.idFamilia = idFamilia;
 	}
-	
-	public String toString(){
-		return "id: " + idFamilia + "\ndescripcion: "+descripcion; 
-	}
-	
+		
 }

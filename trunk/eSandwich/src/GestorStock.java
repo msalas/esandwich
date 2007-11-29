@@ -3,10 +3,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-//import java.util.Iterator;
-import java.util.Enumeration;
 import java.util.Vector;
-//import java.lang.Integer;
+import java.lang.Integer;
 
 public class GestorStock {
 	private GestorDisco gd;
@@ -18,20 +16,21 @@ public class GestorStock {
 		gd.abrirConexion();
 	}
 	
-	public Vector<Producto> listaStock() throws errorSQL, errorConexionBD{
+	public Vector<Stock> listaStock() throws errorSQL, errorConexionBD{
 		
-		Vector<Producto> v = new Vector<Producto>();
+		Vector<Stock> v = new Vector<Stock>();
 		Producto p = null;
+		Stock s=null;
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
 			stmt = con.createStatement();
-			rs = stmt.executeQuery("SELECT producto.existencias from producto");
+			rs = stmt.executeQuery("SELECT p.existencias from producto");
 			while(rs.next()){
-				p= new Producto(rs.getInt(1));
-				v.add(p);
+			s= new Stock(rs.getInt(1));
+				v.add(s);
 			}
 			rs.close();
 			stmt.close();
@@ -41,20 +40,21 @@ public class GestorStock {
 		return v;
 	}
 	
-	public Vector<Producto> listaStockPorFamilia(int idFamilia) throws errorSQL, errorConexionBD{
+	public Vector<Stock> listaStockPorFamilia(int idFamilia) throws errorSQL, errorConexionBD{
 		
-		Vector<Producto> v = new Vector<Producto>();
+		Vector<Stock> v = new Vector<Stock>();
 		Producto p = null;
+		Stock st = null;
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
 		Statement stmt = null;
 		try {
-			stmt = con.createStatement();
-			String s = "SELECT producto.existencias FROM producto WHERE producto.id_familia="+idFamilia;
+			stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			String s = "SELECT p.existencias from producto p, familia f where p.id=f.id and f.id='"+idFamilia+"'";
 			ResultSet rs = stmt.executeQuery(s);
 			while(rs.next()){
-				p = new Producto(rs.getInt(1));
-				v.add(p);
+				st = new Stock(rs.getInt(1));
+				v.add(st);
 			}
 				
 			rs.close();
@@ -67,26 +67,25 @@ public class GestorStock {
 		return v;
 	}
 	
-	// aquesta no acaba de funcionar, s'ha de revisar
-	
-	public void insertarStock(int idProducto, int unidades) throws errorSQL, errorConexionBD {
+	public void insertarStock(int unidades) throws errorSQL, errorConexionBD {
 		
-		
+		String p;
 		PreparedStatement pstmt = null;
-
 		
+		int id = 0;
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
 		
 		try {
 			gd.begin();
-			String p="UPDATE producto(existencias)  WHERE producto.id="+idProducto + "VALUES (?)";			
+			p=	"INSERT INTO producto (existencias)" + "VALUES (?) RETURNING id" ;			
 			pstmt = con.prepareStatement(p);
-			pstmt.setInt(1, unidades);
+			pstmt.setInt(1,unidades);
 			gd.commit();
-			pstmt.execute();
-			pstmt.close();
-			pstmt = null;	
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) id = rs.getInt(1);
+			rs.close();
+		
 		} catch (SQLException e) {
 			gd.rollback();
 			throw new errorSQL(e.toString());
@@ -98,14 +97,15 @@ public class GestorStock {
 
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
-		
+		Producto p;
 		String pr;
-		PreparedStatement pstmt;
+		PreparedStatement pstmt = null;
 		
 		try {
 			gd.begin();
-			pr= "DELETE FROM producto WHERE producto.id = "+ idProducto;
-			pstmt = con.prepareStatement(pr);
+			
+			pr= "DELETE FROM producto (existencias) WHERE p.id = '"+ idProducto+"'";
+			
 			gd.commit();
 			pstmt.execute();
 			pstmt.close();
@@ -117,67 +117,73 @@ public class GestorStock {
 
 	}
 	
-	public Producto consultaStock(int idProducto) throws errorSQL, errorConexionBD {
+	public Stock consultaStock(int idProducto) throws errorSQL, errorConexionBD {
+		
+		
+		Producto p = null;
+		Stock s= null;
+		if(gd.isConectado()) con = gd.getConexion();
+		else throw new errorConexionBD("No hay conexion!");
+		Statement stmt = null;
+		int id = 0;
+		try {
+			stmt = con.createStatement();
+			String consulta="SELECT from producto(existencias) WHERE p.id=" + idProducto+ "'";
+			ResultSet rs = stmt.executeQuery(consulta);
+			if(rs.next()) id= rs.getInt(1); 
+			rs.close();
+			stmt.close();
+			s = new Stock(rs.getInt(1));
+			
+		} catch (SQLException e) {
+			throw new errorSQL(e.toString());
+		}
+		return s;
+	}
+	
+	
+	//si les necessitem les dessarrollem, però no els hi veig gaire sentit
+	
+	public void restaStock(int idp, int uni)throws errorSQL, errorConexionBD{	
 		
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
-		Statement st = null;
-		ResultSet rs=null;
-		String consulta="SELECT existencias FROM producto WHERE producto.id=" + idProducto;
-		Producto p = new Producto();
+		Statement stmt = null;
+		Producto p = null;
+		int id = 0;
 		try {
-			st=con.createStatement();
-			rs=st.executeQuery(consulta);
-			while (rs.next()){
-			p.setExistencias(rs.getInt("existencias"));}
-			rs.close();
-			st.close();
-			return p;
-			}
+			stmt = con.createStatement();
+			String st = "UPDATE producto SET id = "+idp+" WHERE producto(existencias) = p.existencias - " + uni; 
+			stmt.executeUpdate(st);
+			stmt.close();
+		}
+		catch (SQLException e) {
+			throw new errorSQL(e.toString());}
+	}
+	
+	public void sumaStock(int idp, int uni)throws errorSQL, errorConexionBD{
+		
+		if(gd.isConectado()) con = gd.getConexion();
+		else throw new errorConexionBD("No hay conexion!");
+		Statement stmt = null;
+		Producto p = null;
+		int id = 0;
+		try {
+			stmt = con.createStatement();
+			String st = "UPDATE producto SET id = "+idp+" WHERE producto(existencias) = p.existencias + " + uni; 
+			stmt.executeUpdate(st);
+			stmt.close();
+		}
 		catch (SQLException e) {
 			throw new errorSQL(e.toString());
-		}
+			}
 	}
-	
-	// Si son necesarias, ya las desarrollaremos
-	
-	public void restaStock(int idp, int uni)throws errorSQL, errorConexionBD{	}
-	
-	public void sumaStock(int idp, int uni)throws errorSQL, errorConexionBD{   }
+
 	
 	public void liberarRecursos(){
+		
 		gd.cerrarConexion();
-	}
-	
-	public static void main(String[] arg) throws errorSQL,errorConexionBD{
-		GestorStock gs=new GestorStock();
-		
-		Producto p1=gs.consultaStock(2);
-		System.out.println(p1.toString2());
-		
-		gs.eliminaStock(2);
-		
-		for (Enumeration<Producto> p = (gs.listaStock()).elements() ; p.hasMoreElements() ;) {
-			Producto pd = p.nextElement();
-			System.out.println(pd.toString2());
-		}
-		
-		for (Enumeration<Producto> p = (gs.listaStockPorFamilia(1)).elements() ; p.hasMoreElements() ;) {
-			Producto pd = p.nextElement();
-			System.out.println(pd.toString2());
-		}
-		
-		Producto p2=gs.consultaStock(2);
-		System.out.println(p2.toString2());
-		
-		//no acaba de funcionar, s'ha de revisar
-		//gs.insertarStock(2, 100);
-		
-		Producto p=gs.consultaStock(2);
-		System.out.println(p.toString2());
 		
 	}
 	
 }
-	
-

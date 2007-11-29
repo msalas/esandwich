@@ -18,7 +18,7 @@ public class GestorEmpleado {
 		gd.abrirConexion();
 	}
 
-	public int addEmpleado(Empleado pEmpleado) throws errorSQL, 
+	public Empleado addEmpleado(Empleado pEmpleado) throws errorSQL, 
 	errorConexionBD{
 		String strSQL = "";
 		int id = 0;
@@ -104,7 +104,7 @@ public class GestorEmpleado {
 			gd.rollback();
 			throw new errorSQL("Error SQL (empleado) numero: " + e.getErrorCode());
 		}
-		return id;
+		return pEmpleado;
 	}
 	
 	//Tanto para dar de baja como para modificar usuario
