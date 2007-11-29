@@ -7,9 +7,9 @@ public class Producto implements Serializable {
 	String descripcionAmpliada;
 	int existencias;
 	int idFamilia;
-	float precio;
+	int precio;
 	
-	public Producto(int idProducto, String descripcion, String descripcionAmpliada, int existencias, int idFamilia, float precio){
+	public Producto(int idProducto, String descripcion, String descripcionAmpliada, int existencias, int idFamilia, int precio){
 		super();
 		this.idProducto=idProducto;
 		this.descripcion=descripcion;
@@ -19,12 +19,13 @@ public class Producto implements Serializable {
 		this.precio=precio;
 	}
 	
-
-	public Producto() {
-		
+	public Producto() {	
 	}
 
-
+	public Producto(int existencias) {
+		this.existencias=existencias;
+	}
+	
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -68,13 +69,21 @@ public class Producto implements Serializable {
 	}
 
 
-	public float getPrecio() {
+	public int getPrecio() {
 		return precio;
 	}
 
 
-	public void setPrecio(float precio) {
+	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
-		
+	
+	public String toString(){
+		return "id: " + idProducto + "\ndescripcion: "+descripcion + "\ndescripcion ampliada: "+ descripcionAmpliada + "\nexistencias: "+ existencias+ "\nid familia: "+ idFamilia + "\nprecio: "+precio; 
+	}
+	
+	public String toString2(){
+		return "existencias: "+ existencias; 
+	}
+	
 }
