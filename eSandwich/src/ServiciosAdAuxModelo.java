@@ -14,4 +14,16 @@ public class ServiciosAdAuxModelo extends ServiciosAccesoModelo {
 		sraa = (ServiciosRemotosAdminAux)Naming.lookup("rmi://localhost:1099/ServiciosAdAux");
 	}
 
+	public ServiciosAdAuxModelo nuevoEmpleado(Empleado emp) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
+		
+		Empleado empAux = null;
+		
+		empAux = sraa.anadirEmpleado(emp);
+		
+		
+		return this;
+		
+	}
+	
+	
 }

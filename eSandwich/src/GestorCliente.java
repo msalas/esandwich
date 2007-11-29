@@ -173,7 +173,7 @@ public class GestorCliente {
 
   }
 
-  public Vector<Cliente> lista() throws errorSQL {
+/*  public Vector<Cliente> lista() throws errorSQL {
     Vector<Cliente> v = new Vector<Cliente>();
     Cliente cli = null;
     Statement stmt = null;
@@ -211,7 +211,7 @@ public class GestorCliente {
       throw new errorSQL(e.toString());
     }
     return v;
-  }
+  } */
 
   // Operación getUsuario es la misma
   // public Vector<Cliente> listaPorUsuario(String idUsuario) throws errorSQL {
@@ -262,7 +262,7 @@ public class GestorCliente {
   // return v;
   // }
 
-  public Collection<Cliente> listaPorApellidos(String apellido1,
+ /* public Collection<Cliente> listaPorApellidos(String apellido1,
       String apellido2) throws errorSQL {
     Vector<Cliente> v = new Vector<Cliente>();
     Cliente cli = null;
@@ -303,8 +303,8 @@ public class GestorCliente {
     }
     return v;
   }
-
-  public Collection<Cliente> listaPorNomre(String nombre) throws errorSQL {
+*/
+  /*public Collection<Cliente> listaPorNomre(String nombre) throws errorSQL {
     Vector<Cliente> v = new Vector<Cliente>();
     Cliente cli = null;
     Statement stmt = null;
@@ -343,7 +343,7 @@ public class GestorCliente {
     }
     return v;
   }
-
+*/
   public void liberarRecursos(){	
 		gd.cerrarConexion();	
 	}

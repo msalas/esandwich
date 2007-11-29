@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
-import java.util.Date;
 
 public class GestorFacturacionSandwich {
 
@@ -31,15 +30,16 @@ public class GestorFacturacionSandwich {
 
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
-	
+		Producto p=null;
+		Facturacion f=null;
 		String pr;
 		PreparedStatement pstmt = null;
 		
 		try {
 			gd.begin();
 			
-			pr= "DELETE FROM factura WHERE producto.id=factura.id and producto.id = '"+ idProducto+"'";
-			pstmt = con.prepareStatement(pr);
+			pr= "DELETE FROM factura(importe) WHERE p.id=f.id and p.id = '"+ idProducto+"'";
+			
 			gd.commit();
 			pstmt.execute();
 			pstmt.close();
@@ -50,45 +50,32 @@ public class GestorFacturacionSandwich {
 		}
 	}
 	
-	//No tinc gaire clar que sigui això el que ha de fer el metode
-	
-	public Producto consultaFacturacionSandwich(int idProducto) throws errorSQL, errorConexionBD {
-		
+	public FacturacionSandwich consultaFacturacionSandwich(int idProducto) throws errorSQL, errorConexionBD {
+		FacturacionSandwich fs=null;
+
+		Producto p = null;
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
-		Statement st = null;
-		ResultSet rs=null;
-		String consulta="SELECT from producto(precio) WHERE producto.id=" + idProducto+ "'";
-		Producto p = new Producto();
+		Statement stmt = null;
+		int id = 0;
 		try {
-			st=con.createStatement();
-			rs=st.executeQuery(consulta);
-			while (rs.next()){
-				p.setIdProducto(rs.getInt("id"));
-				p.setDescripcion(rs.getString("descripcion"));
-				p.setDescripcionAmpliada(rs.getString("descripcion_ampliada"));
-				p.setExistencias(rs.getInt("existencias"));
-				p.setIdFamilia(rs.getInt("id_familia"));
-				p.setPrecio(rs.getInt("precio"));
-			}
+			stmt = con.createStatement();
+			String consulta="SELECT from Sandwich(precio) WHERE p.id=" + idProducto+ "'";
+			ResultSet rs = stmt.executeQuery(consulta);
+			if(rs.next()) id= rs.getInt(1); 
 			rs.close();
-			st.close();
-			return p;
+			stmt.close();
+			fs = new FacturacionSandwich(rs.getInt(1));
+			
 		} catch (SQLException e) {
 			throw new errorSQL(e.toString());
 		}
+		return fs;
 	}
 	
-	// FALTA LLISTAR PER DATES; no se com es fa
+	// FALTA LLISTAR PER DATES
 	
-	public Vector<Facturacion> listaFacturasSandwich(int id, Date fechaDesde, Date fechaHasta) throws errorSQL, errorConexionBD{
-		
-		Vector<Facturacion> v = new Vector<Facturacion>();
-		return v;
-	
-	}
-	
-	public void liberarRecursos(){
+public void liberarRecursos(){
 		gd.cerrarConexion();	
 	}
 	

@@ -19,13 +19,12 @@ public class Producto implements Serializable {
 		this.precio=precio;
 	}
 	
-	public Producto() {	
+
+	public Producto() {
+		
 	}
 
-	public Producto(int existencias) {
-		this.existencias=existencias;
-	}
-	
+
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -77,13 +76,5 @@ public class Producto implements Serializable {
 	public void setPrecio(float precio) {
 		this.precio = precio;
 	}
-	
-	public String toString(){
-		return "id: " + idProducto + "\ndescripcion: "+descripcion + "\ndescripcion ampliada: "+ descripcionAmpliada + "\nexistencias: "+ existencias+ "\nid familia: "+ idFamilia + "\nprecio: "+precio; 
-	}
-	
-	public String toString2(){
-		return "existencias: "+ existencias; 
-	}
-	
+		
 }
