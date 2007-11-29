@@ -70,11 +70,11 @@ public class GestorProducto {
 		return v;
 	}
 	
-	public void insertarProducto(Producto p) throws  errorSQL, errorConexionBD {
+	public int insertarProducto(Producto p) throws  errorSQL, errorConexionBD {
 	
-		
+		int id=0;
 		PreparedStatement pstmt = null;
-		
+		Statement stmt = null;
 		
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
@@ -95,19 +95,27 @@ public class GestorProducto {
 			gd.commit();
 			pstmt.execute();
 			pstmt.close();
-			pstmt = null;		
+			pstmt = null;
+			
+			String str = "select currval('id')";
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(str);
+			if (rs.next()) id = rs.getInt(1);
+			rs.close();
+			stmt.close();
+					
 		} catch (SQLException e) {
 			gd.rollback();
 			throw new errorSQL(e.toString());
 		}
-
+		return id;
 	}
 	
-	public void eliminaProducto(int idProducto) throws errorSQL, errorConexionBD {
+	public int eliminaProducto(int idProducto) throws errorSQL, errorConexionBD {
 
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
-		
+		int id=idProducto;
 		String pr;
 		PreparedStatement pstmt;
 		
@@ -123,7 +131,7 @@ public class GestorProducto {
 			gd.rollback();
 			throw new errorSQL(e.toString());
 		}
-
+		return id;
 	}
 	
 	public Producto consultaProducto(int idProducto) throws errorSQL, errorConexionBD {
@@ -155,7 +163,40 @@ public class GestorProducto {
 		}		
 	}
 	
+	public boolean existeProducto(int id) throws errorSQL, errorConexionBD{
+		String strSQL = "";
+		boolean existeProducto;
+		
+		if(gd.isConectado()) con = gd.getConexion();
+		else throw new errorConexionBD("No hay conexión!");
 
+		Statement stmt = null;
+					
+		try {
+			gd.begin();
+			
+			strSQL = "SELECT id "
+				+ "FROM producto "
+				+ "WHERE id ='" + id + "' ";
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(strSQL);
+			if (rs.next()){
+				existeProducto = true;
+			}
+			else {
+				existeProducto = false;
+			}
+			rs.close();
+			stmt.close();
+			gd.commit();
+			return existeProducto;
+		} 
+		catch (SQLException e) {
+			throw new errorSQL(e.toString());
+		}
+	}
+	
+	
 	public void liberarRecursos(){
 		
 		gd.cerrarConexion();
