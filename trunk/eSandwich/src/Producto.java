@@ -7,9 +7,9 @@ public class Producto implements Serializable {
 	String descripcionAmpliada;
 	int existencias;
 	int idFamilia;
-	int precio;
+	float precio;
 	
-	public Producto(int idProducto, String descripcion, String descripcionAmpliada, int existencias, int idFamilia, int precio){
+	public Producto(int idProducto, String descripcion, String descripcionAmpliada, int existencias, int idFamilia, float precio){
 		super();
 		this.idProducto=idProducto;
 		this.descripcion=descripcion;
@@ -69,12 +69,12 @@ public class Producto implements Serializable {
 	}
 
 
-	public int getPrecio() {
+	public float getPrecio() {
 		return precio;
 	}
 
 
-	public void setPrecio(int precio) {
+	public void setPrecio(float precio) {
 		this.precio = precio;
 	}
 	

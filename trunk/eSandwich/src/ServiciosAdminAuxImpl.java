@@ -7,6 +7,11 @@ implements ServiciosRemotosAdminAux {
 	private static final long serialVersionUID = 1L;
 
 	GestorEmpleado ge;
+	GestorProducto gp;
+	GestorFamiliaProd gfp;
+	GestorStock gs;
+	GestorFacturacion gf;
+	GestorFacturacionSandwich gfs;
 	
 	public ServiciosAdminAuxImpl() throws errorConexionBD,
 	RemoteException {
@@ -35,6 +40,8 @@ implements ServiciosRemotosAdminAux {
 		}
 		return idAux;
 	}
+	
+	
 	
 	public void desactivarRecursos() {
 		ge.liberarRecursos();
