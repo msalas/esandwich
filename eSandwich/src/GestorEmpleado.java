@@ -21,7 +21,6 @@ public class GestorEmpleado {
 	public Empleado addEmpleado(Empleado pEmpleado) throws errorSQL, 
 	errorConexionBD{
 		String strSQL = "";
-		int id = 0;
 		
 		
 		verifCampos(pEmpleado);
@@ -60,7 +59,7 @@ public class GestorEmpleado {
 
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(strSQL);
-			if (rs.next()) id = rs.getInt(1);
+			if (rs.next()) pEmpleado.setId(rs.getInt(1));
 			rs.close();
 			stmt.close();
 
@@ -74,7 +73,7 @@ public class GestorEmpleado {
 
 			pstmt = con.prepareStatement(strSQL);
 			
-			pstmt.setInt(1,id);
+			pstmt.setInt(1,pEmpleado.getId());
 			pstmt.setString(2,pEmpleado.getPassword());
 			pstmt.setBoolean(3, false);
 						
@@ -91,7 +90,7 @@ public class GestorEmpleado {
 
 			pstmt = con.prepareStatement(strSQL);
 			
-			pstmt.setInt(1,id);
+			pstmt.setInt(1,pEmpleado.getId());
 			pstmt.setInt(2,pEmpleado.getRol().getId());
 						
 			
@@ -354,6 +353,10 @@ public class GestorEmpleado {
 			throw new GestorEmpleadoException("Error en password");
 		if (!Util.compruebaCampoTamano(pEmpl.getPassword().toCharArray(), 10)) 
 			throw new GestorEmpleadoException("Error tamaño campo password");
+		
+		if (pEmpl.getRol() == null) {
+			throw new GestorEmpleadoException("Error se ha de indicar un ROLL");
+		}
 
 	}
 
@@ -398,12 +401,11 @@ public class GestorEmpleado {
 	public void liberarRecursos(){	
 		gd.cerrarConexion();	
 	}
-
+	
 /*	public static void main (String[] args) {
 		Empleado pEmpleado = new Empleado();		
 		Rol pRol = new Rol();
 		GestorEmpleado gEmpl = null;
-		int idAux = 0;
 		try {
 			GestorRol gRol = new GestorRol();
 			try {
@@ -416,7 +418,7 @@ public class GestorEmpleado {
 		catch (errorConexionBD e) {
 			System.out.println(e.getMessage());
 		}
-		pEmpleado.setNif("0000086N");
+		pEmpleado.setNif("59994999N");
 		pEmpleado.setNombre("Eruka");
 		pEmpleado.setApellido1("Java");
 		pEmpleado.setApellido2("Dificil");
@@ -427,25 +429,22 @@ public class GestorEmpleado {
 		pEmpleado.setEmail("email 2");
 		pEmpleado.setPassword("123410");
 		pEmpleado.setDesactivado(false);
-		pEmpleado.setRol(pRol);
+//		pEmpleado.setRol(pRol);
 		
 		try {
 			gEmpl = new GestorEmpleado();
 			try {
 				if (!gEmpl.existeNif(pEmpleado.getNif())) {
-					idAux = gEmpl.addEmpleado(pEmpleado);
+					pEmpleado = gEmpl.addEmpleado(pEmpleado);
 				}
 				else {
 					System.out.println("ERROR: Nif existente en empleados");
 				}
-				pEmpleado.setId(2);
 				pEmpleado = gEmpl.consultaEmpleado(pEmpleado.getId());
 				System.out.println(pEmpleado.getCodUsuario());
 				
 				pEmpleado.setFechaBaja(new java.util.Date());
 				gEmpl.setEmpleado(pEmpleado);
-				
-				
 
 				Vector v = gEmpl.lista(1, null, null, null);
 				int x;
@@ -462,6 +461,6 @@ public class GestorEmpleado {
 			System.out.println(e.getMessage());
 		}
 		
-	} */  
-
+	}   
+*/
 }
