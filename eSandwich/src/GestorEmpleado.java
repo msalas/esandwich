@@ -208,13 +208,12 @@ public class GestorEmpleado {
 			gd.begin();
 			
 			strSQL = "SELECT cod_empleado,nif,nombre,apellido1,apellido2,"
-				+ "direccion,poblacion,telefono,movil,email,cod_usuario,pasword,"
+				+ "direccion,poblacion,telefono,movil,email,cod_Usuario,pasword,"
 				+ "desactivado,id_rol "
 				+ "FROM persona,usuario,empleado "
 				+ "WHERE empleado.cod_empleado = usuario.cod_usuario AND "
 				+ "empleado.cod_empleado = persona.id "
 				+ "AND cod_empleado = " + pId;
-      System.out.println("Ejecutando: " + strSQL);
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(strSQL);
 			if (rs.next()){

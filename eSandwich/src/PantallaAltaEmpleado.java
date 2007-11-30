@@ -15,6 +15,7 @@ import javax.swing.JComboBox;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JDialog;
+import java.util.Vector;
 
 public class PantallaAltaEmpleado extends JDialog {
 
@@ -44,16 +45,15 @@ public class PantallaAltaEmpleado extends JDialog {
 	private JTextField jTextFieldMobil = null;
 	private JTextField jTextFieldEMail = null;
 	private JButton jButtonCrear = null;
-	private JCheckBox jCheckBoxDeshabilitar = null;
-	private JLabel jLabelDeshabilitar = null;
 	private JButton jButtonCancellar = null;
 	private JComboBox jComboBox = null;
 	private JLabel jLabel1 = null;
-	private JLabel jLabel2 = null;
-	private JLabel jLabel3 = null;
 	private AplicacionEmpleado ae;
 	private ControladorPantallaAltaEmpleado cpl = null;  //  @jve:decl-index=0:
 	private Empleado emp = null;  //  @jve:decl-index=0:
+	private JLabel jLabelCognoms2 = null;
+	private JTextField jTextFieldCognoms2 = null;
+	private Rol pRol;  //  @jve:decl-index=0:
 	/**
 	 * This is the default constructor
 	 */
@@ -72,9 +72,11 @@ public class PantallaAltaEmpleado extends JDialog {
 	 */
 	private void initialize() {
 		this.setSize(494, 384);
+		this.setResizable(false);
 		this.setContentPane(getJContentPane());
+		// Para centrar pantalla
+		this.setLocationRelativeTo(null);		
 		cpl = new ControladorPantallaAltaEmpleado(this,ae);
-		jButtonCrear.setActionCommand("ARX");
 		jButtonCrear.addActionListener(cpl);
 	}
 	
@@ -86,45 +88,33 @@ public class PantallaAltaEmpleado extends JDialog {
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
-			jLabel3 = new JLabel();
-			jLabel3.setBounds(new Rectangle(399, 3, 64, 16));
-			jLabel3.setFont(new Font("Dialog", Font.PLAIN, 12));
-			jLabel3.setHorizontalAlignment(SwingConstants.RIGHT);
-			jLabel3.setText("E000001");
-			jLabel2 = new JLabel();
-			jLabel2.setText("Usuario:");
-			jLabel2.setLocation(new Point(336, 3));
-			jLabel2.setSize(new Dimension(64, 16));
-			jLabelDeshabilitar = new JLabel();
-			jLabelDeshabilitar.setBounds(new Rectangle(52, 306, 70, 17));
-			jLabelDeshabilitar.setText("deshabilitar");
 			jLabelConfContrasenya = new JLabel();
-			jLabelConfContrasenya.setText("Confirmar Contrasenya:");
+			jLabelConfContrasenya.setText("Confirmar Contraseña:");
 			jLabelConfContrasenya.setBounds(new Rectangle(10, 35, 139, 16));
 			jLabelContrasenya = new JLabel();
-			jLabelContrasenya.setText("Nova Contrasenya:");
-			jLabelContrasenya.setBounds(new Rectangle(10, 10, 106, 16));
+			jLabelContrasenya.setText("Nueva Contraseña:");
+			jLabelContrasenya.setBounds(new Rectangle(10, 10, 133, 16));
 			jLabelEMail = new JLabel();
 			jLabelEMail.setText("E-Mail:");
 			jLabelEMail.setBounds(new Rectangle(200, 90, 39, 16));
 			jLabelMobil = new JLabel();
-			jLabelMobil.setText("Mòbil:");
+			jLabelMobil.setText("Móbil:");
 			jLabelMobil.setBounds(new Rectangle(15, 90, 36, 16));
 			jLabelTelefon = new JLabel();
-			jLabelTelefon.setText("Telèfon:");
-			jLabelTelefon.setBounds(new Rectangle(15, 65, 48, 16));
+			jLabelTelefon.setText("Teléfono:");
+			jLabelTelefon.setBounds(new Rectangle(233, 65, 72, 16));
 			jLabelPoblació = new JLabel();
-			jLabelPoblació.setText("Població:");
-			jLabelPoblació.setBounds(new Rectangle(240, 40, 55, 16));
+			jLabelPoblació.setText("Población:");
+			jLabelPoblació.setBounds(new Rectangle(17, 65, 66, 16));
 			jLabelAdreça = new JLabel();
-			jLabelAdreça.setText("Adreça:");
-			jLabelAdreça.setBounds(new Rectangle(15, 40, 47, 16));
+			jLabelAdreça.setText("Dirección:");
+			jLabelAdreça.setBounds(new Rectangle(221, 41, 67, 16));
 			jLabelCognoms = new JLabel();
-			jLabelCognoms.setText("Cognoms:");
-			jLabelCognoms.setBounds(new Rectangle(165, 15, 60, 16));
+			jLabelCognoms.setText("Primer apellido:");
+			jLabelCognoms.setBounds(new Rectangle(193, 15, 95, 16));
 			jLabelNom = new JLabel();
-			jLabelNom.setText("Nom:");
-			jLabelNom.setBounds(new Rectangle(15, 15, 32, 16));
+			jLabelNom.setText("Nombre:");
+			jLabelNom.setBounds(new Rectangle(15, 15, 52, 16));
 			jLabelNif = new JLabel();
 			jLabelNif.setText("NIF:");
 			jLabelNif.setBounds(new Rectangle(15, 15, 20, 16));
@@ -134,11 +124,7 @@ public class PantallaAltaEmpleado extends JDialog {
 			jContentPane.add(getJPanelDadesPersonals(), null);
 			jContentPane.add(getJPanelDadesAcces(), null);
 			jContentPane.add(getJButtonCrear(), null);
-			jContentPane.add(getJCheckBoxDeshabilitar(), null);
-			jContentPane.add(jLabelDeshabilitar, null);
 			jContentPane.add(getJButtonCancellar(), null);
-			jContentPane.add(jLabel2, null);
-			jContentPane.add(jLabel3, null);
 		}
 		return jContentPane;
 	}
@@ -150,6 +136,9 @@ public class PantallaAltaEmpleado extends JDialog {
 	 */
 	private JPanel getJPanelDadesPersonals() {
 		if (jPanelDadesPersonals == null) {
+			jLabelCognoms2 = new JLabel();
+			jLabelCognoms2.setBounds(new Rectangle(13, 40, 104, 16));
+			jLabelCognoms2.setText("Segundo apellido:");
 			jPanelDadesPersonals = new JPanel();
 			jPanelDadesPersonals.setLayout(null);
 			jPanelDadesPersonals.setBounds(new Rectangle(20, 170, 445, 122));
@@ -168,6 +157,8 @@ public class PantallaAltaEmpleado extends JDialog {
 			jPanelDadesPersonals.add(getJTextFieldTelefon(), null);
 			jPanelDadesPersonals.add(getJTextFieldMobil(), null);
 			jPanelDadesPersonals.add(getJTextFieldEMail(), null);
+			jPanelDadesPersonals.add(jLabelCognoms2, null);
+			jPanelDadesPersonals.add(getJTextFieldCognoms2(), null);
 		}
 		return jPanelDadesPersonals;
 	}
@@ -183,7 +174,6 @@ public class PantallaAltaEmpleado extends JDialog {
 			jTextFieldNif.setBounds(new Rectangle(40, 15, 120, 18));
 			jTextFieldNif.setEditable(true);
 			jTextFieldNif.setEnabled(true);
-			jTextFieldNif.setText("12345678A");
 		}
 		return jTextFieldNif;
 	}
@@ -196,9 +186,8 @@ public class PantallaAltaEmpleado extends JDialog {
 	private JTextField getJTextFieldNom() {
 		if (jTextFieldNom == null) {
 			jTextFieldNom = new JTextField();
-			jTextFieldNom.setBounds(new Rectangle(49, 15, 100, 18));
+			jTextFieldNom.setBounds(new Rectangle(63, 15, 127, 18));
 			jTextFieldNom.setEditable(true);
-			jTextFieldNom.setText("Juan José");
 		}
 		return jTextFieldNom;
 	}
@@ -211,9 +200,8 @@ public class PantallaAltaEmpleado extends JDialog {
 	private JTextField getJTextFieldCognoms() {
 		if (jTextFieldCognoms == null) {
 			jTextFieldCognoms = new JTextField();
-			jTextFieldCognoms.setBounds(new Rectangle(229, 15, 200, 18));
+			jTextFieldCognoms.setBounds(new Rectangle(291, 15, 138, 18));
 			jTextFieldCognoms.setEditable(true);
-			jTextFieldCognoms.setText("García Escabia");
 		}
 		return jTextFieldCognoms;
 	}
@@ -226,9 +214,8 @@ public class PantallaAltaEmpleado extends JDialog {
 	private JTextField getJTextFieldAdreça() {
 		if (jTextFieldAdreça == null) {
 			jTextFieldAdreça = new JTextField();
-			jTextFieldAdreça.setBounds(new Rectangle(60, 40, 170, 18));
+			jTextFieldAdreça.setBounds(new Rectangle(288, 40, 139, 18));
 			jTextFieldAdreça.setEditable(true);
-			jTextFieldAdreça.setText("C/ Pare Artigas 10  1ª2ª");
 		}
 		return jTextFieldAdreça;
 	}
@@ -285,7 +272,6 @@ public class PantallaAltaEmpleado extends JDialog {
 			jPasswordFieldNContrasenya = new JPasswordField();
 			jPasswordFieldNContrasenya.setBounds(new Rectangle(152, 10, 100, 18));
 			jPasswordFieldNContrasenya.setEditable(true);
-			jPasswordFieldNContrasenya.setText("12345678");
 		}
 		return jPasswordFieldNContrasenya;
 	}
@@ -300,7 +286,6 @@ public class PantallaAltaEmpleado extends JDialog {
 			jPasswordFieldCContrasenya = new JPasswordField();
 			jPasswordFieldCContrasenya.setBounds(new Rectangle(152, 35, 100, 18));
 			jPasswordFieldCContrasenya.setEditable(true);
-			jPasswordFieldCContrasenya.setText("12345678");
 		}
 		return jPasswordFieldCContrasenya;
 	}
@@ -313,9 +298,8 @@ public class PantallaAltaEmpleado extends JDialog {
 	private JTextField getJTextFieldPoblacio() {
 		if (jTextFieldPoblacio == null) {
 			jTextFieldPoblacio = new JTextField();
-			jTextFieldPoblacio.setBounds(new Rectangle(300, 40, 129, 18));
+			jTextFieldPoblacio.setBounds(new Rectangle(88, 65, 138, 18));
 			jTextFieldPoblacio.setEditable(true);
-			jTextFieldPoblacio.setText("Viladecans");
 		}
 		return jTextFieldPoblacio;
 	}
@@ -328,9 +312,8 @@ public class PantallaAltaEmpleado extends JDialog {
 	private JTextField getJTextFieldTelefon() {
 		if (jTextFieldTelefon == null) {
 			jTextFieldTelefon = new JTextField();
-			jTextFieldTelefon.setBounds(new Rectangle(65, 65, 120, 18));
+			jTextFieldTelefon.setBounds(new Rectangle(307, 65, 120, 18));
 			jTextFieldTelefon.setEditable(true);
-			jTextFieldTelefon.setText("93 555 55 55");
 		}
 		return jTextFieldTelefon;
 	}
@@ -345,7 +328,6 @@ public class PantallaAltaEmpleado extends JDialog {
 			jTextFieldMobil = new JTextField();
 			jTextFieldMobil.setBounds(new Rectangle(65, 90, 120, 18));
 			jTextFieldMobil.setEditable(true);
-			jTextFieldMobil.setText("555 555 555");
 		}
 		return jTextFieldMobil;
 	}
@@ -360,7 +342,6 @@ public class PantallaAltaEmpleado extends JDialog {
 			jTextFieldEMail = new JTextField();
 			jTextFieldEMail.setBounds(new Rectangle(245, 90, 183, 18));
 			jTextFieldEMail.setEditable(true);
-			jTextFieldEMail.setText("jgarciaesc@euo.com");
 		}
 		return jTextFieldEMail;
 	}
@@ -375,24 +356,10 @@ public class PantallaAltaEmpleado extends JDialog {
 			jButtonCrear = new JButton();
 			jButtonCrear.setText("Crear");
 			jButtonCrear.setSize(new Dimension(95, 28));
-			jButtonCrear.setLocation(new Point(181, 307));
+			jButtonCrear.setLocation(new Point(129, 307));
 			jButtonCrear.setVisible(true);
 		}
 		return jButtonCrear;
-	}
-
-	/**
-	 * This method initializes jCheckBoxDeshabilitar	
-	 * 	
-	 * @return javax.swing.JCheckBox	
-	 */
-	private JCheckBox getJCheckBoxDeshabilitar() {
-		if (jCheckBoxDeshabilitar == null) {
-			jCheckBoxDeshabilitar = new JCheckBox();
-			jCheckBoxDeshabilitar.setBounds(new Rectangle(28, 305, 21, 21));
-			jCheckBoxDeshabilitar.setEnabled(true);
-		}
-		return jCheckBoxDeshabilitar;
 	}
 
 	/**
@@ -403,8 +370,8 @@ public class PantallaAltaEmpleado extends JDialog {
 	public JButton getJButtonCancellar() {
 		if (jButtonCancellar == null) {
 			jButtonCancellar = new JButton();
-			jButtonCancellar.setLocation(new Point(299, 307));
-			jButtonCancellar.setText("Cancel·lar");
+			jButtonCancellar.setLocation(new Point(247, 307));
+			jButtonCancellar.setText("Cancelar");
 			jButtonCancellar.setSize(new Dimension(95, 28));
 			jButtonCancellar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -421,21 +388,11 @@ public class PantallaAltaEmpleado extends JDialog {
 	 * @return javax.swing.JComboBox	
 	 */
 	private JComboBox getJComboBox() {
-		Object data[] = {"Administrativo","Auxiliar","Cocinero"};
-		if (jComboBox == null) {
-			jComboBox = new JComboBox(data);
-			jComboBox.setBounds(new Rectangle(285, 69, 150, 25));
-		}
-		return jComboBox;
-	}
-
-
-	public Empleado montaEmpleado() {
-		Rol pRol = new Rol();
+		Vector data;
 		try {
 			GestorRol gRol = new GestorRol();
 			try {
-				pRol = gRol.consultaRol(1);
+				data = gRol.lista();				
 			}
 			catch (errorSQL e) {
 				System.out.println(e.getMessage());
@@ -444,18 +401,27 @@ public class PantallaAltaEmpleado extends JDialog {
 		catch (errorConexionBD e) {
 			System.out.println(e.getMessage());
 		}
-		
+		//Object data[] = {"Administrativo","Auxiliar","Cocinero"};
+		if (jComboBox == null) {
+			jComboBox = new JComboBox(data.toArray());
+			jComboBox.setBounds(new Rectangle(285, 69, 150, 25));
+		}
+		return jComboBox;
+	}
+
+
+	public Empleado montaEmpleado() {
 		Empleado auxEmp = new Empleado();
-		auxEmp.setNif("59994999N");
-		auxEmp.setNombre("Lo he");
-		auxEmp.setApellido1("Conseguido");
-		auxEmp.setApellido2("Dificil");
-		auxEmp.setDireccion("direccion 2");
-		auxEmp.setPoblacion("poblacion 2");
-		auxEmp.setTelefono("telefono 2");
-		auxEmp.setMovil("movil 2");
-		auxEmp.setEmail("email 2");
-		auxEmp.setPassword("123410");
+		auxEmp.setNif(jTextFieldNif.getText());
+		auxEmp.setNombre(jTextFieldNom.getText());
+		auxEmp.setApellido1(jTextFieldCognoms.getText());
+		auxEmp.setApellido2(jTextFieldCognoms2.getText());
+		auxEmp.setDireccion(jTextFieldAdreça.getText());
+		auxEmp.setPoblacion(jTextFieldPoblacio.getText());
+		auxEmp.setTelefono(jTextFieldTelefon.getText());
+		auxEmp.setMovil(jTextFieldMobil.getText());
+		auxEmp.setEmail(jTextFieldEMail.getText());
+		auxEmp.setPassword(jPasswordFieldNContrasenya.getText());
 		auxEmp.setDesactivado(false);
 		auxEmp.setRol(pRol);
 		return auxEmp;
@@ -470,5 +436,20 @@ public class PantallaAltaEmpleado extends JDialog {
 
 	public void setEmp(Empleado emp) {
 		this.emp = emp;
+	}
+
+
+	/**
+	 * This method initializes jTextFieldCognoms2	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	private JTextField getJTextFieldCognoms2() {
+		if (jTextFieldCognoms2 == null) {
+			jTextFieldCognoms2 = new JTextField();
+			jTextFieldCognoms2.setBounds(new Rectangle(119, 40, 101, 20));
+			jTextFieldCognoms2.setEditable(true);
+		}
+		return jTextFieldCognoms2;
 	}
 }
