@@ -16,12 +16,11 @@ import java.rmi.RemoteException;
  */
 public class Servidor extends JFrame {
 
-  
   private static final long serialVersionUID = 1L;
-  private JButton        jButton1;
-  private JButton        jButton2;
-  private JLabel         jLabel1;
-  private ServidorModelo sm;
+  private JButton           jButton1;
+  private JButton           jButton2;
+  private JLabel            jLabel1;
+  private ServidorModelo    sm;
 
   public Servidor() {
 
@@ -32,8 +31,10 @@ public class Servidor extends JFrame {
           "Error connexió");
     } catch (errorConexionBD e) {
       crearError(e.getMessage(), "Error Base de Dades");
+      System.err.println("Error: " + e);
     } catch (Exception e) {
       crearError("Error: S'ha produït una excepció general", "Error");
+      System.err.println("Error: " + e);
     }
 
     initComponents();
@@ -118,10 +119,13 @@ public class Servidor extends JFrame {
 
     } catch (MalformedURLException murle) {
       crearError("Error: URL del servidor incorrecte", "Error connexió");
+      System.err.println("Error: " + murle);
     } catch (RemoteException re) {
       crearError("Error: S'ha produït una excepció remota", "Error connexió");
+      System.err.println("Error: " + re);
     } catch (Exception e) {
       crearError("Error: S'ha produït una excepció general", "Error");
+      System.err.println("Error: " + e);
     }
 
   }
