@@ -10,18 +10,19 @@ public class ControladorPantallaLogin implements ActionListener {
 	PantallaLogin pl = null;
 	AplicacionComprador ac = null;
 	AplicacionEmpleado ae = null;
-	ServiciosAdAuxModelo scrm1 = null;  //  @jve:decl-index=0:
-	ServiciosCompradorModelo scrm2 = null;  //  @jve:decl-index=0:
+	ServiciosAccesoModelo sm = null;  
+	//ServiciosCompradorModelo scrm2 = null;  
 	
-	public ControladorPantallaLogin(PantallaLogin pantallaLogin, AplicacionComprador ac, AplicacionEmpleado ae) {
-		if (ae == null) {
-			pl = pantallaLogin;	
-			this.ac = ac;
+	public ControladorPantallaLogin(PantallaLogin pantallaLogin, Aplicacion ap) {
+		
+		if (ap instanceof AplicacionComprador) {
+			ac = (AplicacionComprador) ap;
+			
+		}else if (ap instanceof AplicacionEmpleado) {
+			ae = (AplicacionEmpleado) ap;
 		}
-		else {
-			pl = pantallaLogin;	
-			this.ae = ae;			
-		}
+		
+		pl = pantallaLogin;	
 			
 	}
 
@@ -30,16 +31,18 @@ public class ControladorPantallaLogin implements ActionListener {
 		// Se ha pulsado boton para hacer login
 		
 		 try {
-			 if (ae == null) {
-				 scrm2 = (ServiciosCompradorModelo) ac.getSm();
-				 scrm2 =  (ServiciosCompradorModelo) scrm2.login((pl.getTxtCUsuario()).getText(),(pl.getTxtPassword()).getText(),true);
-				 ac.setSm(scrm2);
+			 //Aplicacion Comprador
+			 if (ac != null) { 
+				 
+				 sm = (ServiciosCompradorModelo) ac.getSm();
+				 sm =  (ServiciosCompradorModelo) sm.login((pl.getTxtCUsuario()).getText(),(pl.getTxtPassword()).getText(),true);
+				 ac.setSm(sm);
 				 ac.setMenuRegistrado();
 				 
 			 } else {
-				 scrm1 = (ServiciosAdAuxModelo) ac.getSm();
-				 scrm1 =  (ServiciosAdAuxModelo) scrm1.login((pl.getTxtCUsuario()).getText(),(pl.getTxtPassword()).getText(),false);
-				 ae.setSm(scrm1);
+				 sm = (ServiciosAdAuxModelo) ac.getSm();
+				 sm =  (ServiciosAdAuxModelo) sm.login((pl.getTxtCUsuario()).getText(),(pl.getTxtPassword()).getText(),false);
+				 ae.setSm(sm);
 			 }
 			
 			// Actualizamos los servicios de la aplicacion a cliente registrado

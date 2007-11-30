@@ -11,7 +11,7 @@ import java.rmi.RemoteException;
 
 
 // Falta cambiar los comentarios 
-public class AplicacionEmpleado extends JFrame {
+public class AplicacionEmpleado extends JFrame implements Aplicacion {
 
 	private static final long serialVersionUID = 1L;
 
@@ -57,6 +57,9 @@ public class AplicacionEmpleado extends JFrame {
 		// Inicializamos modelo
 		
 		try {
+		
+			// esto tiene que ser ServiciosAccesoModelo() !!!!
+			
 			sm = new ServiciosAdAuxModelo();
 
 		} catch (MalformedURLException e) {
