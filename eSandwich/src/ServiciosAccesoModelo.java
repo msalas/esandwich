@@ -18,19 +18,23 @@ public class ServiciosAccesoModelo extends ServiciosModelo {
   public ServiciosModelo login(String usuario, String password,
       boolean isCliente) throws errorConexionBD, errorSQL,
       MalformedURLException, RemoteException, NotBoundException {
-
+    System.out.println("ServiciosAccesoModelo.login()");
     Usuario u;
     ServiciosModelo s = null;
 
+    System.out.println("Ejecutando ServiciosRemotosAcceso.login()");
     u = sra.login(usuario, password, isCliente);
 
     if (u instanceof Empleado) {
+      System.out.println("Usuario es empleado");
       Empleado e = (Empleado) u;
-      if (e.getRol().equals("Cocina"))
+      if (e.getRol().equals("Cocina")) {
+        System.out.println("Rol: Cocina");
         s = new ServiciosCocinaModelo();
-      else if (e.getRol().equals("AdAux"))
+      } else if (e.getRol().equals("AdAux")) {
+        System.out.println("Rol: AdAux");
         s = new ServiciosAdAuxModelo();
-      else
+      } else
         ;
 
     } else { // es cliente (registrado)

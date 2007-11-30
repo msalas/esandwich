@@ -29,7 +29,7 @@ public class ControladorPantallaLogin implements ActionListener {
   }
 
   public void actionPerformed(ActionEvent arg0) {
-
+    System.out.println("ControladorPantallaLogin.actionPerformed()");
     // Se ha pulsado boton para hacer login
 
     try {
