@@ -5,7 +5,7 @@ public class ServiciosCompradorImpl extends UnicastRemoteObject implements
     ServiciosRemotosComprador {
 
   public ServiciosCompradorImpl() throws RemoteException {
-
+    super();
   }
 
   public void desactivarRecursos() {

@@ -62,8 +62,9 @@ public class GestorCliente {
     try {
       sql = "SELECT id, nif, nombre, apellido1, apellido2, "
           + "direccion, poblacion, telefono, movil, email, fecha_baja, "
-          + "cod_cliente, tarjeta_credito, puntos " + "FROM persona, cliente "
-          + "WHERE id=cod_cliente AND id=" + id;
+          + "pasword, desactivado, cod_cliente, tarjeta_credito, puntos " 
+          + "FROM persona, usuario, cliente "
+          + "WHERE id=cod_cliente AND cod_usuario=id AND id=" + id;
       System.out.println("Ejecutando: " + sql);
       stmt = gd.getConexion().createStatement();
 
@@ -82,6 +83,7 @@ public class GestorCliente {
         cli.setMovil(rs.getString("movil"));
         cli.setEmail(rs.getString("email"));
         cli.setFechaBaja(rs.getDate("fecha_baja"));
+        cli.setPassword(rs.getString("pasword"));
         cli.setCodUsuario(rs.getString("cod_cliente"));
         cli.setTarjetaCredito(rs.getString("tarjeta_credito"));
         cli.setPuntos(rs.getInt("puntos"));

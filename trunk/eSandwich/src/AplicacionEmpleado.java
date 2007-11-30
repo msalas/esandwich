@@ -17,6 +17,25 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 
 	private JPanel jContentPane = null;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	private ServiciosModelo sm = null;  //  @jve:decl-index=0:
 
 	private ControladorAplicacionEmpleado cae = null;

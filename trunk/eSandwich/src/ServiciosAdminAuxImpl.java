@@ -35,15 +35,11 @@ implements ServiciosRemotosAdminAux {
 	public int anadirEmpleado (Empleado e) throws errorSQL, errorConexionBD,
 	RemoteException {
 		int idAux = 0;
+    Empleado emp;
 		try {
-<<<<<<< .mine
 			if (!ge.existeNif(e.getNif())) {
-				idAux = ge.addEmpleado(e);
-=======
-			auxEmp = ge.addEmpleado(emp);
-			if (!ge.existeNif(emp.getNif())) {
-				auxEmp = ge.addEmpleado(emp);
->>>>>>> .r96
+				emp = ge.addEmpleado(e);
+        idAux = emp.getId();
 			}
 			else {
 				throw new errorSQL("ERROR: Nif existente en empleados");
