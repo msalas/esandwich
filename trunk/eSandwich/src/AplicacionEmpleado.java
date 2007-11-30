@@ -2,13 +2,12 @@ import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import java.net.MalformedURLException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-
 import javax.swing.JMenu;
 import java.awt.Dimension;
 import javax.swing.SwingConstants;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 
 // Falta cambiar los comentarios 
@@ -57,8 +56,8 @@ public class AplicacionEmpleado extends JFrame {
 		
 		// Inicializamos modelo
 		
-/*		try {
-			sm = new ServiciosAccesoModelo();
+		try {
+			sm = new ServiciosAdAuxModelo();
 
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -69,7 +68,7 @@ public class AplicacionEmpleado extends JFrame {
 		} catch (NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} */ 
+		} 
 		
 		// Inicializamos controlador para acciones del menu
 		

@@ -23,6 +23,7 @@ implements ServiciosRemotosAdminAux {
 	RemoteException {
 		Empleado auxEmp = null;
 		try {
+			auxEmp = ge.addEmpleado(emp);
 			if (!ge.existeNif(emp.getNif())) {
 				auxEmp = ge.addEmpleado(emp);
 			}

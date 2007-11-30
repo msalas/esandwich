@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 public class ControladorAplicacionEmpleado implements ActionListener {
 
 	AplicacionEmpleado ae = null;
-	ServiciosAdAuxModelo sam = null;
 
 	public ControladorAplicacionEmpleado(
 			AplicacionEmpleado aplicacionEmpleado) {

@@ -53,7 +53,7 @@ public class PantallaAltaEmpleado extends JDialog {
 	private JLabel jLabel3 = null;
 	private AplicacionEmpleado ae;
 	private ControladorPantallaAltaEmpleado cpl = null;  //  @jve:decl-index=0:
-	private Empleado emp = null;
+	private Empleado emp = null;  //  @jve:decl-index=0:
 	/**
 	 * This is the default constructor
 	 */
@@ -431,10 +431,24 @@ public class PantallaAltaEmpleado extends JDialog {
 
 
 	public Empleado montaEmpleado() {
+		Rol pRol = new Rol();
+		try {
+			GestorRol gRol = new GestorRol();
+			try {
+				pRol = gRol.consultaRol(1);
+			}
+			catch (errorSQL e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		catch (errorConexionBD e) {
+			System.out.println(e.getMessage());
+		}
+		
 		Empleado auxEmp = new Empleado();
-		auxEmp.setNif("0000086N");
-		auxEmp.setNombre("Eruka");
-		auxEmp.setApellido1("Java");
+		auxEmp.setNif("59994999N");
+		auxEmp.setNombre("Lo he");
+		auxEmp.setApellido1("Conseguido");
 		auxEmp.setApellido2("Dificil");
 		auxEmp.setDireccion("direccion 2");
 		auxEmp.setPoblacion("poblacion 2");
@@ -443,7 +457,7 @@ public class PantallaAltaEmpleado extends JDialog {
 		auxEmp.setEmail("email 2");
 		auxEmp.setPassword("123410");
 		auxEmp.setDesactivado(false);
-		//emp.setRol(pRol);
+		auxEmp.setRol(pRol);
 		return auxEmp;
 	}
 
