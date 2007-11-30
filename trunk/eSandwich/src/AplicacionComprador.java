@@ -12,7 +12,7 @@ import java.rmi.RemoteException;
 import javax.swing.JMenu;
 
 // Falta cambiar los comentarios 
-public class AplicacionComprador extends JFrame {
+public class AplicacionComprador extends JFrame implements Aplicacion{
 
   private static final long              serialVersionUID      = 1L;
 
