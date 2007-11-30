@@ -3,11 +3,11 @@ import java.util.Date;
 import java.util.Vector;
 
 public interface ServiciosRemotosAdminAux extends ServiciosRemotos {
-
-  public int anadirEmpleado(Empleado e) throws errorSQL, errorConexionBD,
-      RemoteException;
-
-  public int añadirProducto(Producto p) throws errorSQL, errorConexionBD,
+	public Empleado anadirEmpleado (Empleado e) throws errorSQL, 
+	errorConexionBD,RemoteException;
+ 
+// Si activas estos metodos da error en ServiciosAdminAuxImpl, miratelo.	
+/*  public int añadirProducto(Producto p) throws errorSQL, errorConexionBD,
       RemoteException;
 
   public int eliminaProducto(int idProducto) throws errorSQL, errorConexionBD,
@@ -20,7 +20,7 @@ public interface ServiciosRemotosAdminAux extends ServiciosRemotos {
       RemoteException;
 
   public Vector<Producto> listaProductoPorFamilia(int idFamilia)
-      throws errorSQL, errorConexionBD, RemoteException;
+     throws errorSQL, errorConexionBD, RemoteException;
 
   public int añadirFamilia(FamiliaProducto fp) throws errorSQL,
       errorConexionBD, RemoteException;
@@ -72,5 +72,5 @@ public interface ServiciosRemotosAdminAux extends ServiciosRemotos {
 
   public int insertarFacturacionSandwich(int idProducto) throws errorSQL,
       errorConexionBD, RemoteException;
-
+*/
 }
