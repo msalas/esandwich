@@ -13,18 +13,21 @@ public class ControladorAplicacionComprador implements ActionListener {
   }
 
   public void actionPerformed(ActionEvent evt) {
-
+    System.out.println("ControladorAplicacionComprador.actionPerformed()");
     String action = evt.getActionCommand();
 
     if (action.equals("IS")) {// Inicial sesion
-
+      System.out.println("Iniciar Sesión");
       PantallaLogin login = new PantallaLogin(ac);
       login.setVisible(true);
 
     } else if (action.equals("CS")) {// Cerrar sesion
+      System.out.println("Cerrar sesión");
       ac.setMenuNoRegistrado();
 
     } else if (action.equals("AR")) {// Alta registro
+      System.out.println("Alta registro");
+      // Obtenemos el usuario actual
       Usuario u = new Cliente();
       PantallaUsuarisWindow puw = new PantallaUsuarisWindow(ac, u);
       puw.setVisible(true);

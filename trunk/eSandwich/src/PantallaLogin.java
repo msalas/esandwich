@@ -132,4 +132,4 @@ public class PantallaLogin extends JDialog {
     return btnLogin;
   }
 
-}
+}  //  @jve:decl-index=0:visual-constraint="26,32"
