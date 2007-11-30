@@ -3,6 +3,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 
 
 
@@ -84,6 +85,39 @@ public class GestorRol {
 			throw new GestorRolException("Error SQL numero: " + e.getErrorCode());			
 		}
 	}
+	public Vector lista() throws errorSQL, errorConexionBD {
+		Vector v = new Vector();
+		String strSQL = "";
+		
+		strSQL = "SELECT id, descripcion, letra_Rol "
+			+ "FROM rol";
+
+		
+		Rol pRol = null;
+			
+		if(gd.isConectado()) con = gd.getConexion();
+		else throw new errorConexionBD("No hay conexion!");
+		Statement stmt = null;
+		ResultSet rs = null;
+			
+		try {
+			gd.begin();
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(strSQL);
+			
+			while(rs.next()){
+				pRol = montaRol(rs);
+				v.add(pRol);
+			}				
+			rs.close();
+			stmt.close();
+			gd.commit();
+		} catch (SQLException e) {
+			throw new errorSQL(e.toString());
+		}
+		return v;
+	}
+
 	
 	private Rol montaRol(ResultSet rs) throws errorSQL {
 		Rol pRol = null;

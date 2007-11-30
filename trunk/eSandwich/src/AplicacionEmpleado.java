@@ -8,6 +8,7 @@ import javax.swing.SwingConstants;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import javax.swing.JOptionPane;
 
 
 // Falta cambiar los comentarios 
@@ -16,25 +17,6 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jContentPane = null;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	private ServiciosModelo sm = null;  //  @jve:decl-index=0:
 
@@ -51,6 +33,8 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 	private JMenu jMenuEmpleados = null;
 
 	private JMenuItem jMenuItemAltaEmpleado = null;
+
+	private JOptionPane jOptionPane = null;  //  @jve:decl-index=0:visual-constraint="100,319"
 
 
 	/**
@@ -69,27 +53,27 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 	 */
 	private void initialize() {
 		this.setSize(536, 362);
+		this.setResizable(false);
 		this.setJMenuBar(getJJMenuBar());
 		this.setContentPane(getJContentPane());
 		this.setTitle("eSandvitx");
-		
+		// Para centrar pantalla
+		this.setLocationRelativeTo(null);
 		// Inicializamos modelo
 		
 		try {
-		
-			// esto tiene que ser ServiciosAccesoModelo() !!!!
-			
 			sm = new ServiciosAdAuxModelo();
+			//sm = new ServiciosAccesoModelo();
 
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this,e.toString(),"ERROR URL",JOptionPane.ERROR_MESSAGE);
+			//e.printStackTrace();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this,e.toString(),"ERROR Remote",JOptionPane.ERROR_MESSAGE);
+			//e.printStackTrace();
 		} catch (NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this,e.toString(),"ERROR BOUND",JOptionPane.ERROR_MESSAGE);
+			//e.printStackTrace();
 		} 
 		
 		// Inicializamos controlador para acciones del menu
@@ -211,6 +195,18 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 			jMenuItemAltaEmpleado.setPreferredSize(new Dimension(63, 21));
 		}
 		return jMenuItemAltaEmpleado;
+	}
+
+	/**
+	 * This method initializes jOptionPane	
+	 * 	
+	 * @return javax.swing.JOptionPane	
+	 */
+	private JOptionPane getJOptionPane() {
+		if (jOptionPane == null) {
+			jOptionPane = new JOptionPane();
+		}
+		return jOptionPane;
 	}
 
 	public static void main(String args[]) {
