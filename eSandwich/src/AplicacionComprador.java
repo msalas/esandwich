@@ -56,6 +56,7 @@ public class AplicacionComprador extends JFrame implements Aplicacion{
     this.setJMenuBar(getJbarramenu());
     this.setContentPane(getJContentPane());
     this.setTitle("eSandvitx");
+    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
     // Inicializamos modelo
 
@@ -380,7 +381,7 @@ public class AplicacionComprador extends JFrame implements Aplicacion{
 
   }
 
-public static void main(String args[]) {
+  public static void main(String args[]) {
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
         AplicacionComprador app = new AplicacionComprador();
@@ -388,4 +389,5 @@ public static void main(String args[]) {
         app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       }
     });
-  }} // @jve:decl-index=0:visual-constraint="24,-126"
+  }
+} // @jve:decl-index=0:visual-constraint="24,-126"
