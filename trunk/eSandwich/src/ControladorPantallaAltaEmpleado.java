@@ -8,12 +8,12 @@ import javax.swing.JOptionPane;
 
 
 
-public class ControladorPantallaAltaEmpleado extends JFrame implements ActionListener {
+public class ControladorPantallaAltaEmpleado implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	PantallaAltaEmpleado Pe;
 	AplicacionEmpleado ae = null;
-	ServiciosAdAuxModelo scrm = null;  //  @jve:decl-index=0:
-	private JOptionPane jOptionPane = null;  //  @jve:decl-index=0:visual-constraint="88,77"
+	ServiciosAdAuxModelo scrm = null; 
+	
 	public ControladorPantallaAltaEmpleado(PantallaAltaEmpleado pAltEmp, AplicacionEmpleado ae) {
 		Pe = pAltEmp;	
 		this.ae = ae;
@@ -26,22 +26,22 @@ public class ControladorPantallaAltaEmpleado extends JFrame implements ActionLis
 			ae.setSm(scrm);
 		}
 		catch (MalformedURLException e) {
-			JOptionPane.showMessageDialog(this,e.toString(),"ERROR URL",JOptionPane.ERROR_MESSAGE);
+			ae.mostrarError(e.getMessage(),"Error Url");
 			//e.printStackTrace();
 		} catch (RemoteException e) {
-			JOptionPane.showMessageDialog(this,e.toString(),"ERROR remote",JOptionPane.ERROR_MESSAGE);
+			ae.mostrarError(e.getMessage(),"Error remoto");
 			//e.printStackTrace();
 		} catch (errorConexionBD e) {
-			JOptionPane.showMessageDialog(this,e.toString(),"ERROR conexión BD",JOptionPane.ERROR_MESSAGE);
+			ae.mostrarError(e.getMessage(), "Error de conexion con la Base de Datos");
 			//e.printStackTrace();
 		} catch (errorSQL e) {
-			JOptionPane.showMessageDialog(this,e.toString(),"ERROR SQL",JOptionPane.ERROR_MESSAGE);
+			ae.mostrarError(e.getMessage(),"Error de sql");
 			//e.printStackTrace();
 		} catch (NotBoundException e) {
-			JOptionPane.showMessageDialog(this,e.toString(),"ERROR BOUND",JOptionPane.ERROR_MESSAGE);
+			ae.mostrarError(e.getMessage(),"Error de servicios");
 			//e.printStackTrace();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this,e.toString(),"ERROR GENERAL",JOptionPane.ERROR_MESSAGE);
+			ae.mostrarError(e.getMessage(),"Error general");
 		}
 	}
 
@@ -57,25 +57,25 @@ public class ControladorPantallaAltaEmpleado extends JFrame implements ActionLis
 			scrm = (ServiciosAdAuxModelo) ae.getSm();
 			scrm.nuevoEmpleado(emp);
 			ae.setSm(scrm);
-		} catch (MalformedURLException e) {
-			JOptionPane.showMessageDialog(this,e.toString(),"ERROR URL",JOptionPane.ERROR_MESSAGE);
-			//e.printStackTrace();
-		} catch (RemoteException e) {
-			JOptionPane.showMessageDialog(this,e.toString(),"ERROR remote",JOptionPane.ERROR_MESSAGE);
-			//e.printStackTrace();
-		} catch (errorConexionBD e) {
-			JOptionPane.showMessageDialog(this,e.toString(),"ERROR conexión BD",JOptionPane.ERROR_MESSAGE);
-			//e.printStackTrace();
-		} catch (errorSQL e) {
-			JOptionPane.showMessageDialog(this,e.toString(),"ERROR SQL",JOptionPane.ERROR_MESSAGE);
-			//e.printStackTrace();
-		} catch (NotBoundException e) {
-			JOptionPane.showMessageDialog(this,e.toString(),"ERROR BOUND",JOptionPane.ERROR_MESSAGE);
-			//e.printStackTrace();
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this,e.toString(),"ERROR GENERAL",JOptionPane.ERROR_MESSAGE);
-		}
-		JOptionPane.showMessageDialog(this,"Alta realizada","Alta empleados",JOptionPane.INFORMATION_MESSAGE);
+		}catch (MalformedURLException e) {
+				ae.mostrarError(e.getMessage(),"Error Url");
+				//e.printStackTrace();
+			} catch (RemoteException e) {
+				ae.mostrarError(e.getMessage(),"Error remoto");
+				//e.printStackTrace();
+			} catch (errorConexionBD e) {
+				ae.mostrarError(e.getMessage(), "Error de conexion con la Base de Datos");
+				//e.printStackTrace();
+			} catch (errorSQL e) {
+				ae.mostrarError(e.getMessage(),"Error de sql");
+				//e.printStackTrace();
+			} catch (NotBoundException e) {
+				ae.mostrarError(e.getMessage(),"Error de servicios");
+				//e.printStackTrace();
+			} catch (Exception e) {
+				ae.mostrarError(e.getMessage(),"Error general");
+			}
+		ae.mostrarInformacion("Alta realizada","Alta empleados");
 		Pe.getJButtonCancellar(); 
 	}
 
