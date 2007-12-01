@@ -18,10 +18,7 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 
 	private JPanel jContentPane = null;
 
-	private ServiciosModelo sm = null;  //  @jve:decl-index=0:
-
-	private ControladorAplicacionEmpleado cae = null;
-
+	
 	private JMenuBar jJMenuBar = null;
 
 	private JMenu jMenuSesion = null;
@@ -34,7 +31,9 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 
 	private JMenuItem jMenuItemAltaEmpleado = null;
 
-	private JOptionPane jOptionPane = null;  //  @jve:decl-index=0:visual-constraint="100,319"
+	private ServiciosModelo sm = null;  //  @jve:decl-index=0:
+
+	private ControladorAplicacionEmpleado cae = null;
 
 
 	/**
@@ -196,19 +195,7 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 		}
 		return jMenuItemAltaEmpleado;
 	}
-
-	/**
-	 * This method initializes jOptionPane	
-	 * 	
-	 * @return javax.swing.JOptionPane	
-	 */
-	private JOptionPane getJOptionPane() {
-		if (jOptionPane == null) {
-			jOptionPane = new JOptionPane();
-		}
-		return jOptionPane;
-	}
-
+	
 	public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
