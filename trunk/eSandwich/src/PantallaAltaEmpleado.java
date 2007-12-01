@@ -8,12 +8,9 @@ import javax.swing.BorderFactory;
 import javax.swing.border.BevelBorder;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import java.awt.Point;
 import java.awt.Dimension;
 import javax.swing.JComboBox;
-import java.awt.Font;
-import javax.swing.SwingConstants;
 import javax.swing.JDialog;
 import java.util.Vector;
 
@@ -53,7 +50,8 @@ public class PantallaAltaEmpleado extends JDialog {
 	private Empleado emp = null;  //  @jve:decl-index=0:
 	private JLabel jLabelCognoms2 = null;
 	private JTextField jTextFieldCognoms2 = null;
-	private Rol pRol;  //  @jve:decl-index=0:
+	private Vector vectorCombo = null;
+
 	/**
 	 * This is the default constructor
 	 */
@@ -78,6 +76,8 @@ public class PantallaAltaEmpleado extends JDialog {
 		this.setLocationRelativeTo(null);		
 		cpl = new ControladorPantallaAltaEmpleado(this,ae);
 		jButtonCrear.addActionListener(cpl);
+		cpl.iniCombo();
+		jPanelDadesAcces.add(getJComboBox(), null);
 	}
 	
 
@@ -237,12 +237,26 @@ public class PantallaAltaEmpleado extends JDialog {
 			jPanelDadesAcces.add(jLabelNif, null);
 			jPanelDadesAcces.add(getJTextFieldNif(), null);
 			jPanelDadesAcces.add(getJPanelContrasenya(), null);
-			jPanelDadesAcces.add(getJComboBox(), null);
+			//jPanelDadesAcces.add(getJComboBox(), null);
 			jPanelDadesAcces.add(jLabel1, null);
 		}
 		return jPanelDadesAcces;
 	}
 
+	/**
+	 * This method initializes jComboBox	
+	 * 	
+	 * @return javax.swing.JComboBox	
+	 */
+	private JComboBox getJComboBox() {		
+		if (jComboBox == null) {
+			jComboBox = new JComboBox(vectorCombo);
+			jComboBox.setBounds(new Rectangle(285, 69, 150, 25));
+		}
+		return jComboBox;
+	}
+
+	
 	/**
 	 * This method initializes jPanelContrasenya	
 	 * 	
@@ -382,36 +396,6 @@ public class PantallaAltaEmpleado extends JDialog {
 		return jButtonCancellar;
 	}
 
-	/**
-	 * This method initializes jComboBox	
-	 * 	
-	 * @return javax.swing.JComboBox	
-	 */
-	private JComboBox getJComboBox() {
-	/*
-	 * Aixo esta malament, no es pot utilitzar Gestors, ho comento pq no peti i es pugui fer proves
-	 *
-		Vector data;
-		try {
-			GestorRol gRol = new GestorRol();
-			try {
-				data = gRol.lista();				
-			}
-			catch (errorSQL e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		catch (errorConexionBD e) {
-			System.out.println(e.getMessage());
-		}
-		//Object data[] = {"Administrativo","Auxiliar","Cocinero"};
-		if (jComboBox == null) {
-			jComboBox = new JComboBox(data.toArray());
-			jComboBox.setBounds(new Rectangle(285, 69, 150, 25));
-		}
-		*/
-		return jComboBox;
-	}
 
 
 	public Empleado montaEmpleado() {
@@ -427,7 +411,7 @@ public class PantallaAltaEmpleado extends JDialog {
 		auxEmp.setEmail(jTextFieldEMail.getText());
 		auxEmp.setPassword(jPasswordFieldNContrasenya.getText());
 		auxEmp.setDesactivado(false);
-		auxEmp.setRol(pRol);
+		//auxEmp.setRol(pRol);
 		return auxEmp;
 	}
 
@@ -455,5 +439,15 @@ public class PantallaAltaEmpleado extends JDialog {
 			jTextFieldCognoms2.setEditable(true);
 		}
 		return jTextFieldCognoms2;
+	}
+
+
+	public Vector getVectorCombo() {
+		return vectorCombo;
+	}
+
+
+	public void setVectorCombo(Vector vectorCombo) {
+		this.vectorCombo = vectorCombo;
 	}
 }

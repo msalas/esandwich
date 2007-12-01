@@ -40,4 +40,5 @@ public class Rol implements Serializable{
 	public void setLetraRol(String letraRol) {
 		this.letraRol = letraRol;
 	}
+	
 }
