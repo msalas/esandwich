@@ -88,7 +88,8 @@ private boolean modificar = false;
     if(modificar){ // S'han de posar les dades de l'usuari
     	
     	//ho poses a els atributs de pantalla que vulguis, per exemple: jNombre.setText(cpdp.getNombre());
-    	cpdp.getNombre();
+      jTextFieldNom.setText(cpdp.getNombre());
+//      jTextFieldCognoms.setText(cpdp.);
     	
     	
     } // Sino ja esta be, no cal fer res
@@ -105,12 +106,9 @@ private boolean modificar = false;
       jLabel3.setBounds(new Rectangle(399, 3, 64, 16));
       jLabel3.setFont(new Font("Dialog", Font.PLAIN, 12));
       jLabel3.setHorizontalAlignment(SwingConstants.RIGHT);
-      if (usuario != null) {
-        jLabel3.setText(usuario.getCodUsuario());
-      }
-      // else {
-      // jLabel3.setText("");
-      // }
+//      if (usuario != null) {
+//        jLabel3.setText(usuario.getCodUsuario());
+//      }
       jLabel2 = new JLabel();
       jLabel2.setText("Usuario:");
       jLabel2.setLocation(new Point(336, 3));
@@ -204,12 +202,9 @@ private boolean modificar = false;
       jTextFieldNif.setBounds(new Rectangle(40, 15, 120, 18));
       jTextFieldNif.setEditable(true);
       jTextFieldNif.setEnabled(true);
-      if (usuario != null) {
-        jTextFieldNif.setText(usuario.getNif());
-      }
-      // else {
-      // jTextFieldNif.setText("12345678A");
-      // }
+//      if (usuario != null) {
+//        jTextFieldNif.setText(usuario.getNif());
+//      }
     }
     return jTextFieldNif;
   }
@@ -224,12 +219,9 @@ private boolean modificar = false;
       jTextFieldNom = new JTextField();
       jTextFieldNom.setBounds(new Rectangle(49, 15, 100, 18));
       jTextFieldNom.setEditable(true);
-      if (usuario != null) {
-        jTextFieldNom.setText(usuario.getNombre());
-      }
-      // else {
-      // jTextFieldNom.setText("Juan José");
-      // }
+//      if (usuario != null) {
+//        jTextFieldNom.setText(usuario.getNombre());
+//      }
     }
     return jTextFieldNom;
   }
@@ -244,15 +236,12 @@ private boolean modificar = false;
       jTextFieldCognoms = new JTextField();
       jTextFieldCognoms.setBounds(new Rectangle(229, 15, 200, 18));
       jTextFieldCognoms.setEditable(true);
-      if (usuario != null) {
-        if (usuario.getApellido1() != null) {
-          jTextFieldCognoms.setText(usuario.getApellido1() + " "
-              + usuario.getApellido2());
-        }
-      }
-      // else {
-      // jTextFieldCognoms.setText("García Escabia");
-      // }
+//      if (usuario != null) {
+//        if (usuario.getApellido1() != null) {
+//          jTextFieldCognoms.setText(usuario.getApellido1() + " "
+//              + usuario.getApellido2());
+//        }
+//      }
     }
     return jTextFieldCognoms;
   }
@@ -267,12 +256,9 @@ private boolean modificar = false;
       jTextFieldAdreça = new JTextField();
       jTextFieldAdreça.setBounds(new Rectangle(60, 40, 170, 18));
       jTextFieldAdreça.setEditable(true);
-      if (usuario != null) {
-        jTextFieldAdreça.setText(usuario.getDireccion());
-      }
-      // else {
-      // jTextFieldAdreça.setText("C/ Pare Artigas 10 1ª2ª");
-      // }
+//      if (usuario != null) {
+//        jTextFieldAdreça.setText(usuario.getDireccion());
+//      }
     }
     return jTextFieldAdreça;
   }
@@ -331,12 +317,9 @@ private boolean modificar = false;
       jPasswordFieldNContrasenya = new JPasswordField();
       jPasswordFieldNContrasenya.setBounds(new Rectangle(152, 10, 100, 18));
       jPasswordFieldNContrasenya.setEditable(true);
-      if (usuario != null) {
-        jPasswordFieldNContrasenya.setText(usuario.getPassword());
-      }
-      // else {
-      // jPasswordFieldNContrasenya.setText("12345678");
-      // }
+//      if (usuario != null) {
+//        jPasswordFieldNContrasenya.setText(usuario.getPassword());
+//      }
     }
     return jPasswordFieldNContrasenya;
   }
@@ -351,12 +334,9 @@ private boolean modificar = false;
       jPasswordFieldCContrasenya = new JPasswordField();
       jPasswordFieldCContrasenya.setBounds(new Rectangle(152, 35, 100, 18));
       jPasswordFieldCContrasenya.setEditable(true);
-      if (usuario != null) {
-        jPasswordFieldCContrasenya.setText(usuario.getPassword());
-      }
-      // else {
-      // jPasswordFieldCContrasenya.setText("12345678");
-      // }
+//      if (usuario != null) {
+//        jPasswordFieldCContrasenya.setText(usuario.getPassword());
+//      }
     }
     return jPasswordFieldCContrasenya;
   }
@@ -371,12 +351,9 @@ private boolean modificar = false;
       jTextFieldPoblacio = new JTextField();
       jTextFieldPoblacio.setBounds(new Rectangle(300, 40, 129, 18));
       jTextFieldPoblacio.setEditable(true);
-      if (usuario != null) {
-        jTextFieldPoblacio.setText(usuario.getPoblacion());
-      }
-      // else {
-      // jTextFieldPoblacio.setText("Viladecans");
-      // }
+//      if (usuario != null) {
+//        jTextFieldPoblacio.setText(usuario.getPoblacion());
+//      }
     }
     return jTextFieldPoblacio;
   }
@@ -391,10 +368,9 @@ private boolean modificar = false;
       jTextFieldTelefon = new JTextField();
       jTextFieldTelefon.setBounds(new Rectangle(65, 65, 120, 18));
       jTextFieldTelefon.setEditable(true);
-      if (usuario != null) {
-        jTextFieldTelefon.setText(usuario.getTelefono());
-      }
-      // jTextFieldTelefon.setText("93 555 55 55");
+//      if (usuario != null) {
+//        jTextFieldTelefon.setText(usuario.getTelefono());
+//      }
     }
     return jTextFieldTelefon;
   }
@@ -409,10 +385,9 @@ private boolean modificar = false;
       jTextFieldMobil = new JTextField();
       jTextFieldMobil.setBounds(new Rectangle(65, 90, 120, 18));
       jTextFieldMobil.setEditable(true);
-      if (usuario != null) {
-        jTextFieldMobil.setText(usuario.getMovil());
-      }
-      // jTextFieldMobil.setText("555 555 555");
+//      if (usuario != null) {
+//        jTextFieldMobil.setText(usuario.getMovil());
+//      }
     }
     return jTextFieldMobil;
   }
@@ -427,10 +402,9 @@ private boolean modificar = false;
       jTextFieldEMail = new JTextField();
       jTextFieldEMail.setBounds(new Rectangle(245, 90, 183, 18));
       jTextFieldEMail.setEditable(true);
-      if (usuario != null) {
-        jTextFieldEMail.setText(usuario.getEmail());
-      }
-      // jTextFieldEMail.setText("jgarciaesc@euo.com");
+//      if (usuario != null) {
+//        jTextFieldEMail.setText(usuario.getEmail());
+//      }
     }
     return jTextFieldEMail;
   }
@@ -450,7 +424,7 @@ private boolean modificar = false;
       // El listener es el controlador cpl
       jButtonCrear.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent e) {
-          System.out.println("PantallaUsuarisWindow.actionPerformed()");
+          System.out.println("PantallaDatosPersonales.actionPerformed()");
 
         }
       });

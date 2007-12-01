@@ -41,17 +41,17 @@ public class ControladorPantallaLogin implements ActionListener {
         sm = (ServiciosCompradorModelo) sm.login((pl.getTxtCUsuario())
             .getText(), (pl.getTxtPassword()).getText(), true);
         
-        ac.setSm(sm);
+        ac.setSm((ServiciosCompradorRegistradoModelo)sm);
         System.out.println("Mostrando menu de usuario registrado");
         ac.setMenuRegistrado();
 
       } else {
-        System.out.println("Obteniendo serviciosAdAuxModelo");
-        sm = (ServiciosAdAuxModelo) ac.getSm();
-        System.out.println("Realizando login");
-        sm = (ServiciosAdAuxModelo) sm.login((pl.getTxtCUsuario()).getText(),
-            (pl.getTxtPassword()).getText(), false);
-        ae.setSm(sm);
+        System.out.println("***\nObteniendo serviciosAdAuxModelo");
+//        sm = (ServiciosAdAuxModelo) ac.getSm();
+//        System.out.println("Realizando login");
+//        sm = (ServiciosAdAuxModelo) sm.login((pl.getTxtCUsuario()).getText(),
+//            (pl.getTxtPassword()).getText(), false);
+//        ae.setSm(sm);
       }
 
       // Actualizamos los servicios de la aplicacion a cliente registrado

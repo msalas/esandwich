@@ -106,7 +106,7 @@ public class GestorPedido {
     Statement stmt = null;
           
 //    try {
-      
+//      
 //      strSQL = "SELECT cod_empleado,nif,nombre,apellido1,apellido2,"
 //        + "direccion,poblacion,telefono,movil,email,cod_Usuario,pasword,"
 //        + "desactivado,id_rol "
