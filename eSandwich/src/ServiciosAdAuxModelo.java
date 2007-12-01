@@ -2,9 +2,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.Enumeration;
 import java.util.Vector;
-import java.util.Date;
 
 
 public class ServiciosAdAuxModelo extends ServiciosAccesoModelo {
@@ -17,191 +15,14 @@ public class ServiciosAdAuxModelo extends ServiciosAccesoModelo {
 		sraa = (ServiciosRemotosAdminAux)Naming.lookup("rmi://localhost:1099/ServiciosAdAux");
 	}
 
-	public void nuevoEmpleado(Empleado emp) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		
-		
+	public void nuevoEmpleado(Empleado emp) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{		
 		sraa.anadirEmpleado(emp);
-		
-		
 	}
 	
-	public void nuevoProducto(Producto p) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		sraa.añadirProducto(p);
-	}
-	
-	public void eliminarProducto(int id) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		sraa.eliminaProducto(id);
-	}
-	
-	public void consultaProducto(int id) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		sraa.consultaProducto(id);
-	}
-
-	public Vector<Vector> listaProductos() throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		Vector<Object> v;
-		Vector<Vector> vv = new Vector<Vector>();
-		
-		for (Enumeration<Producto> p = (sraa.listaProductos()).elements() ; p.hasMoreElements() ;) {
-					Producto pr = p.nextElement();
-
-					v = new Vector<Object>();
-					v.add(pr.getIdProducto());
-					v.add(pr.getDescripcion());
-					v.add(pr.getDescripcionAmpliada());
-					v.add(pr.getIdFamilia());
-					v.add(pr.getExistencias());
-					v.add(pr.getPrecio());
-					vv.add(v);
-		}
-		
-		return vv;
-	}
-
-	public Vector<Vector> listaProductos(int idFamilia) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		Vector<Object> v;
-		Vector<Vector> vv = new Vector<Vector>();
-		
-		for (Enumeration<Producto> p = (sraa.listaProductoPorFamilia(idFamilia)).elements() ; p.hasMoreElements() ;) {
-					Producto pr = p.nextElement();
-
-					v = new Vector<Object>();
-					v.add(pr.getIdProducto());
-					v.add(pr.getDescripcion());
-					v.add(pr.getDescripcionAmpliada());
-					v.add(pr.getIdFamilia());
-					v.add(pr.getExistencias());
-					v.add(pr.getPrecio());
-					vv.add(v);
-		}
-		
-		return vv;
-	}
-	
-	public void nuevaFamilia(FamiliaProducto f) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		sraa.añadirFamilia(f);
-	}
-	
-	public void eliminarFamilia(int id) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		sraa.eliminaFamiliaProducto(id);
-	}
-	
-	public void consultaFamilia(int id) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		sraa.consultaFamiliaProducto(id);
-	}
-
-	public Vector<Vector> listaFamilia() throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		Vector<Object> v;
-		Vector<Vector> vv = new Vector<Vector>();
-		
-		for (Enumeration<FamiliaProducto> p = (sraa.listaProductoPorFamilia()).elements() ; p.hasMoreElements() ;) {
-					FamiliaProducto pr = p.nextElement();
-
-					v = new Vector<Object>();
-					v.add(pr.getIdFamilia());
-					v.add(pr.getDescripcion());
-					vv.add(v);
-		}
-	return vv;
-	}
-	
-	public void insertarStock(int id, int unidades) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		sraa.insertarStock(id, unidades);
-	}
-	
-	public void eliminarStock(int id) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		sraa.eliminaStock(id);
-	}
-	
-	public void consultaStock(int id) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		sraa.consultaStock(id);
-	}
-	
-	public Vector<Vector> listaStock() throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		Vector<Object> v;
-		Vector<Vector> vv = new Vector<Vector>();
-		
-		for (Enumeration<Producto> p = (sraa.listaStock()).elements() ; p.hasMoreElements() ;) {
-					Producto pr = p.nextElement();
-
-					v = new Vector<Object>();
-					v.add(pr.getExistencias());
-					vv.add(v);
-		}
-	return vv;
-	}
-	
-	public Vector<Vector> listaStockPorFamilia(int id) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		Vector<Object> v;
-		Vector<Vector> vv = new Vector<Vector>();
-		
-		for (Enumeration<Producto> p = (sraa.listaStockPorFamilia(id)).elements() ; p.hasMoreElements() ;) {
-					Producto pr = p.nextElement();
-
-					v = new Vector<Object>();
-					v.add(pr.getExistencias());
-					vv.add(v);
-		}
-	return vv;
-	}
-	
-	public void insertarFactura(Facturacion f) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		sraa.insertarFactura(f);
-	}
-	
-	public void eliminarFactura(int id) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		sraa.eliminaFactura(id);
-	}
-	
-	public void consultaFactura(int id) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		sraa.consultaFactura(id);
-	}
-	
-	public Vector<Vector> listaFacturas() throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		Vector<Object> v;
-		Vector<Vector> vv = new Vector<Vector>();
-		
-		for (Enumeration<Facturacion> p = (sraa.listaFacturas()).elements() ; p.hasMoreElements() ;) {
-					Facturacion pr = p.nextElement();
-
-					v = new Vector<Object>();
-					v.add(pr.getId());
-					v.add(pr.getIdPedido());
-					v.add(pr.getFecha());
-					v.add(pr.getImporte());
-					vv.add(v);
-		}
-	return vv;
-	}
-	
-	public void insertarFacturaSandwich(int id) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		sraa.insertarFacturacionSandwich(id);
-	}
-	
-	public void eliminarFacturaSandwich(int id) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		sraa.eliminaFacturacionSandwich(id);
-	}
-	
-	public void consultaFacturaSandwich(int id) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		sraa.consultaFacturacionSandwich(id);
-	}
-	
-	
-	//Suposo que NO ha d'anar així, però el metode del gestor tampoc ser com va
-	public Vector<Vector> listaFacturasSandwich(int id, Date fechaDesde, Date fechaHasta) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		Vector<Object> v;
-		Vector<Vector> vv = new Vector<Vector>();
-		
-		for (Enumeration<Facturacion> p = (sraa.listaFacturasSandwich(id, fechaDesde, fechaHasta)).elements() ; p.hasMoreElements() ;) {
-					Facturacion pr = p.nextElement();
-
-					v = new Vector<Object>();
-					v.add(pr.getId());
-					v.add(pr.getIdPedido());
-					v.add(pr.getFecha());
-					v.add(pr.getImporte());
-					vv.add(v);
-		}
-	return vv;
+	public Vector listaDescRol() throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
+		Vector vRet = new Vector();
+		vRet = sraa.listaDescripcionesRol();
+		return vRet;
 	}
 	
 }
