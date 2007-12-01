@@ -56,21 +56,21 @@ public class PantallaDatosPersonales extends JDialog {
   private ControladorAplicacionComprador cac                        = null;
   private Usuario                        usuario                    = null;
 
-  /**
-   * This is the default constructor
-   */
-  public PantallaDatosPersonales(AplicacionEmpleado ae, boolean modif) {
-    super(ae, "Alta empleado", true);
-    this.ae = ae;
-    initialize();
-  }
+//  /**
+//   * This is the default constructor
+//   */
+//  public PantallaDatosPersonales(AplicacionEmpleado ae, boolean modif) {
+//    super(ae, "Alta empleado", true);
+//    this.ae = ae;
+//    initialize();
+//  }
 
-  // public PantallaModifCliente(AplicacionComprador ac, Usuario usu) {
-  // super(ac, "Alta empleado", true);
-  // this.ac = ac;
-  // usuario = usu;
-  // initialize();
-  // }
+   public PantallaDatosPersonales(AplicacionComprador ac, boolean modif) {
+   super(ac, "Alta empleado", true);
+   this.ac = ac;
+//   usuario = usu;
+   initialize();
+   }
 
   /**
    * This method initializes this
