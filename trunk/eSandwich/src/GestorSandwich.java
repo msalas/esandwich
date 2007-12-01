@@ -31,7 +31,7 @@ public class GestorSandwich {
 	
 	public Sandwich lee(int idSandwich) throws errorConexionBD{
 		
-	/*	if(gd.isConectado()) con = gd.getConexion();
+		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
 
 		Statement stmt = null;
@@ -57,10 +57,10 @@ public class GestorSandwich {
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
-		}*/
+		}
 		
 	
-		return null;
+		return sandwich ;
 		
 	}
 	
@@ -188,7 +188,7 @@ public class GestorSandwich {
 			e.printStackTrace();
 		}
 		
-		return null;
+		return cl;
 	}	
 
     @SuppressWarnings("deprecation")
