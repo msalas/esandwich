@@ -6,7 +6,9 @@ import java.rmi.RemoteException;
 public class ServiciosAccesoModelo extends ServiciosModelo {
 
   ServiciosRemotosAcceso sra;
-
+  Usuario u;
+  boolean accesible = false;
+  
   public ServiciosAccesoModelo() throws MalformedURLException,
       RemoteException, NotBoundException {
 
@@ -19,7 +21,7 @@ public class ServiciosAccesoModelo extends ServiciosModelo {
       boolean isCliente) throws errorConexionBD, errorSQL,
       MalformedURLException, RemoteException, NotBoundException {
     System.out.println("ServiciosAccesoModelo.login()");
-    Usuario u;
+   
     ServiciosModelo s = null;
 
     System.out.println("Ejecutando ServiciosRemotosAcceso.login()");
@@ -41,8 +43,27 @@ public class ServiciosAccesoModelo extends ServiciosModelo {
       s = new ServiciosCompradorRegistradoModelo();
     }
 
+    accesible = true;
     return s;
 
   }
+
+public Usuario getU() {
+	return u;
+}
+
+public void setU(Usuario u) {
+	this.u = u;
+}
+
+public boolean isAccesible() {
+	return accesible;
+}
+
+public void setAcceso(boolean acceso) {
+	this.accesible = acceso;
+}
+  
+ 
 
 }

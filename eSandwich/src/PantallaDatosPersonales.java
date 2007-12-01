@@ -50,27 +50,19 @@ public class PantallaDatosPersonales extends JDialog {
   private JLabel                         jLabel2                    = null;
   private JLabel                         jLabel3                    = null;
 
-  private AplicacionEmpleado             ae                         = null;
-  private ControladorAplicacionEmpleado  cpl                        = null;
   private AplicacionComprador            ac                         = null;
-  private ControladorAplicacionComprador cac                        = null;
-  private Usuario                        usuario                    = null;
-
-//  /**
-//   * This is the default constructor
-//   */
-//  public PantallaDatosPersonales(AplicacionEmpleado ae, boolean modif) {
-//    super(ae, "Alta empleado", true);
-//    this.ae = ae;
-//    initialize();
-//  }
-
-   public PantallaDatosPersonales(AplicacionComprador ac, boolean modif) {
-   super(ac, "Alta empleado", true);
-   this.ac = ac;
-//   usuario = usu;
-   initialize();
-   }
+  private ControladorPantallaDatosPersonales cpdp = null;
+private boolean modificar = false;
+  /**
+   * This is the default constructor
+   */
+  public PantallaDatosPersonales(AplicacionComprador ac, boolean modif) {
+    super(ac, "Alta empleado", true);
+    this.ac = ac;
+    this.modificar = modif;
+    initialize();
+    
+  }
 
   /**
    * This method initializes this
@@ -81,11 +73,25 @@ public class PantallaDatosPersonales extends JDialog {
     this.setSize(494, 384);
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     this.setContentPane(getJContentPane());
-    cpl = new ControladorAplicacionEmpleado(ae);
+    cpdp = new ControladorPantallaDatosPersonales(this,ac);
     jButtonCrear.setActionCommand("crear");
-    jButtonCrear.addActionListener(cpl);
+    jButtonCrear.addActionListener(cpdp);
+    
+    //Faltara un jButtonModificar
+    //jButtonCrear.setActionCommand("crear");
+    //jButtonCrear.addActionListener(cpdp);
+    
     // jButtonCancellar.setActionCommand("cancelar");
     // jButtonCancellar.addActionListener(cpl);
+  
+  
+    if(modificar){ // S'han de posar les dades de l'usuari
+    	
+    	//ho poses a els atributs de pantalla que vulguis, per exemple: jNombre.setText(cpdp.getNombre());
+    	cpdp.getNombre();
+    	
+    	
+    } // Sino ja esta be, no cal fer res
   }
 
   /**
