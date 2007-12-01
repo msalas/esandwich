@@ -388,6 +388,9 @@ public class PantallaAltaEmpleado extends JDialog {
 	 * @return javax.swing.JComboBox	
 	 */
 	private JComboBox getJComboBox() {
+	/*
+	 * Aixo esta malament, no es pot utilitzar Gestors, ho comento pq no peti i es pugui fer proves
+	 *
 		Vector data;
 		try {
 			GestorRol gRol = new GestorRol();
@@ -406,6 +409,7 @@ public class PantallaAltaEmpleado extends JDialog {
 			jComboBox = new JComboBox(data.toArray());
 			jComboBox.setBounds(new Rectangle(285, 69, 150, 25));
 		}
+		*/
 		return jComboBox;
 	}
 
