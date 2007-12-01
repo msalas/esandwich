@@ -39,6 +39,12 @@ public class Principal extends JFrame {
 
 	private JMenuItem jFacturaciosand = null;
 
+	private JMenuItem jItemSandw = null;
+
+	private JMenuItem jItemTipoSandw = null;
+
+	private JMenuItem jItemPedidoFin = null;
+
 	/**
 	 * This is the default constructor
 	 */
@@ -56,7 +62,7 @@ public class Principal extends JFrame {
 		this.setSize(536, 362);
 		this.setJMenuBar(getJbarramenu());
 		this.setContentPane(getJContentPane());
-		this.setTitle("eSandvitx");
+		this.setTitle("eSandwich");
 	}
 
 	/**
@@ -151,7 +157,7 @@ public class Principal extends JFrame {
 	private JMenu getJStock() {
 		if (jStock == null) {
 			jStock = new JMenu();
-			jStock.setText("Stock de matèries primeres");
+			jStock.setText("Stock de Productos");
 			jStock.add(getJaltaarticle());
 		}
 		return jStock;
@@ -165,7 +171,7 @@ public class Principal extends JFrame {
 	private JMenu getJFacturacio() {
 		if (jFacturacio == null) {
 			jFacturacio = new JMenu();
-			jFacturacio.setText("Facturació");
+			jFacturacio.setText("Facturacion");
 			jFacturacio.add(getJfactutotal());
 			jFacturacio.add(getJFacturaciosand());
 		}
@@ -180,7 +186,7 @@ public class Principal extends JFrame {
 	private JMenu getJComandes() {
 		if (jComandes == null) {
 			jComandes = new JMenu();
-			jComandes.setText("Comandes");
+			jComandes.setText("Pedidos");
 			jComandes.add(getJRealitcomandes());
 		}
 		return jComandes;
@@ -194,7 +200,7 @@ public class Principal extends JFrame {
 	private JMenuItem getJRealitcomandes() {
 		if (jRealitcomandes == null) {
 			jRealitcomandes = new JMenuItem();
-			jRealitcomandes.setText("Realitzar comandes");
+			jRealitcomandes.setText("Realizar Pedidos");
 		}
 		return jRealitcomandes;
 	}
@@ -207,7 +213,7 @@ public class Principal extends JFrame {
 	private JMenuItem getJaltaarticle() {
 		if (jaltaarticle == null) {
 			jaltaarticle = new JMenuItem();
-			jaltaarticle.setText("Alta Article");
+			jaltaarticle.setText("Alta Producto");
 		}
 		return jaltaarticle;
 	}
@@ -220,7 +226,7 @@ public class Principal extends JFrame {
 	private JMenuItem getJfactutotal() {
 		if (jfactutotal == null) {
 			jfactutotal = new JMenuItem();
-			jfactutotal.setText("Facturació total");
+			jfactutotal.setText("Facturación total");
 		}
 		return jfactutotal;
 	}
@@ -233,9 +239,48 @@ public class Principal extends JFrame {
 	private JMenuItem getJFacturaciosand() {
 		if (jFacturaciosand == null) {
 			jFacturaciosand = new JMenuItem();
-			jFacturaciosand.setText("Facturació per Sandvitx");
+			jFacturaciosand.setText("Facturación por Sandwitch");
 		}
 		return jFacturaciosand;
 	}
+	
+	/**
+	 * This method initializes jItemSandw	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJItemSandw() {
+		if (jItemSandw == null) {
+			jItemSandw = new JMenuItem();
+			jItemSandw.setText("Mantenimiento Carta de Sandwiches");
+		}
+		return jItemSandw;
+	}
 
-}  //  @jve:decl-index=0:visual-constraint="24,-126"
+	/**
+	 * This method initializes jItemTipoSandw	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJItemTipoSandw() {
+		if (jItemTipoSandw == null) {
+			jItemTipoSandw = new JMenuItem();
+			jItemTipoSandw.setText("Mantenimiento Tipos de Sandwiches");			
+		}
+		return jItemTipoSandw;
+	}
+
+	/**
+	 * This method initializes jItemPedidoFin	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJItemPedidoFin() {
+		if (jItemPedidoFin == null) {
+			jItemPedidoFin = new JMenuItem();
+			jItemPedidoFin .setText("Finalizacion de pedidos");			
+		}
+		return jItemPedidoFin;
+	}
+
+}  
