@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.Date;
+import java.util.Vector;
 
 public class GestorPedido {
   GestorDisco gd;
@@ -97,6 +98,39 @@ public class GestorPedido {
       System.err.println("Error en GestorPedido.elimina(): " + e);
     }
 
+  }
+  
+  public Vector<Pedido> listaPedidosEnCurso(){
+    String strSQL = "";
+    Pedido ped = null;
+    Statement stmt = null;
+          
+//    try {
+      
+//      strSQL = "SELECT cod_empleado,nif,nombre,apellido1,apellido2,"
+//        + "direccion,poblacion,telefono,movil,email,cod_Usuario,pasword,"
+//        + "desactivado,id_rol "
+//        + "FROM persona,usuario,empleado "
+//        + "WHERE empleado.cod_empleado = usuario.cod_usuario AND "
+//        + "empleado.cod_empleado = persona.id "
+//        + "AND cod_empleado = " + pId;
+//      stmt = con.createStatement();
+//      ResultSet rs = stmt.executeQuery(strSQL);
+//      if (rs.next()){
+//        ped = montaEmpleado(rs);
+//      }
+//      else {
+//        throw new GestorEmpleadoException("No existe empleado");
+//      }
+//      rs.close();
+//      stmt.close();
+//      gd.commit();
+//      return ped;
+//    } 
+//    catch (SQLException e) {
+//      throw new GestorEmpleadoException("Error SQL numero: " + e.getErrorCode());     
+//    }
+    return null;
   }
 
   public static void main(String[] args) {
