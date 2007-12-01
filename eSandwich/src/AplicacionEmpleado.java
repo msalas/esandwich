@@ -227,6 +227,22 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 		this.sm = sm;
 	}
 
+	public int confirmacio(String mensaje, String titulo) {
+		return JOptionPane.showConfirmDialog(null,mensaje,titulo, JOptionPane.YES_NO_OPTION);
+		
+	}
+
+
+	public void mostrarError(String mensaje, String titulo) {
+		JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.ERROR_MESSAGE);
+		
+	}
+
+
+	public void mostrarInformacion(String mensaje, String titulo) {
+		 JOptionPane.showInternalMessageDialog(null, mensaje,titulo, JOptionPane.INFORMATION_MESSAGE);
+		
+	}
 
 }  //  @jve:decl-index=0:visual-constraint="24,-126"
 
