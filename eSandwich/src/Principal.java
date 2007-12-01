@@ -45,6 +45,21 @@ public class Principal extends JFrame {
 
 	private JMenuItem jItemPedidoFin = null;
 
+	private JMenu jMenuUsuari = null;
+
+	private JMenu jMenuClient = null;
+
+	private JMenu jMenuPromocio = null;
+
+	private JMenuItem jMenuItemCrear = null;
+
+	private JMenuItem jMenuItemEsborrar = null;
+
+	private JMenuItem jMenuItemModificar = null;
+
+	private JMenuItem jMenuItemConsultar = null;
+
+	
 	/**
 	 * This is the default constructor
 	 */
@@ -283,4 +298,101 @@ public class Principal extends JFrame {
 		return jItemPedidoFin;
 	}
 
+
+	/**
+	 * This method initializes jMenuUsuari	
+	 * 	
+	 * @return javax.swing.JMenu	
+	 */
+	private JMenu getJMenuUsuari() {
+		if (jMenuUsuari == null) {
+			jMenuUsuari = new JMenu();
+			jMenuUsuari.setText("Usuario");
+			jMenuUsuari.add(getJMenuItemCrear());
+			jMenuUsuari.add(getJMenuItemEsborrar());
+			jMenuUsuari.add(getJMenuItemModificar());
+			jMenuUsuari.add(getJMenuItemConsultar());
+		}
+		return jMenuUsuari;
+	}
+
+	/**
+	 * This method initializes jMenuClient	
+	 * 	
+	 * @return javax.swing.JMenu	
+	 */
+	private JMenu getJMenuClient() {
+		if (jMenuClient == null) {
+			jMenuClient = new JMenu();
+			jMenuClient.setText("Cliente");
+		}
+		return jMenuClient;
+	}
+
+	/**
+	 * This method initializes jMenuPromocio	
+	 * 	
+	 * @return javax.swing.JMenu	
+	 */
+	private JMenu getJMenuPromocio() {
+		if (jMenuPromocio == null) {
+			jMenuPromocio = new JMenu();
+			jMenuPromocio.setText("Promoción");
+		}
+		return jMenuPromocio;
+	}
+
+	/**
+	 * This method initializes jMenuItemCrear	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemCrear() {
+		if (jMenuItemCrear == null) {
+			jMenuItemCrear = new JMenuItem();
+			jMenuItemCrear.setText("Crear");
+		}
+		return jMenuItemCrear;
+	}
+
+	/**
+	 * This method initializes jMenuItemEsborrar	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemEsborrar() {
+		if (jMenuItemEsborrar == null) {
+			jMenuItemEsborrar = new JMenuItem();
+			jMenuItemEsborrar.setText("Borrar");
+		}
+		return jMenuItemEsborrar;
+	}
+
+	/**
+	 * This method initializes jMenuItemModificar	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemModificar() {
+		if (jMenuItemModificar == null) {
+			jMenuItemModificar = new JMenuItem();
+			jMenuItemModificar.setText("Modificar");
+		}
+		return jMenuItemModificar;
+	}
+
+	/**
+	 * This method initializes jMenuItemConsultar	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemConsultar() {
+		if (jMenuItemConsultar == null) {
+			jMenuItemConsultar = new JMenuItem();
+			jMenuItemConsultar.setText("Consultar");
+		}
+		return jMenuItemConsultar;
+	}
+
 }  
+
