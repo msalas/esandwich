@@ -22,17 +22,31 @@ public class ControladorPantallaDatosPersonales implements ActionListener {
   public String getNombre() {
     return userSession.getNombre();
   }
+  
+  public Usuario getUsuario(){
+    return userSession;
+  }
 
   public void actionPerformed(ActionEvent arg0) {
+    System.out.println("ControladorPantallaDatosPersonales.actionPerformed");
 
     String cmd = arg0.getActionCommand();
     System.out.println("ActionCommand: " + cmd);
 
     if(cmd.equals("crear")){
+      System.out.println("crear");
+      System.out.println("pdp.setUsuario(userSession)");
+      //TODO cargar el usuario
+//      sc.getUsuario(id);
+      pdp.setUsuario(userSession);
       
     }else if(cmd.equals("modificar")){
+      System.out.println("modificar");
       
+    }else if(cmd.equals("cancelar")){
+      System.out.println("Cancelar");
     }
+    
 
   }
 
