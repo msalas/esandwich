@@ -28,8 +28,11 @@ public class ControladorPantallaDatosPersonales implements ActionListener {
     String cmd = arg0.getActionCommand();
     System.out.println("ActionCommand: " + cmd);
 
-    if(cmd.equals("crear"))
-    // Si es modificar blabla
+    if(cmd.equals("crear")){
+      
+    }else if(cmd.equals("modificar")){
+      
+    }
 
   }
 
