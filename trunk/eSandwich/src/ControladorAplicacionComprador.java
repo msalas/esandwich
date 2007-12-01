@@ -28,10 +28,14 @@ public class ControladorAplicacionComprador implements ActionListener {
     } else if (action.equals("AR")) {// Alta registro
       System.out.println("Alta registro");
       // Obtenemos el usuario actual
+      /*
+       * Aixo esta malament, no es pot passar un usuario a una pantalla!!
+       * 
       Usuario u = new Cliente();
       PantallaUsuarisWindow puw = new PantallaUsuarisWindow(ac, u);
       puw.setVisible(true);
 
+       */
     } else if (action.equals("CDP")) {// Consultar Datos Promociones
 
     } else if (action.equals("MDP")) {// Modificar Promociones

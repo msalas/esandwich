@@ -37,6 +37,7 @@ implements ServiciosRemotosAdminAux {
 		int idAux = 0;
     Empleado emp;
 		try {
+
 			if (!ge.existeNif(e.getNif())) {
 				emp = ge.addEmpleado(e);
         idAux = emp.getId();
