@@ -26,16 +26,18 @@ public class ControladorAplicacionComprador implements ActionListener {
     } else if (action.equals("AR")) {// Alta registro
       System.out.println("Alta registro");
 
-      PantallaAltaRegistro pap = new PantallaAltaRegistro(ac);
+      // PantallaAltaRegistro pap = new PantallaAltaRegistro(ac);
+      PantallaDatosPersonales pdp = new PantallaDatosPersonales(ac, false);
+      pdp.setVisible(true);
 
     } else if (action.equals("CDP")) {// Consultar Datos Personales
 
-    	PantallaDatosPersonales pdp = new PantallaDatosPersonales(ac,false);
-    	
+      PantallaDatosPersonales pdp = new PantallaDatosPersonales(ac, false);
+
     } else if (action.equals("MDP")) {// Modificar Datos Personales
-    	
-    	PantallaDatosPersonales pdp = new PantallaDatosPersonales(ac, true);
-    
+
+      PantallaDatosPersonales pdp = new PantallaDatosPersonales(ac, true);
+
     } else if (action.equals("PPa")) {// Panel de promociones
 
     } else if (action.equals("PPu")) { // Promociones puntos

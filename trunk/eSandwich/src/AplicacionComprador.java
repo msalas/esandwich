@@ -14,30 +14,31 @@ import java.rmi.RemoteException;
 import javax.swing.JMenu;
 
 // Falta cambiar los comentarios 
-public class AplicacionComprador extends JFrame implements Aplicacion{
+public class AplicacionComprador extends JFrame implements Aplicacion {
 
-  private static final long              serialVersionUID      = 1L;
+  private static final long                  serialVersionUID      = 1L;
 
-  private JPanel                         jContentPane          = null;
-  private JMenuBar                       jbarramenu            = null;
-  private JMenu                          jLogin                = null;
-  private JMenuItem                      jIniciarSesion        = null;
-  private JMenu                          jLogout               = null;
-  private JMenuItem                      jCerrarSesion         = null;
-  private JMenu                          jRegistro             = null;
-  private JMenuItem                      jAltaRegistro         = null;
-  private JMenu                          jDatosPersonales      = null;
-  private JMenuItem                      jConsultarDP          = null;
-  private JMenuItem                      jModificarDP          = null;
-  private JMenu                          jPromociones          = null;
-  private JMenuItem                      jPromocionesPanel     = null;
-  private JMenuItem                      jPromocionesPuntos    = null;
-  private JMenuItem                      jPromocionesSeleccion = null;
-  private JMenu                          jPedido               = null;
-  private JMenuItem                      jRealizarPedido       = null;
+  private JPanel                             jContentPane          = null;
+  private JMenuBar                           jbarramenu            = null;
+  private JMenu                              jLogin                = null;
+  private JMenuItem                          jIniciarSesion        = null;
+  private JMenu                              jLogout               = null;
+  private JMenuItem                          jCerrarSesion         = null;
+  private JMenu                              jRegistro             = null;
+  private JMenuItem                          jAltaRegistro         = null;
+  private JMenu                              jDatosPersonales      = null;
+  private JMenuItem                          jConsultarDP          = null;
+  private JMenuItem                          jModificarDP          = null;
+  private JMenu                              jPromociones          = null;
+  private JMenuItem                          jPromocionesPanel     = null;
+  private JMenuItem                          jPromocionesPuntos    = null;
+  private JMenuItem                          jPromocionesSeleccion = null;
+  private JMenu                              jPedido               = null;
+  private JMenuItem                          jRealizarPedido       = null;
 
-  private ServiciosModelo                sm                    = null;
-  private ControladorAplicacionComprador cac                   = null;
+  // private ServiciosModelo sm = null;
+  private ServiciosCompradorModelo sm                    = null;
+  private ControladorAplicacionComprador     cac                   = null;
 
   /**
    * This is the default constructor
@@ -63,7 +64,7 @@ public class AplicacionComprador extends JFrame implements Aplicacion{
     // Inicializamos modelo
 
     try {
-      sm = new ServiciosCompradorModelo();
+      sm = new ServiciosCompradorRegistradoModelo();
 
     } catch (MalformedURLException e) {
       // TODO Auto-generated catch block
@@ -348,11 +349,11 @@ public class AplicacionComprador extends JFrame implements Aplicacion{
     return jRealizarPedido;
   }
 
-  public ServiciosModelo getSm() {
-    return sm;
+  public ServiciosCompradorModelo getSm() {
+    return (ServiciosCompradorModelo)sm;
   }
 
-  public void setSm(ServiciosModelo sm) {
+  public void setSm(ServiciosCompradorRegistradoModelo sm) {
     this.sm = sm;
   }
 
@@ -393,21 +394,21 @@ public class AplicacionComprador extends JFrame implements Aplicacion{
     });
   }
 
+  public int confirmacio(String mensaje, String titulo) {
+    return JOptionPane.showConfirmDialog(null, mensaje, titulo,
+        JOptionPane.YES_NO_OPTION);
 
-public int confirmacio(String mensaje, String titulo) {
-	return JOptionPane.showConfirmDialog(null,mensaje,titulo, JOptionPane.YES_NO_OPTION);
-	
+  }
+
+  public void mostrarError(String mensaje, String titulo) {
+    JOptionPane.showMessageDialog(null, mensaje, titulo,
+        JOptionPane.ERROR_MESSAGE);
+
+  }
+
+  public void mostrarInformacion(String mensaje, String titulo) {
+    JOptionPane.showInternalMessageDialog(null, mensaje, titulo,
+        JOptionPane.INFORMATION_MESSAGE);
+
+  }
 }
-
-
-public void mostrarError(String mensaje, String titulo) {
-	JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.ERROR_MESSAGE);
-	
-}
-
-
-public void mostrarInformacion(String mensaje, String titulo) {
-	 JOptionPane.showInternalMessageDialog(null, mensaje,titulo, JOptionPane.INFORMATION_MESSAGE);
-	
-}
-} 
