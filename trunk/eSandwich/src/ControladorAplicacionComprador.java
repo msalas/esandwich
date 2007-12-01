@@ -5,8 +5,6 @@ public class ControladorAplicacionComprador implements ActionListener {
 
   AplicacionComprador ac = null;
 
-  // AplicacionEmpleado ae = null;
-
   public ControladorAplicacionComprador(AplicacionComprador aplicacionComprador) {
 
     ac = aplicacionComprador;
@@ -27,19 +25,17 @@ public class ControladorAplicacionComprador implements ActionListener {
 
     } else if (action.equals("AR")) {// Alta registro
       System.out.println("Alta registro");
-      // Obtenemos el usuario actual
-      /*
-       * Aixo esta malament, no es pot passar un usuario a una pantalla!!
-       * 
-      Usuario u = new Cliente();
-      PantallaUsuarisWindow puw = new PantallaUsuarisWindow(ac, u);
-      puw.setVisible(true);
 
-       */
-    } else if (action.equals("CDP")) {// Consultar Datos Promociones
+      PantallaAltaRegistro pap = new PantallaAltaRegistro(ac);
 
-    } else if (action.equals("MDP")) {// Modificar Promociones
+    } else if (action.equals("CDP")) {// Consultar Datos Personales
 
+    	PantallaDatosPersonales pdp = new PantallaDatosPersonales(ac,false);
+    	
+    } else if (action.equals("MDP")) {// Modificar Datos Personales
+    	
+    	PantallaDatosPersonales pdp = new PantallaDatosPersonales(ac, true);
+    
     } else if (action.equals("PPa")) {// Panel de promociones
 
     } else if (action.equals("PPu")) { // Promociones puntos
