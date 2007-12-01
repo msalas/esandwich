@@ -17,7 +17,6 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jContentPane = null;
-
 	
 	private JMenuBar jJMenuBar = null;
 
