@@ -16,34 +16,33 @@ import javax.swing.JMenu;
 // Falta cambiar los comentarios 
 public class AplicacionComprador extends JFrame implements Aplicacion {
 
-	private static final long serialVersionUID = 1L;
+  private static final long              serialVersionUID      = 1L;
 
-	private JPanel jContentPane = null;
-	private JMenuBar jbarramenu = null;
-	private JMenu jLogin = null;
-	private JMenuItem jIniciarSesion = null;
-	private JMenu jLogout = null;
-	private JMenuItem jCerrarSesion = null;
-	private JMenu jRegistro = null;
-	private JMenuItem jAltaRegistro = null;
-	private JMenu jDatosPersonales = null;
-	private JMenuItem jConsultarDP = null;
-	private JMenuItem jModificarDP = null;
-	private JMenu jPromociones = null;
-	private JMenuItem jPromocionesPanel = null;
-	private JMenuItem jPromocionesPuntos = null;
-	private JMenuItem jPromocionesSeleccion = null;
-	private JMenu jPedido = null;
-	private JMenuItem jRealizarPedido = null;
+  private JPanel                         jContentPane          = null;
+  private JMenuBar                       jbarramenu            = null;
+  private JMenu                          jLogin                = null;
+  private JMenuItem                      jIniciarSesion        = null;
+  private JMenu                          jLogout               = null;
+  private JMenuItem                      jCerrarSesion         = null;
+  private JMenu                          jRegistro             = null;
+  private JMenuItem                      jAltaRegistro         = null;
+  private JMenu                          jDatosPersonales      = null;
+  private JMenuItem                      jConsultarDP          = null;
+  private JMenuItem                      jModificarDP          = null;
+  private JMenu                          jPromociones          = null;
+  private JMenuItem                      jPromocionesPanel     = null;
+  private JMenuItem                      jPromocionesPuntos    = null;
+  private JMenuItem                      jPromocionesSeleccion = null;
+  private JMenu                          jPedido               = null;
+  private JMenuItem                      jRealizarPedido       = null;
 
-	// private ServiciosModelo sm = null;
-	private ServiciosCompradorModelo sm = null;
-	private ControladorAplicacionComprador cac = null;
+  // private ServiciosModelo sm = null;
+  private ServiciosCompradorModelo       sm                    = null;
+  private ControladorAplicacionComprador cac                   = null;
 
 	/**
 	 * This is the default constructor
 	 */
-
 	public AplicacionComprador() {
 		super();
 		initialize();
@@ -349,9 +348,9 @@ public class AplicacionComprador extends JFrame implements Aplicacion {
 		return jRealizarPedido;
 	}
 
-	public ServiciosCompradorModelo getSm() {
-		return (ServiciosCompradorModelo) sm;
-	}
+  public ServiciosCompradorModelo getSm() {
+    return (ServiciosCompradorModelo) sm;
+  }
 
 	public void setSm(ServiciosCompradorRegistradoModelo sm) {
 		this.sm = sm;

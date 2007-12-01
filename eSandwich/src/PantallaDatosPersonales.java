@@ -16,43 +16,44 @@ import javax.swing.JDialog;
 
 public class PantallaDatosPersonales extends JDialog {
 
-  private static final long              serialVersionUID           = 1L;
-  private JPanel                         jContentPane               = null;
-  private JLabel                         jLabelNif                  = null;
-  private JLabel                         jLabelNom                  = null;
-  private JLabel                         jLabelCognoms              = null;
-  private JLabel                         jLabelAdreça               = null;
-  private JLabel                         jLabelPoblació             = null;
-  private JLabel                         jLabelTelefon              = null;
-  private JLabel                         jLabelMobil                = null;
-  private JLabel                         jLabelEMail                = null;
-  private JPanel                         jPanelDadesPersonals       = null;
-  private JTextField                     jTextFieldNif              = null;
-  private JTextField                     jTextFieldNom              = null;
-  private JTextField                     jTextFieldCognoms          = null;
-  private JTextField                     jTextFieldAdreça           = null;
-  private JLabel                         jLabelContrasenya          = null;
-  private JLabel                         jLabelConfContrasenya      = null;
-  private JPanel                         jPanelDadesAcces           = null;
-  private JPanel                         jPanelContrasenya          = null;
-  private JPasswordField                 jPasswordFieldNContrasenya = null;
-  private JPasswordField                 jPasswordFieldCContrasenya = null;
-  private JTextField                     jTextFieldPoblacio         = null;
-  private JTextField                     jTextFieldTelefon          = null;
-  private JTextField                     jTextFieldMobil            = null;
-  private JTextField                     jTextFieldEMail            = null;
-  private JButton                        jButtonCrear               = null;
-  private JCheckBox                      jCheckBoxDeshabilitar      = null;
-  private JLabel                         jLabelDeshabilitar         = null;
-  private JButton                        jButtonCancellar           = null;
-  private JComboBox                      jComboBox                  = null;
-  private JLabel                         jLabel1                    = null;
-  private JLabel                         jLabel2                    = null;
-  private JLabel                         jLabel3                    = null;
+  private static final long                  serialVersionUID           = 1L;
+  private JPanel                             jContentPane               = null;
+  private JLabel                             jLabelNif                  = null;
+  private JLabel                             jLabelNom                  = null;
+  private JLabel                             jLabelCognoms              = null;
+  private JLabel                             jLabelAdreça               = null;
+  private JLabel                             jLabelPoblació             = null;
+  private JLabel                             jLabelTelefon              = null;
+  private JLabel                             jLabelMobil                = null;
+  private JLabel                             jLabelEMail                = null;
+  private JPanel                             jPanelDadesPersonals       = null;
+  private JTextField                         jTextFieldNif              = null;
+  private JTextField                         jTextFieldNom              = null;
+  private JTextField                         jTextFieldCognoms          = null;
+  private JTextField                         jTextFieldAdreça           = null;
+  private JLabel                             jLabelContrasenya          = null;
+  private JLabel                             jLabelConfContrasenya      = null;
+  private JPanel                             jPanelDadesAcces           = null;
+  private JPanel                             jPanelContrasenya          = null;
+  private JPasswordField                     jPasswordFieldNContrasenya = null;
+  private JPasswordField                     jPasswordFieldCContrasenya = null;
+  private JTextField                         jTextFieldPoblacio         = null;
+  private JTextField                         jTextFieldTelefon          = null;
+  private JTextField                         jTextFieldMobil            = null;
+  private JTextField                         jTextFieldEMail            = null;
+  private JButton                            jButtonCrear               = null;
+  private JCheckBox                          jCheckBoxDeshabilitar      = null;
+  private JLabel                             jLabelDeshabilitar         = null;
+  private JButton                            jButtonCancellar           = null;
+  private JComboBox                          jComboBox                  = null;
+  private JLabel                             jLabel1                    = null;
+  private JLabel                             jLabel2                    = null;
+  private JLabel                             jLabel3                    = null;
 
-  private AplicacionComprador            ac                         = null;
-  private ControladorPantallaDatosPersonales cpdp = null;
-private boolean modificar = false;
+  private AplicacionComprador                ac                         = null;
+  private ControladorPantallaDatosPersonales cpdp                       = null;
+  private boolean                            modificar                  = false;
+
   /**
    * This is the default constructor
    */
@@ -61,7 +62,23 @@ private boolean modificar = false;
     this.ac = ac;
     this.modificar = modif;
     initialize();
-    
+
+  }
+
+  public void setUsuario(Usuario u) {
+    if (u == null) {
+      System.err.println("Usuario = null");
+      
+    } else {
+      jTextFieldNif.setText(u.getNif());
+      jTextFieldNom.setText(u.getNombre());
+      jTextFieldCognoms.setText(u.getApellido1());
+      jTextFieldAdreça.setText(u.getDireccion());
+      jTextFieldPoblacio.setText(u.getPoblacion());
+      jTextFieldTelefon.setText(u.getTelefono());
+      jTextFieldMobil.setText(u.getMovil());
+      jTextFieldEMail.setText(u.getEmail());
+    }
   }
 
   /**
@@ -73,25 +90,24 @@ private boolean modificar = false;
     this.setSize(494, 384);
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     this.setContentPane(getJContentPane());
-    cpdp = new ControladorPantallaDatosPersonales(this,ac);
+    cpdp = new ControladorPantallaDatosPersonales(this, ac);
     jButtonCrear.setActionCommand("crear");
     jButtonCrear.addActionListener(cpdp);
-    
-    //Faltara un jButtonModificar
-    //jButtonCrear.setActionCommand("crear");
-    //jButtonCrear.addActionListener(cpdp);
-    
-    // jButtonCancellar.setActionCommand("cancelar");
-    // jButtonCancellar.addActionListener(cpl);
-  
-  
-    if(modificar){ // S'han de posar les dades de l'usuari
-    	
-    	//ho poses a els atributs de pantalla que vulguis, per exemple: jNombre.setText(cpdp.getNombre());
+
+    // Faltara un jButtonModificar
+    // jButtonCrear.setActionCommand("crear");
+    // jButtonCrear.addActionListener(cpdp);
+
+    jButtonCancellar.setActionCommand("cancelar");
+    jButtonCancellar.addActionListener(cpdp);
+
+    if (modificar) { // S'han de posar les dades de l'usuari
+
+      // ho poses a els atributs de pantalla que vulguis, per exemple:
+      // jNombre.setText(cpdp.getNombre());
       jTextFieldNom.setText(cpdp.getNombre());
-//      jTextFieldCognoms.setText(cpdp.);
-    	
-    	
+      // jTextFieldCognoms.setText(cpdp.);
+
     } // Sino ja esta be, no cal fer res
   }
 
@@ -106,9 +122,9 @@ private boolean modificar = false;
       jLabel3.setBounds(new Rectangle(399, 3, 64, 16));
       jLabel3.setFont(new Font("Dialog", Font.PLAIN, 12));
       jLabel3.setHorizontalAlignment(SwingConstants.RIGHT);
-//      if (usuario != null) {
-//        jLabel3.setText(usuario.getCodUsuario());
-//      }
+      // if (usuario != null) {
+      // jLabel3.setText(usuario.getCodUsuario());
+      // }
       jLabel2 = new JLabel();
       jLabel2.setText("Usuario:");
       jLabel2.setLocation(new Point(336, 3));
@@ -202,9 +218,9 @@ private boolean modificar = false;
       jTextFieldNif.setBounds(new Rectangle(40, 15, 120, 18));
       jTextFieldNif.setEditable(true);
       jTextFieldNif.setEnabled(true);
-//      if (usuario != null) {
-//        jTextFieldNif.setText(usuario.getNif());
-//      }
+      // if (usuario != null) {
+      // jTextFieldNif.setText(usuario.getNif());
+      // }
     }
     return jTextFieldNif;
   }
@@ -219,9 +235,9 @@ private boolean modificar = false;
       jTextFieldNom = new JTextField();
       jTextFieldNom.setBounds(new Rectangle(49, 15, 100, 18));
       jTextFieldNom.setEditable(true);
-//      if (usuario != null) {
-//        jTextFieldNom.setText(usuario.getNombre());
-//      }
+      // if (usuario != null) {
+      // jTextFieldNom.setText(usuario.getNombre());
+      // }
     }
     return jTextFieldNom;
   }
@@ -236,12 +252,12 @@ private boolean modificar = false;
       jTextFieldCognoms = new JTextField();
       jTextFieldCognoms.setBounds(new Rectangle(229, 15, 200, 18));
       jTextFieldCognoms.setEditable(true);
-//      if (usuario != null) {
-//        if (usuario.getApellido1() != null) {
-//          jTextFieldCognoms.setText(usuario.getApellido1() + " "
-//              + usuario.getApellido2());
-//        }
-//      }
+      // if (usuario != null) {
+      // if (usuario.getApellido1() != null) {
+      // jTextFieldCognoms.setText(usuario.getApellido1() + " "
+      // + usuario.getApellido2());
+      // }
+      // }
     }
     return jTextFieldCognoms;
   }
@@ -256,9 +272,9 @@ private boolean modificar = false;
       jTextFieldAdreça = new JTextField();
       jTextFieldAdreça.setBounds(new Rectangle(60, 40, 170, 18));
       jTextFieldAdreça.setEditable(true);
-//      if (usuario != null) {
-//        jTextFieldAdreça.setText(usuario.getDireccion());
-//      }
+      // if (usuario != null) {
+      // jTextFieldAdreça.setText(usuario.getDireccion());
+      // }
     }
     return jTextFieldAdreça;
   }
@@ -317,9 +333,9 @@ private boolean modificar = false;
       jPasswordFieldNContrasenya = new JPasswordField();
       jPasswordFieldNContrasenya.setBounds(new Rectangle(152, 10, 100, 18));
       jPasswordFieldNContrasenya.setEditable(true);
-//      if (usuario != null) {
-//        jPasswordFieldNContrasenya.setText(usuario.getPassword());
-//      }
+      // if (usuario != null) {
+      // jPasswordFieldNContrasenya.setText(usuario.getPassword());
+      // }
     }
     return jPasswordFieldNContrasenya;
   }
@@ -334,9 +350,9 @@ private boolean modificar = false;
       jPasswordFieldCContrasenya = new JPasswordField();
       jPasswordFieldCContrasenya.setBounds(new Rectangle(152, 35, 100, 18));
       jPasswordFieldCContrasenya.setEditable(true);
-//      if (usuario != null) {
-//        jPasswordFieldCContrasenya.setText(usuario.getPassword());
-//      }
+      // if (usuario != null) {
+      // jPasswordFieldCContrasenya.setText(usuario.getPassword());
+      // }
     }
     return jPasswordFieldCContrasenya;
   }
@@ -351,9 +367,9 @@ private boolean modificar = false;
       jTextFieldPoblacio = new JTextField();
       jTextFieldPoblacio.setBounds(new Rectangle(300, 40, 129, 18));
       jTextFieldPoblacio.setEditable(true);
-//      if (usuario != null) {
-//        jTextFieldPoblacio.setText(usuario.getPoblacion());
-//      }
+      // if (usuario != null) {
+      // jTextFieldPoblacio.setText(usuario.getPoblacion());
+      // }
     }
     return jTextFieldPoblacio;
   }
@@ -368,9 +384,9 @@ private boolean modificar = false;
       jTextFieldTelefon = new JTextField();
       jTextFieldTelefon.setBounds(new Rectangle(65, 65, 120, 18));
       jTextFieldTelefon.setEditable(true);
-//      if (usuario != null) {
-//        jTextFieldTelefon.setText(usuario.getTelefono());
-//      }
+      // if (usuario != null) {
+      // jTextFieldTelefon.setText(usuario.getTelefono());
+      // }
     }
     return jTextFieldTelefon;
   }
@@ -385,9 +401,9 @@ private boolean modificar = false;
       jTextFieldMobil = new JTextField();
       jTextFieldMobil.setBounds(new Rectangle(65, 90, 120, 18));
       jTextFieldMobil.setEditable(true);
-//      if (usuario != null) {
-//        jTextFieldMobil.setText(usuario.getMovil());
-//      }
+      // if (usuario != null) {
+      // jTextFieldMobil.setText(usuario.getMovil());
+      // }
     }
     return jTextFieldMobil;
   }
@@ -402,9 +418,9 @@ private boolean modificar = false;
       jTextFieldEMail = new JTextField();
       jTextFieldEMail.setBounds(new Rectangle(245, 90, 183, 18));
       jTextFieldEMail.setEditable(true);
-//      if (usuario != null) {
-//        jTextFieldEMail.setText(usuario.getEmail());
-//      }
+      // if (usuario != null) {
+      // jTextFieldEMail.setText(usuario.getEmail());
+      // }
     }
     return jTextFieldEMail;
   }
@@ -422,12 +438,12 @@ private boolean modificar = false;
       jButtonCrear.setLocation(new Point(181, 307));
       jButtonCrear.setVisible(true);
       // El listener es el controlador cpl
-      jButtonCrear.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent e) {
-          System.out.println("PantallaDatosPersonales.actionPerformed()");
-
-        }
-      });
+      // jButtonCrear.addActionListener(new java.awt.event.ActionListener() {
+      // public void actionPerformed(java.awt.event.ActionEvent e) {
+      // System.out.println("PantallaDatosPersonales.actionPerformed()");
+      //
+      // }
+      // });
     }
     return jButtonCrear;
   }
