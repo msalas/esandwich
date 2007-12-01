@@ -1,6 +1,8 @@
 
 
 import java.awt.BorderLayout;
+
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.awt.Dimension;
@@ -11,7 +13,7 @@ import javax.swing.JTextArea;
 import java.awt.Color;
 import javax.swing.JButton;
 
-public class PantallaInsertarProducto extends JFrame {
+public class PantallaInsertarProducto extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
@@ -45,11 +47,16 @@ public class PantallaInsertarProducto extends JFrame {
 
 	private JTextField jTextField1 = null;
 
+	private ControladorPantallaInsertarProducto cpip = null;
+	
+	private AplicacionEmpleado ae = null;
+	
 	/**
 	 * This is the default constructor
 	 */
-	public PantallaInsertarProducto(AplicacionProducto ap) {
-		super();
+	public PantallaInsertarProducto(AplicacionEmpleado ae) {
+		super(ae, "Insertar Producto", true);
+		this.ae = ae;
 		initialize();
 	}
 
@@ -61,7 +68,12 @@ public class PantallaInsertarProducto extends JFrame {
 	private void initialize() {
 		this.setSize(450, 324);
 		this.setContentPane(getJContentPane());
-		this.setTitle("InsertarProducto");
+	
+		// Li passem la pantalla i l'aplicacio
+		cpip = new ControladorPantallaInsertarProducto(this,ae);
+		
+//Al boto Acceptar li diem que si és apretat que vagi a buscar que ha de fer al ActionPerformed del Controlador		
+		jAcceptar.addActionListener(cpip);
 	}
 
 	/**
@@ -127,7 +139,7 @@ public class PantallaInsertarProducto extends JFrame {
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getJquantitat() {
+	public JTextField getJquantitat() {
 		if (jquantitat == null) {
 			jquantitat = new JTextField();
 			jquantitat.setBounds(new Rectangle(128, 61, 280, 20));
@@ -140,7 +152,7 @@ public class PantallaInsertarProducto extends JFrame {
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getJarticle() {
+	public JTextField getJarticle() {
 		if (jarticle == null) {
 			jarticle = new JTextField();
 			jarticle.setBounds(new Rectangle(190, 93, 219, 20));
