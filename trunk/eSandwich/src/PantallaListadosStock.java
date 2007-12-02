@@ -79,7 +79,7 @@ public class PantallaListadosStock extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jStockmp11 = new JLabel();
-			jStockmp11.setBounds(new Rectangle(91, 213, 113, 16));
+			jStockmp11.setBounds(new Rectangle(88, 211, 113, 16));
 			jStockmp11.setText("Stock por Familia:");
 			jfinsa2 = new JLabel();
 			jfinsa2.setBounds(new Rectangle(111, 59, 48, 16));

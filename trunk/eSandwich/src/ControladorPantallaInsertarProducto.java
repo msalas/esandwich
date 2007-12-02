@@ -27,8 +27,12 @@ public class ControladorPantallaInsertarProducto implements ActionListener {
 		// On tenim els serveis? L'aplicacio té els serveis actuals
 		Producto p = new Producto();
 		
-		p.setDescripcion((pip.getJarticle()).getText());
-		p.setExistencias(new Integer(pip.getJquantitat().getText()));
+		p.setIdProducto(new Integer(pip.getJcodiarticle().getText()));
+		p.setDescripcion((pip.getJquantitat()).getText());
+		p.setDescripcionAmpliada((pip.getJarticle()).getText());
+		p.setExistencias(new Integer(pip.getJarticle1().getText()));
+		p.setIdFamilia(new Integer(pip.getJTextField().getText()));
+		p.setPrecio(new Float(pip.getJTextField1().getText()));
 		
 		sm = (ServiciosAdAuxModelo) ae.getSm();
 		try {

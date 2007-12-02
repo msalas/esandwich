@@ -25,6 +25,8 @@ public interface ServiciosRemotosAdminAux extends ServiciosRemotos {
   public Vector<Producto> listaProductoPorFamilia(int idFamilia)
       throws errorSQL, errorConexionBD, RemoteException;
 
+  public boolean existeProducto(int id) throws errorSQL, errorConexionBD, RemoteException;
+  
   public int añadirFamilia(FamiliaProducto fp) throws errorSQL,
       errorConexionBD, RemoteException;
 
@@ -65,8 +67,10 @@ public interface ServiciosRemotosAdminAux extends ServiciosRemotos {
       RemoteException;
 
   public Vector<Facturacion> listaFacturasSandwich(int id, Date fechaDesde,
-      Date fechaHasta) throws errorSQL, errorConexionBD, RemoteException;
+      Date fechaHasta) throws errorSQL, errorConexionBD,  RemoteException;
 
+  public boolean existeFactura(int id) throws errorSQL, errorConexionBD, RemoteException;
+  
   public int consultaFacturacionSandwich(int idProducto) throws errorSQL,
       errorConexionBD, RemoteException;
 

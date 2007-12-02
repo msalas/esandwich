@@ -79,6 +79,14 @@ public class ServiciosAdAuxModelo extends ServiciosAccesoModelo {
 		return vv;
 	}
 	
+	public boolean existeProducto(int id) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
+		return sraa.existeProducto(id);
+	}
+	
+	public boolean existeFactura(int id) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
+		return sraa.existeFactura(id);
+	}
+	
 	public void nuevaFamilia(FamiliaProducto f) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
 		sraa.añadirFamilia(f);
 	}

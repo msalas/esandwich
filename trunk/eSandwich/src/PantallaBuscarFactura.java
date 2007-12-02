@@ -1,5 +1,3 @@
-
-
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
@@ -8,26 +6,25 @@ import javax.swing.JLabel;
 import java.awt.Rectangle;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import java.awt.Point;
 
-public class PantallaBuscarProducto extends JFrame {
+public class PantallaBuscarFactura extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jContentPane = null;
 
-	private JLabel jCodibaixa = null;
+	private JLabel jLabel = null;
 
-	private JTextField jcodiArticle = null;
+	private JTextField jTextField = null;
 
-	private JButton jAcceptar = null;
+	private JButton jButton = null;
 
 	private JButton jCancelar = null;
 
 	/**
 	 * This is the default constructor
 	 */
-	public PantallaBuscarProducto() {
+	public PantallaBuscarFactura() {
 		super();
 		initialize();
 	}
@@ -38,9 +35,9 @@ public class PantallaBuscarProducto extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(409, 200);
+		this.setSize(392, 211);
 		this.setContentPane(getJContentPane());
-		this.setTitle("Buscar Producto");
+		this.setTitle("Buscar Factura");
 	}
 
 	/**
@@ -48,47 +45,46 @@ public class PantallaBuscarProducto extends JFrame {
 	 * 
 	 * @return javax.swing.JPanel
 	 */
-	public JPanel getJContentPane() {
+	private JPanel getJContentPane() {
 		if (jContentPane == null) {
-			jCodibaixa = new JLabel();
-			jCodibaixa.setBounds(new Rectangle(59, 60, 108, 16));
-			jCodibaixa.setText("Codigo Producto");
+			jLabel = new JLabel();
+			jLabel.setBounds(new Rectangle(35, 33, 79, 30));
+			jLabel.setText("Id Factura:");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
-			jContentPane.add(jCodibaixa, null);
-			jContentPane.add(getJcodiArticle(), null);
-			jContentPane.add(getJAcceptar(), null);
+			jContentPane.add(jLabel, null);
+			jContentPane.add(getJTextField(), null);
+			jContentPane.add(getJButton(), null);
 			jContentPane.add(getJCancelar(), null);
 		}
 		return jContentPane;
 	}
 
 	/**
-	 * This method initializes jcodiArticle	
+	 * This method initializes jTextField	
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	public JTextField getJcodiArticle() {
-		if (jcodiArticle == null) {
-			jcodiArticle = new JTextField();
-			jcodiArticle.setBounds(new Rectangle(189, 59, 170, 20));
+	public JTextField getJTextField() {
+		if (jTextField == null) {
+			jTextField = new JTextField();
+			jTextField.setBounds(new Rectangle(135, 31, 190, 32));
 		}
-		return jcodiArticle;
+		return jTextField;
 	}
 
 	/**
-	 * This method initializes jAcceptar	
+	 * This method initializes jButton	
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	public JButton getJAcceptar() {
-		if (jAcceptar == null) {
-			jAcceptar = new JButton();
-			jAcceptar.setText("Aceptar");
-			jAcceptar.setLocation(new Point(98, 114));
-			jAcceptar.setSize(new Dimension(86, 26));
+	public JButton getJButton() {
+		if (jButton == null) {
+			jButton = new JButton();
+			jButton.setBounds(new Rectangle(75, 120, 101, 32));
+			jButton.setText("Aceptar");
 		}
-		return jAcceptar;
+		return jButton;
 	}
 
 	/**
@@ -99,10 +95,10 @@ public class PantallaBuscarProducto extends JFrame {
 	public JButton getJCancelar() {
 		if (jCancelar == null) {
 			jCancelar = new JButton();
-			jCancelar.setBounds(new Rectangle(214, 114, 91, 26));
+			jCancelar.setBounds(new Rectangle(204, 119, 106, 33));
 			jCancelar.setText("Cancelar");
 		}
 		return jCancelar;
 	}
 
-}
+}  //  @jve:decl-index=0:visual-constraint="10,10"

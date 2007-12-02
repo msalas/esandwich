@@ -67,6 +67,7 @@ public class PantallaInsertarProducto extends JDialog {
 	 */
 	private void initialize() {
 		this.setSize(450, 324);
+		this.setTitle("Insertar Producto");
 		this.setContentPane(getJContentPane());
 	
 		// Li passem la pantalla i l'aplicacio
@@ -81,7 +82,7 @@ public class PantallaInsertarProducto extends JDialog {
 	 * 
 	 * @return javax.swing.JPanel
 	 */
-	private JPanel getJContentPane() {
+	public JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel = new JLabel();
 			jLabel.setBounds(new Rectangle(44, 194, 51, 19));
@@ -126,7 +127,7 @@ public class PantallaInsertarProducto extends JDialog {
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getJcodiarticle() {
+	public JTextField getJcodiarticle() {
 		if (jcodiarticle == null) {
 			jcodiarticle = new JTextField();
 			jcodiarticle.setBounds(new Rectangle(173, 29, 234, 20));
@@ -165,7 +166,7 @@ public class PantallaInsertarProducto extends JDialog {
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getJAcceptar() {
+	public JButton getJAcceptar() {
 		if (jAcceptar == null) {
 			jAcceptar = new JButton();
 			jAcceptar.setBounds(new Rectangle(118, 238, 86, 26));
@@ -179,7 +180,7 @@ public class PantallaInsertarProducto extends JDialog {
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getJCancelar() {
+	public JButton getJCancelar() {
 		if (jCancelar == null) {
 			jCancelar = new JButton();
 			jCancelar.setBounds(new Rectangle(238, 238, 91, 26));
@@ -193,7 +194,7 @@ public class PantallaInsertarProducto extends JDialog {
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getJarticle1() {
+	public JTextField getJarticle1() {
 		if (jarticle1 == null) {
 			jarticle1 = new JTextField();
 			jarticle1.setBounds(new Rectangle(129, 124, 278, 20));
@@ -206,7 +207,7 @@ public class PantallaInsertarProducto extends JDialog {
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getJTextField() {
+	public JTextField getJTextField() {
 		if (jTextField == null) {
 			jTextField = new JTextField();
 			jTextField.setBounds(new Rectangle(124, 160, 284, 20));
@@ -219,7 +220,7 @@ public class PantallaInsertarProducto extends JDialog {
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getJTextField1() {
+	public JTextField getJTextField1() {
 		if (jTextField1 == null) {
 			jTextField1 = new JTextField();
 			jTextField1.setBounds(new Rectangle(125, 194, 281, 24));

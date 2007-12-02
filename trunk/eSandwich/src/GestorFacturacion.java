@@ -115,7 +115,39 @@ public class GestorFacturacion {
 	
 	}
 	
+	public boolean existeFactura(int id) throws errorSQL, errorConexionBD{
+		String strSQL = "";
+		boolean existeFactura;
+		
+		if(gd.isConectado()) con = gd.getConexion();
+		else throw new errorConexionBD("No hay conexión!");
 
+		Statement stmt = null;
+					
+		try {
+			gd.begin();
+			
+			strSQL = "SELECT id "
+				+ "FROM factura "
+				+ "WHERE id ='" + id + "' ";
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(strSQL);
+			if (rs.next()){
+				existeFactura = true;
+			}
+			else {
+				existeFactura = false;
+			}
+			rs.close();
+			stmt.close();
+			gd.commit();
+			return existeFactura;
+		} 
+		catch (SQLException e) {
+			throw new errorSQL(e.toString());
+		}
+	}	
+	
 	public void liberarRecursos(){
 		
 		gd.cerrarConexion();	
