@@ -8,7 +8,6 @@ public class ServiciosCompradorRegistradoModelo extends
   public ServiciosCompradorRegistradoModelo() throws MalformedURLException,
       RemoteException, NotBoundException {
     super();
-
   }
 
   // Ejemplo
@@ -35,5 +34,24 @@ public class ServiciosCompradorRegistradoModelo extends
       e.printStackTrace();
     }
     return u;
+  }
+  
+  public int setUsuario(Usuario u ){
+    int uID = -1;
+    try {
+      src.setUsuario(u);
+      uID=u.getId();
+      
+    } catch (RemoteException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (errorConexionBD e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (errorSQL e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return uID;
   }
 }
