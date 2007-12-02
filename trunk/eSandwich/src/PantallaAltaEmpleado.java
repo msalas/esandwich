@@ -76,8 +76,8 @@ public class PantallaAltaEmpleado extends JDialog {
 		this.setLocationRelativeTo(null);		
 		cpl = new ControladorPantallaAltaEmpleado(this,ae);
 		jButtonCrear.addActionListener(cpl);
-		//cpl.iniCombo();
-		//jPanelDadesAcces.add(getJComboBox(), null);
+		cpl.iniCombo();
+		jPanelDadesAcces.add(getJComboBox(), null);
 	}
 	
 
@@ -411,8 +411,29 @@ public class PantallaAltaEmpleado extends JDialog {
 		auxEmp.setEmail(jTextFieldEMail.getText());
 		auxEmp.setPassword(jPasswordFieldNContrasenya.getText());
 		auxEmp.setDesactivado(false);
-		//auxEmp.setRol(pRol);
 		return auxEmp;
+	}
+
+	public void iniCampos() {
+		jTextFieldNif.setText("");
+		jTextFieldNom.setText("");
+		jTextFieldCognoms.setText("");
+		jTextFieldCognoms2.setText("");
+		jTextFieldAdreça.setText("");
+		jTextFieldPoblacio.setText("");
+		jTextFieldTelefon.setText("");
+		jTextFieldMobil.setText("");
+		jTextFieldEMail.setText("");
+		jPasswordFieldNContrasenya.setText("");
+		jPasswordFieldCContrasenya.setText("");
+	}
+	
+	public boolean isIgualesPasswords() {
+		boolean auxConf = false;
+		if (jPasswordFieldNContrasenya.getText().equals(jPasswordFieldCContrasenya.getText())) {
+			auxConf = true;
+		}
+		return auxConf;
 	}
 
 
@@ -449,5 +470,10 @@ public class PantallaAltaEmpleado extends JDialog {
 
 	public void setVectorCombo(Vector vectorCombo) {
 		this.vectorCombo = vectorCombo;
+	}
+	
+	public String getRolDesplegable() {
+		return (String)jComboBox.getSelectedItem();
+
 	}
 }

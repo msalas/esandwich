@@ -1,6 +1,5 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.Vector;
 
@@ -34,15 +33,13 @@ implements ServiciosRemotosAdminAux {
 		
 	}
 	
-	public int anadirEmpleado (Empleado e) throws errorSQL, errorConexionBD,
+	public Empleado anadirEmpleado (Empleado e) throws errorSQL, errorConexionBD,
 	RemoteException {
-		int idAux = 0;
-		Empleado emp;
+		Empleado emp = null;
 		try {
 
 			if (!ge.existeNif(e.getNif())) {
 				emp = ge.addEmpleado(e);
-				idAux = emp.getId();
 			} else {
 				throw new errorSQL("ERROR: Nif existente en empleados");
 			}
@@ -50,13 +47,13 @@ implements ServiciosRemotosAdminAux {
 		catch (errorSQL err) {
 			throw new errorSQL(err.getMessage());
 		}
-		return idAux;
+		return emp;
 	}
 	
-	public Vector listaDescripcionesRol() throws errorSQL, errorConexionBD,
+	public Vector  <String>  listaDescripcionesRol() throws errorSQL, errorConexionBD,
 	RemoteException {
 		Vector v = new Vector();
-		Vector vRet = new Vector();
+		Vector  <String> vRet = new Vector <String> ();
 		try {
 			v = gr.lista();
 		}
@@ -64,11 +61,24 @@ implements ServiciosRemotosAdminAux {
 			throw new errorSQL(err.getMessage());
 		}
 		for (int i=0;i<v.size();i++){
-			Rol rolT=(Rol)vRet.get(i);
+			Rol rolT=(Rol)v.get(i);
 			String desc = rolT.getDescripcion();
 			vRet.add(desc);			
 		}
 		return vRet;
+	}
+
+	public Rol consultaRol_por_Desc(String pDescripcion) throws errorSQL, errorConexionBD,
+	RemoteException {
+		Rol pRol;
+		try {
+			pRol = gr.consultaRolDescripcion(pDescripcion);
+		}
+		catch (errorSQL err) {
+			throw new errorSQL(err.getMessage());
+		}
+		return pRol;
+		
 	}
 	
 	public int añadirProducto (Producto p) throws errorSQL, errorConexionBD,

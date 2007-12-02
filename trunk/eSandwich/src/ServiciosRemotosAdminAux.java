@@ -4,10 +4,13 @@ import java.util.Vector;
 
 public interface ServiciosRemotosAdminAux extends ServiciosRemotos {
 
-  public int anadirEmpleado(Empleado e) throws errorSQL, errorConexionBD,
+  public Empleado anadirEmpleado(Empleado e) throws errorSQL, errorConexionBD,
       RemoteException;
 
-  public Vector listaDescripcionesRol() throws errorSQL, errorConexionBD,
+  public Vector <String> listaDescripcionesRol() throws errorSQL, errorConexionBD,
+	RemoteException;
+  
+  public Rol consultaRol_por_Desc(String pDescripcion) throws errorSQL, errorConexionBD,
 	RemoteException;
   
   public int añadirProducto(Producto p) throws errorSQL, errorConexionBD,

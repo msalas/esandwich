@@ -51,6 +51,41 @@ public class GestorRol {
 			throw new errorSQL("Error SQL numero: " + e.getErrorCode());
 		}
 	}
+
+	public Rol consultaRolDescripcion(String pDescripcion) throws errorSQL, 
+	errorConexionBD{
+		String strSQL = "";
+		Rol pRol = null;
+		
+		if(gd.isConectado()) con = gd.getConexion();
+		else throw new errorConexionBD("No hay conexión!");
+
+		Statement stmt = null;
+					
+		try {
+			gd.begin();
+			
+			strSQL = "SELECT id, descripcion, letra_Rol "
+				+ "FROM rol "
+				+ "WHERE descripcion like '" + pDescripcion + "'";
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(strSQL);
+			if (rs.next()){
+				pRol = montaRol(rs);
+			}
+			else {
+				throw new GestorRolException("No existe rol");
+			}
+			rs.close();
+			stmt.close();
+			gd.commit();
+			return pRol;
+		} 
+		catch (SQLException e) {
+			throw new GestorRolException("Error SQL numero: " + e.getErrorCode());			
+		}
+	}
+	
 	
 	public Rol consultaRol(int pId) throws errorSQL, 
 	errorConexionBD{
@@ -144,17 +179,18 @@ public class GestorRol {
 	public void liberarRecursos(){	
 		gd.cerrarConexion();	
 	}
-/*	public static void main (String[] args) {
+	public static void main (String[] args) {
 		Rol pRol = new Rol();
 		
-		pRol.setDescripcion("Admin");
-		pRol.setLetraRol("A");
+		//pRol.setDescripcion("Admin");
+		//pRol.setLetraRol("A");
 		
 		try {
 			GestorRol gRol = new GestorRol();
 			try {
-				gRol.addRol(pRol);
-				pRol = gRol.consultaRol(1);
+				//gRol.addRol(pRol);
+				//pRol = gRol.consultaRol(1);
+				pRol = gRol.consultaRolDescripcion("AdAux");
 				System.out.println(pRol.getId());
 				System.out.println(pRol.getDescripcion());
 				System.out.println(pRol.getLetraRol());
@@ -168,5 +204,5 @@ public class GestorRol {
 			System.out.println(e.getMessage());
 		}
 		
-	}*/
+	}
 }
