@@ -17,14 +17,20 @@ public class ServiciosAdAuxModelo extends ServiciosAccesoModelo {
 		sraa = (ServiciosRemotosAdminAux)Naming.lookup("rmi://localhost:1099/ServiciosAdAux");
 	}
 
-	public void nuevoEmpleado(Empleado emp) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{		
-		sraa.anadirEmpleado(emp);
+	public Empleado nuevoEmpleado(Empleado emp) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
+		Empleado pEmp = null;
+		pEmp = sraa.anadirEmpleado(emp);
+		return pEmp;
 	}
 	
-	public Vector listaDescRol() throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		Vector vRet = new Vector();
+	public Vector <String> listaDescRol() throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
+		Vector <String> vRet = new Vector<String>();
 		vRet = sraa.listaDescripcionesRol();
 		return vRet;
+	}
+	
+	public Rol RolDesc(String queRolDes) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
+		return sraa.consultaRol_por_Desc (queRolDes);
 	}
 	
 	public void nuevoProducto(Producto p) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
