@@ -65,8 +65,8 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 
 	private JMenu jStock_Estadisitiques = null;
 	private JMenu jStock = null;
-	
-	
+	private JMenuItem jStockTotal = null;
+	private JMenuItem jStockFam = null;
 	private JMenu jFacturacio = null;
 	private JMenuItem jfactutotal = null;
 	private JMenuItem jFacturaciosand = null;
@@ -126,13 +126,68 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 		cae = new ControladorAplicacionEmpleado(this);
 		
 		jMenuItemLogin.setActionCommand("IS");
-		jMenuItemLogin.addActionListener(cae);
-
 		jMenuItemLogout.setActionCommand("CS");
-		jMenuItemLogout.addActionListener(cae);
+		jMenuItemAltaEmpleado.setActionCommand("AE");
+		jMenuItemModifEmpleado.setActionCommand("ME");
+		jMenuItemBajaEmpleado.setActionCommand("BE");
+		jMenuItemConEmpleado.setActionCommand("CE");
+		jMenuItemBajaCliente.setActionCommand("BC");
+		jMenuItemConCliente.setActionCommand("CC");
+		jMenuItemCartaSand.setActionCommand("CSAN");
+		jMenuItemAltaSand.setActionCommand("ASAN");
+		jMenuItemMantSand.setActionCommand("MSAN");
+		jMenuItemAltaTipoSand.setActionCommand("ATS");
+		jMenuItemMantTipoSand.setActionCommand("MTS");
+		jItemPedidoFin.setActionCommand("PF");
+		jAltaProd.setActionCommand("AP");
+		jConProd.setActionCommand("CP");
+		jBajaProd.setActionCommand("BP");
+		jModProd.setActionCommand("MP");
+		jAltaFam.setActionCommand("AF");
+		jModFam.setActionCommand("MF");
+		jBajaFam.setActionCommand("BF");
+		jConFam.setActionCommand("CF");
+		jStockTotal.setActionCommand("ST");
+		jStockFam.setActionCommand("SF");
+		jfactutotal.setActionCommand("FT");
+		jFacturaciosand.setActionCommand("FS");
+		jMenuItemCrearPromo.setActionCommand("APRO");
+		jMenuItemBorrarPromo.setActionCommand("BPRO");
+		jMenuItemModificarPromo.setActionCommand("MPRO");
+		jMenuItemConsultarPromo.setActionCommand("CPRO");
 
-		jMenuItemAltaEmpleado.setActionCommand("AR");
+		jMenuItemLogin.addActionListener(cae);
+		jMenuItemLogout.addActionListener(cae);
 		jMenuItemAltaEmpleado.addActionListener(cae);
+		jMenuItemModifEmpleado.addActionListener(cae);
+		jMenuItemBajaEmpleado.addActionListener(cae);
+		jMenuItemConEmpleado.addActionListener(cae);
+		jMenuItemBajaCliente.addActionListener(cae);
+		jMenuItemConCliente.addActionListener(cae);
+		jMenuItemCartaSand.addActionListener(cae);
+		jMenuItemAltaSand.addActionListener(cae);
+		jMenuItemMantSand.addActionListener(cae);
+		jMenuItemAltaTipoSand.addActionListener(cae);
+		jMenuItemMantTipoSand.addActionListener(cae);
+		jItemPedidoFin.addActionListener(cae);
+		jAltaProd.addActionListener(cae);
+		jConProd.addActionListener(cae);
+		jBajaProd.addActionListener(cae);
+		jModProd.addActionListener(cae);
+		jAltaFam.addActionListener(cae);
+		jModFam.addActionListener(cae);
+		jBajaFam.addActionListener(cae);
+		jConFam.addActionListener(cae);
+		jStockTotal.addActionListener(cae);
+		jStockFam.addActionListener(cae);
+		jfactutotal.addActionListener(cae);
+		jFacturaciosand.addActionListener(cae);
+		jMenuItemCrearPromo.addActionListener(cae);
+		jMenuItemBorrarPromo.addActionListener(cae);
+		jMenuItemModificarPromo.addActionListener(cae);
+		jMenuItemConsultarPromo.addActionListener(cae);
+
+	
 	}
 
 	
@@ -205,7 +260,7 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 			jMenuGestionFam.add(getConsultaFam());
 			
 		}
-		return jMenuGestionProd;
+		return jMenuGestionFam;
 	}
 	private JMenuItem getConsultaProducto() {
 		if (jConProd == null) {
@@ -258,7 +313,7 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 			jBajaFam = new JMenuItem();
 			jBajaFam.setText("Dar de baja Familia");
 		}
-		return jBajaProd;
+		return jBajaFam;
 	}
 
 	private JMenuItem getModificarFam() {
@@ -609,7 +664,7 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 	private JMenu getJStock_Estadisitiques() {
 		if (jStock_Estadisitiques == null) {
 			jStock_Estadisitiques = new JMenu();
-			jStock_Estadisitiques.setText("Stock-Estadisticas");
+			jStock_Estadisitiques.setText("Estadisticas");
 			jStock_Estadisitiques.add(getJStock());
 			jStock_Estadisitiques.add(getJFacturacio());
 			
@@ -626,9 +681,26 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 		if (jStock == null) {
 			jStock = new JMenu();
 			jStock.setText("Stock de Productos");
-
+			jStock.add(getStockTotal());
+			jStock.add(getStockFam());
 		}
 		return jStock;
+	}
+
+	private JMenuItem getStockFam() {
+		if (jStockFam == null) {
+			jStockFam = new JMenuItem();
+			jStockFam.setText("Stock por Familia");
+		}
+		return jStockFam;
+	}
+
+	private JMenuItem getStockTotal() {
+		if (jStockTotal == null) {
+			jStockTotal = new JMenuItem();
+			jStockTotal.setText("Stock total");
+		}
+		return jStockTotal;
 	}
 
 	/**
