@@ -82,6 +82,17 @@ public class ControladorPantallaHacerPedido implements ActionListener {
 
     } else if (cmd.equals("addSandwich")) {
       System.out.println("add Sandwich");
+      
+      
+      
+    } else if (cmd.equals("addBebida")) {
+      System.out.println("add Bebida");
+
+    } else if (cmd.equals("addPostre")) {
+      System.out.println("add Postre");
+
+    } else if (cmd.equals("addCafe")) {
+      System.out.println("add Café");
 
     }
 
