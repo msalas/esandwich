@@ -14,11 +14,13 @@ import javax.swing.JOptionPane;
 // Falta cambiar los comentarios 
 public class AplicacionEmpleado extends JFrame implements Aplicacion {
 
+	
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jContentPane = null;
 	
 	private JMenuBar jJMenuBar = null;
+	private JMenuBar jbarramenu = null;
 
 	private JMenu jMenuSesion = null;
 
@@ -26,9 +28,55 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 
 	private JMenuItem jMenuItemLogout = null;
 
+	
 	private JMenu jMenuEmpleados = null;
 
 	private JMenuItem jMenuItemAltaEmpleado = null;
+
+	
+	
+	
+	private JMenu jarxiu = null;
+
+	private JMenu jmanteniment = null;
+
+	private JMenu jCuina = null;
+
+	private JMenu jStock_Estadisitiques = null;
+
+	private JMenu jStock = null;
+
+	private JMenu jFacturacio = null;
+
+	private JMenu jComandes = null;
+
+	private JMenuItem jRealitcomandes = null;
+
+	private JMenuItem jaltaarticle = null;
+
+	private JMenuItem jfactutotal = null;
+
+	private JMenuItem jFacturaciosand = null;
+
+	private JMenuItem jItemSandw = null;
+
+	private JMenuItem jItemTipoSandw = null;
+
+	private JMenuItem jItemPedidoFin = null;
+
+	private JMenu jMenuUsuari = null;
+
+	private JMenu jMenuClient = null;
+
+	private JMenu jMenuPromocio = null;
+
+	private JMenuItem jMenuItemCrear = null;
+
+	private JMenuItem jMenuItemEsborrar = null;
+
+	private JMenuItem jMenuItemModificar = null;
+
+	private JMenuItem jMenuItemConsultar = null;
 
 	private ServiciosModelo sm = null;  //  @jve:decl-index=0:
 
@@ -64,13 +112,13 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 			//sm = new ServiciosAccesoModelo();
 
 		} catch (MalformedURLException e) {
-			JOptionPane.showMessageDialog(this,e.toString(),"ERROR URL",JOptionPane.ERROR_MESSAGE);
+			mostrarError(e.getMessage(), "");
 			//e.printStackTrace();
 		} catch (RemoteException e) {
-			JOptionPane.showMessageDialog(this,e.toString(),"ERROR Remote",JOptionPane.ERROR_MESSAGE);
+			mostrarError(e.getMessage(), "");
 			//e.printStackTrace();
 		} catch (NotBoundException e) {
-			JOptionPane.showMessageDialog(this,e.toString(),"ERROR BOUND",JOptionPane.ERROR_MESSAGE);
+			mostrarError(e.getMessage(), "");
 			//e.printStackTrace();
 		} 
 		
