@@ -20,63 +20,66 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 	private JPanel jContentPane = null;
 	
 	private JMenuBar jJMenuBar = null;
-	private JMenuBar jbarramenu = null;
-
-	private JMenu jMenuSesion = null;
-	private JMenu jarxiu = null;
 	
+	private JMenu jMenuSesion = null;
 	private JMenuItem jMenuItemLogin = null;
-
 	private JMenuItem jMenuItemLogout = null;
 
-	
+	private JMenu jMenuUsuarios = null;
 	private JMenu jMenuEmpleados = null;
-	private JMenu jmanteniment = null;
-	
 	private JMenuItem jMenuItemAltaEmpleado = null;
+	private JMenuItem jMenuItemModifEmpleado = null;
+	private JMenuItem jMenuItemBajaEmpleado = null;
+	private JMenuItem jMenuItemConEmpleado = null;
+	
+	private JMenu jMenuClientes = null;
+	private JMenuItem jMenuItemBajaCliente = null;
+	private JMenuItem jMenuItemConCliente = null;
+	
+	private JMenu jMenuSandwich = null;
+	private JMenu jMenuGestionSand = null;
+	private JMenu jMenuGestionTipoSand = null;
+	
+	private JMenuItem jMenuItemCartaSand = null;
+	private JMenuItem jMenuItemAltaSand = null;
+	private JMenuItem jMenuItemMantSand = null;
+	private JMenuItem jMenuItemAltaTipoSand = null;
+	private JMenuItem jMenuItemMantTipoSand = null;
+	
+	private JMenu jMenuCocina = null;
+	private JMenuItem jItemPedidoFin = null;
+	
+	private JMenu jMenuProducto = null;
+	private JMenu jMenuGestionProd = null;
+	private JMenuItem jAltaProd = null;
+	private JMenuItem jConProd= null;
+	private JMenuItem jBajaProd= null;
+	private JMenuItem jModProd= null;
 
-	private JMenu jCuina = null;
-	private JMenuItem jItemSandw = null;
-	private JMenuItem jItemTipoSandw = null;
+	private JMenu jMenuGestionFam = null;
+	private JMenuItem jAltaFam= null;
+	private JMenuItem jModFam= null;
+	private JMenuItem jBajaFam= null;
+	private JMenuItem jConFam= null;
+
 
 	private JMenu jStock_Estadisitiques = null;
-
 	private JMenu jStock = null;
-	private JMenuItem jaltaarticle = null;
-
+	
+	
 	private JMenu jFacturacio = null;
 	private JMenuItem jfactutotal = null;
 	private JMenuItem jFacturaciosand = null;
 
-	private JMenu jComandes = null;
-
-	private JMenuItem jRealitcomandes = null;
-
-
-
-
-	
-	private JMenuItem jItemPedidoFin = null;
-
-	private JMenu jMenuUsuari = null;
-
-	private JMenu jMenuClient = null;
-
 	private JMenu jMenuPromocio = null;
-
-	private JMenuItem jMenuItemCrear = null;
-
-	private JMenuItem jMenuItemEsborrar = null;
-
-	private JMenuItem jMenuItemModificar = null;
-
-	private JMenuItem jMenuItemConsultar = null;
+	private JMenuItem jMenuItemCrearPromo = null;
+	private JMenuItem jMenuItemBorrarPromo = null;
+	private JMenuItem jMenuItemModificarPromo = null;
+	private JMenuItem jMenuItemConsultarPromo = null;
 
 	private ServiciosModelo sm = null;  
 
 	private ControladorAplicacionEmpleado cae = null;
-
-	private JOptionPane jOptionPane = null;  //  @jve:decl-index=0:visual-constraint="161,283"
 
 
 	/**
@@ -94,7 +97,7 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(536, 362);
+		this.setSize(800, 600);
 		this.setResizable(false);
 		this.setJMenuBar(getJJMenuBar());
 		this.setContentPane(getJContentPane());
@@ -155,13 +158,141 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 	private JMenuBar getJJMenuBar() {
 		if (jJMenuBar == null) {
 			jJMenuBar = new JMenuBar();
-			jJMenuBar.setPreferredSize(new Dimension(418, 23));
 			jJMenuBar.add(getJMenuSesion());
-			jJMenuBar.add(getJMenuEmpleados());
+			jJMenuBar.add(getJMenuUsuarios());
+			jJMenuBar.add(getJMenuPromocio());
+			jJMenuBar.add(getJMenuSandwich());
+			jJMenuBar.add(getJMenuCocina());
+			jJMenuBar.add(getJMenuProductos());
+			jJMenuBar.add(getJStock_Estadisitiques());
+				
 		}
 		return jJMenuBar;
 	}
 
+	
+	private JMenu getJMenuProductos() {
+		if (jMenuProducto == null) {
+			jMenuProducto = new JMenu();
+			jMenuProducto.setText("Productos");
+			jMenuProducto.add(getMenuGestionProd());
+			jMenuProducto.add(getMenuGestionFam());
+			
+		}
+		return jMenuProducto;
+	}
+	
+	private JMenu getMenuGestionProd(){
+		if (jMenuGestionProd == null) {
+			jMenuGestionProd = new JMenu();
+			jMenuGestionProd.setText("Gestión Productos");
+			jMenuGestionProd.add(getAltaProducto());
+			jMenuGestionProd.add(getModificarProducto());
+			jMenuGestionProd.add(getBajaProducto());
+			jMenuGestionProd.add(getConsultaProducto());
+			
+		}
+		return jMenuGestionProd;
+	}
+	
+	private JMenu getMenuGestionFam(){
+		if (jMenuGestionFam == null) {
+			jMenuGestionFam = new JMenu();
+			jMenuGestionFam.setText("Gestión Familias de Productos");
+			jMenuGestionFam.add(getAltaFam());
+			jMenuGestionFam.add(getModificarFam());
+			jMenuGestionFam.add(getBajaFam());
+			jMenuGestionFam.add(getConsultaFam());
+			
+		}
+		return jMenuGestionProd;
+	}
+	private JMenuItem getConsultaProducto() {
+		if (jConProd == null) {
+			jConProd = new JMenuItem();
+			jConProd.setText("Consultar Producto");
+		}
+		return jConProd;
+	}
+
+	private JMenuItem getBajaProducto() {
+		if (jBajaProd == null) {
+			jBajaProd = new JMenuItem();
+			jBajaProd.setText("Dar de baja Producto");
+		}
+		return jBajaProd;
+	}
+
+	private JMenuItem getModificarProducto() {
+		if (jModProd == null) {
+			jModProd = new JMenuItem();
+			jModProd.setText("Modificar Producto");
+		}
+		return jModProd;
+	}
+
+	/**
+	 * This method initializes jaltaarticle	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getAltaProducto() {
+		if (jAltaProd == null) {
+			jAltaProd = new JMenuItem();
+			jAltaProd.setText("Alta Producto");
+		}
+		return jAltaProd;
+	}
+
+	
+	private JMenuItem getConsultaFam() {
+		if (jConFam == null) {
+			jConFam = new JMenuItem();
+			jConFam.setText("Consultar Familia");
+		}
+		return jConFam;
+	}
+
+	private JMenuItem getBajaFam() {
+		if (jBajaFam == null) {
+			jBajaFam = new JMenuItem();
+			jBajaFam.setText("Dar de baja Familia");
+		}
+		return jBajaProd;
+	}
+
+	private JMenuItem getModificarFam() {
+		if (jModFam == null) {
+			jModFam = new JMenuItem();
+			jModFam.setText("Modificar Familia");
+		}
+		return jModFam;
+	}
+
+	/**
+	 * This method initializes jaltaarticle	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getAltaFam() {
+		if (jAltaFam == null) {
+			jAltaFam = new JMenuItem();
+			jAltaFam.setText("Alta Familia");
+		}
+		return jAltaFam;
+	}
+	private JMenu getJMenuCocina() {
+	
+		if (jMenuCocina == null) {
+			jMenuCocina = new JMenu();
+			jMenuCocina.setText("Gestión Pedidos");
+			jMenuCocina.add(getJItemPedidoFin());
+		}
+		return jMenuCocina;
+		
+
+
+	}
 
 	/**
 	 * This method initializes jMenuSesion	
@@ -192,7 +323,7 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 		if (jMenuItemLogin == null) {
 			jMenuItemLogin = new JMenuItem();
 			jMenuItemLogin.setPreferredSize(new Dimension(63, 21));
-			jMenuItemLogin.setText("Login");
+			jMenuItemLogin.setText("Iniciar Sesión");
 		}
 		return jMenuItemLogin;
 	}
@@ -205,9 +336,22 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 	private JMenuItem getJMenuItemLogout() {
 		if (jMenuItemLogout == null) {
 			jMenuItemLogout = new JMenuItem();
-			jMenuItemLogout.setText("Logout");
+			jMenuItemLogout.setText("Cerrar Sessión");
 		}
 		return jMenuItemLogout;
+	}
+
+	
+
+	private JMenu getJMenuUsuarios() {
+		
+		if (jMenuUsuarios == null) {
+			jMenuUsuarios = new JMenu();
+			jMenuUsuarios.setText("Mantenimiento usuarios");
+			jMenuUsuarios.add(getJMenuEmpleados());
+			jMenuUsuarios.add(getJMenuClientes());
+		}
+		return jMenuUsuarios;
 	}
 
 	/**
@@ -218,12 +362,17 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 	private JMenu getJMenuEmpleados() {
 		if (jMenuEmpleados == null) {
 			jMenuEmpleados = new JMenu();
-			jMenuEmpleados.setPreferredSize(new Dimension(75, 5));
 			jMenuEmpleados.setText("Empleados");
 			jMenuEmpleados.add(getJMenuItemAltaEmpleado());
+			jMenuEmpleados.add(getJMenuItemModifEmpleado());
+			jMenuEmpleados.add(getJMenuItemBajaEmpleado());
+			jMenuEmpleados.add(getJMenuItemConEmpleado());
+			
 		}
 		return jMenuEmpleados;
 	}
+	
+	
 
 	/**
 	 * This method initializes jMenuItemAltaEmpleado	
@@ -233,33 +382,315 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 	private JMenuItem getJMenuItemAltaEmpleado() {
 		if (jMenuItemAltaEmpleado == null) {
 			jMenuItemAltaEmpleado = new JMenuItem();
-			jMenuItemAltaEmpleado.setText("Alta");
-			jMenuItemAltaEmpleado.setPreferredSize(new Dimension(63, 21));
+			jMenuItemAltaEmpleado.setText("Alta Empleado");
 		}
 		return jMenuItemAltaEmpleado;
 	}
-	
+
 	/**
-	 * This method initializes jOptionPane	
+	 * This method initializes jMenuItemModifEmpleado	
 	 * 	
-	 * @return javax.swing.JOptionPane	
+	 * @return javax.swing.JMenuItem	
 	 */
-	private JOptionPane getJOptionPane() {
-		if (jOptionPane == null) {
-			jOptionPane = new JOptionPane();
+	private JMenuItem getJMenuItemModifEmpleado() {
+		if (jMenuItemModifEmpleado == null) {
+			jMenuItemModifEmpleado = new JMenuItem();
+			jMenuItemModifEmpleado.setText("Modificar Empleado");
+		
 		}
-		return jOptionPane;
+		return jMenuItemModifEmpleado;
 	}
 
-	public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-            	AplicacionEmpleado app = new AplicacionEmpleado();
-                app.setVisible(true);
-                app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            }
-        });
-    }
+	private JMenuItem getJMenuItemConEmpleado() {
+		if (jMenuItemConEmpleado == null) {
+			jMenuItemConEmpleado = new JMenuItem();
+			jMenuItemConEmpleado.setText("Consultar Empleado");
+		
+		}
+		return jMenuItemConEmpleado;
+	}
+
+	private JMenuItem getJMenuItemBajaEmpleado() {
+		if (jMenuItemBajaEmpleado == null) {
+			jMenuItemBajaEmpleado = new JMenuItem();
+			jMenuItemBajaEmpleado.setText("Dar de baja Empleado");
+		
+		}
+		return jMenuItemBajaEmpleado;
+	}
+	
+	private JMenuItem getJMenuClientes() {
+		
+		if (jMenuClientes == null) {
+			jMenuClientes = new JMenu();
+			jMenuClientes.setText("Clientes");
+			jMenuClientes.add(getJMenuItemConCliente());
+			jMenuClientes.add(getJMenuItemBajaCliente());
+		}
+		return jMenuClientes;
+	}
+
+	
+	private JMenuItem getJMenuItemConCliente() {
+		if (jMenuItemConCliente == null) {
+			jMenuItemConCliente = new JMenuItem();
+			jMenuItemConCliente.setText("Consultar Cliente");
+		
+		}
+		return jMenuItemConCliente;
+	}
+
+	private JMenuItem getJMenuItemBajaCliente() {
+		if (jMenuItemBajaCliente == null) {
+			jMenuItemBajaCliente = new JMenuItem();
+			jMenuItemBajaCliente.setText("Dar de baja Cliente");
+		
+		}
+		return jMenuItemBajaCliente;
+	}
+	
+	
+	/**
+	 * This method initializes jMenuPromocio	
+	 * 	
+	 * @return javax.swing.JMenu	
+	 */
+	private JMenu getJMenuPromocio() {
+		if (jMenuPromocio == null) {
+			jMenuPromocio = new JMenu();
+			jMenuPromocio.setText("Promociones");
+			jMenuPromocio.add(getJMenuItemCrearPromo());
+			jMenuPromocio.add(getJMenuItemModificarPromo());
+			jMenuPromocio.add(getJMenuItemBorrarPromo());
+			jMenuPromocio.add(getJMenuItemConsultarPromo());
+			
+		}
+		return jMenuPromocio;
+	}
+
+	/**
+	 * This method initializes jMenuItemCrear	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemCrearPromo() {
+		if (jMenuItemCrearPromo == null) {
+			jMenuItemCrearPromo = new JMenuItem();
+			jMenuItemCrearPromo.setText("Crear Promoción");
+		}
+		return jMenuItemCrearPromo;
+	}
+
+	/**
+	 * This method initializes jMenuItemEsborrar	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemBorrarPromo() {
+		if (jMenuItemBorrarPromo == null) {
+			jMenuItemBorrarPromo = new JMenuItem();
+			jMenuItemBorrarPromo.setText("Borrar Promoción");
+		}
+		return jMenuItemBorrarPromo;
+	}
+
+	/**
+	 * This method initializes jMenuItemModificar	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemModificarPromo() {
+		if (jMenuItemModificarPromo == null) {
+			jMenuItemModificarPromo = new JMenuItem();
+			jMenuItemModificarPromo.setText("Modificar Promoción");
+		}
+		return jMenuItemModificarPromo;
+	}
+
+	/**
+	 * This method initializes jMenuItemConsultar	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemConsultarPromo() {
+		if (jMenuItemConsultarPromo == null) {
+			jMenuItemConsultarPromo = new JMenuItem();
+			jMenuItemConsultarPromo.setText("Consultar Promoción");
+		}
+		return jMenuItemConsultarPromo;
+	}
+
+
+	
+
+	/**
+	 * This method initializes jCuina	
+	 * 	
+	 * @return javax.swing.JMenu	
+	 */
+	private JMenu getJMenuSandwich() {
+		if (jMenuSandwich == null) {
+			jMenuSandwich = new JMenu();
+			jMenuSandwich.setText("Sandwichs");
+			jMenuSandwich.add(getJMenuGestionSand());
+			jMenuSandwich.add(getJMenuGestionTipoSand());
+			jMenuSandwich.add(getJMenuItemCartaSand());
+			
+		}
+		return jMenuSandwich;
+	}
+
+	private JMenuItem getJMenuItemCartaSand() {
+		if (jMenuItemCartaSand == null) {
+			jMenuItemCartaSand = new JMenuItem();
+			jMenuItemCartaSand.setText("Carta de Sandwiches");
+		}
+		return jMenuItemCartaSand;
+	}
+
+	private JMenu getJMenuGestionTipoSand() {
+		if(jMenuGestionTipoSand == null) {
+			jMenuGestionTipoSand = new JMenu();
+			jMenuGestionTipoSand.setText("Gestión Tipo de Sandwiches");
+			jMenuGestionTipoSand.add(getAltaTipoSand());
+			jMenuGestionTipoSand.add(getMantTipoSand());
+		}
+		return jMenuGestionTipoSand;
+	}
+
+	private JMenuItem getMantSand() {
+		if (jMenuItemMantSand == null) {
+			jMenuItemMantSand = new JMenuItem();
+			jMenuItemMantSand.setText("Mantenimiento Sandwiches");
+		}
+		return jMenuItemMantSand;
+	}
+
+	private JMenuItem getAltaSand() {
+		if (jMenuItemAltaSand == null) {
+			jMenuItemAltaSand = new JMenuItem();
+			jMenuItemAltaSand.setText("Alta Sandwich");
+		}
+		return jMenuItemAltaSand;
+	}
+
+	private JMenu getJMenuGestionSand() {
+		if(jMenuGestionSand == null) {
+			jMenuGestionSand = new JMenu();
+			jMenuGestionSand.setText("Gestión Sandwiches");
+			jMenuGestionSand.add(getAltaSand());
+			jMenuGestionSand.add(getMantSand());
+		}
+		return jMenuGestionSand;
+		
+	}
+
+	private JMenuItem getMantTipoSand() {
+		if (jMenuItemMantTipoSand == null) {
+			jMenuItemMantTipoSand = new JMenuItem();
+			jMenuItemMantTipoSand.setText("Mantenimiento Tipos de Sandwiches");
+		}
+		return jMenuItemMantTipoSand;
+	}
+
+	private JMenuItem getAltaTipoSand() {
+		if (jMenuItemAltaTipoSand == null) {
+			jMenuItemAltaTipoSand = new JMenuItem();
+			jMenuItemAltaTipoSand.setText("Alta Tipo de Sandwich");
+		}
+		return jMenuItemAltaTipoSand;
+	}
+
+	/**
+	 * This method initializes jStock_Estadisitiques	
+	 * 	
+	 * @return javax.swing.JMenu	
+	 */
+	private JMenu getJStock_Estadisitiques() {
+		if (jStock_Estadisitiques == null) {
+			jStock_Estadisitiques = new JMenu();
+			jStock_Estadisitiques.setText("Stock-Estadisticas");
+			jStock_Estadisitiques.add(getJStock());
+			jStock_Estadisitiques.add(getJFacturacio());
+			
+		}
+		return jStock_Estadisitiques;
+	}
+
+	/**
+	 * This method initializes jStock	
+	 * 	
+	 * @return javax.swing.JMenu	
+	 */
+	private JMenu getJStock() {
+		if (jStock == null) {
+			jStock = new JMenu();
+			jStock.setText("Stock de Productos");
+
+		}
+		return jStock;
+	}
+
+	/**
+	 * This method initializes jFacturacio	
+	 * 	
+	 * @return javax.swing.JMenu	
+	 */
+	private JMenu getJFacturacio() {
+		if (jFacturacio == null) {
+			jFacturacio = new JMenu();
+			jFacturacio.setText("Facturacion");
+			jFacturacio.add(getJfactutotal());
+			jFacturacio.add(getJFacturaciosand());
+		}
+		return jFacturacio;
+	}
+
+	
+	
+
+	/**
+	 * This method initializes jfactutotal	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJfactutotal() {
+		if (jfactutotal == null) {
+			jfactutotal = new JMenuItem();
+			jfactutotal.setText("Facturación total");
+		}
+		return jfactutotal;
+	}
+
+	/**
+	 * This method initializes jFacturaciosand	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJFacturaciosand() {
+		if (jFacturaciosand == null) {
+			jFacturaciosand = new JMenuItem();
+			jFacturaciosand.setText("Facturación por Sandwitch");
+		}
+		return jFacturaciosand;
+	}
+	
+
+	/**
+	 * This method initializes jItemPedidoFin	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJItemPedidoFin() {
+		if (jItemPedidoFin == null) {
+			jItemPedidoFin = new JMenuItem();
+			jItemPedidoFin .setText("Finalización de Pedidos");			
+		}
+		return jItemPedidoFin;
+	}
+
+
+	
 
 	public ServiciosModelo getSm() {
 		return sm;
@@ -286,5 +717,15 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 		
 	}
 
-}  //  @jve:decl-index=0:visual-constraint="24,-126"
+	public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+            	AplicacionEmpleado app = new AplicacionEmpleado();
+                app.setVisible(true);
+                app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            }
+        });
+    }
+
+}
 
