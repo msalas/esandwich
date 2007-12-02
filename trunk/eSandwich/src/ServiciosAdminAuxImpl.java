@@ -37,14 +37,13 @@ implements ServiciosRemotosAdminAux {
 	public int anadirEmpleado (Empleado e) throws errorSQL, errorConexionBD,
 	RemoteException {
 		int idAux = 0;
-    Empleado emp;
+		Empleado emp;
 		try {
 
 			if (!ge.existeNif(e.getNif())) {
 				emp = ge.addEmpleado(e);
-        idAux = emp.getId();
-			}
-			else {
+				idAux = emp.getId();
+			} else {
 				throw new errorSQL("ERROR: Nif existente en empleados");
 			}
 		}
@@ -121,6 +120,14 @@ implements ServiciosRemotosAdminAux {
 		return gp.listaProductoPorFamilia(idFamilia);
 	}
 	
+//	public boolean existeProducto(int id) throws errorSQL, errorConexionBD, RemoteException{
+//		return gp.existeProducto(id);
+//	}
+	
+//	public boolean existeFactura(int id) throws errorSQL, errorConexionBD, RemoteException{
+//		return gf.existeFactura(id);
+//	}
+	
 	public boolean existeProducto(int id) throws errorSQL, errorConexionBD, RemoteException{
 		return gp.existeProducto(id);
 	}
@@ -129,6 +136,7 @@ implements ServiciosRemotosAdminAux {
 		return gf.existeFactura(id);
 	}
 	
+
 	public int añadirFamilia(FamiliaProducto fp) throws errorSQL, errorConexionBD,
 	RemoteException {
 		int idP = 0;
@@ -294,6 +302,7 @@ implements ServiciosRemotosAdminAux {
 		gs.liberarRecursos();
 		gfs.liberarRecursos();
 		gf.liberarRecursos();
+		gr.liberarRecursos();
 	}
 	
 }
