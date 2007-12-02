@@ -274,7 +274,7 @@ public class AplicacionComprador extends JFrame implements Aplicacion {
 	private JMenu getJPromociones() {
 		if (jPromociones == null) {
 			jPromociones = new JMenu();
-			jPromociones.setText("Promocions");
+			jPromociones.setText("Promociones");
 			jPromociones.add(getJPromocionesPanel());
 			jPromociones.add(getJPromocionesPuntos());
 			jPromociones.add(getJPromocionesSeleccion());
@@ -347,6 +347,8 @@ public class AplicacionComprador extends JFrame implements Aplicacion {
 		}
 		return jRealizarPedido;
 	}
+  
+//  public addProducto()
 
   public ServiciosCompradorModelo getSm() {
     return (ServiciosCompradorModelo) sm;
