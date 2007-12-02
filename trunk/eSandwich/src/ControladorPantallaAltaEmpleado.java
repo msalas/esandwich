@@ -54,7 +54,7 @@ public class ControladorPantallaAltaEmpleado implements ActionListener {
 		Pe.montaEmpleado();
 		emp = Pe.getEmp();
 		try {
-			scrm = (ServiciosAdAuxModelo) ae.getSm();
+			scrm = (ServiciosAdAuxModelo) ae.getSm();			
 			scrm.nuevoEmpleado(emp);
 			ae.setSm(scrm);
 		}catch (MalformedURLException e) {

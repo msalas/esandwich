@@ -40,5 +40,17 @@ public class Rol implements Serializable{
 	public void setLetraRol(String letraRol) {
 		this.letraRol = letraRol;
 	}
+
+
+	public boolean equals(String pDescripcion) {
+		if (!descripcion.equals(pDescripcion))
+			return false;
+		return true;
+	}
+	
+	public String toString() {
+		return this.getDescripcion();
+	}
+	
 	
 }

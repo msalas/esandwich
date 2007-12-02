@@ -39,9 +39,9 @@ public class ServiciosAccesoModelo extends ServiciosModelo {
       } else if (e.getRol().equals("AdAux")) {
         System.out.println("Rol: AdAux");
         s = new ServiciosAdAuxModelo();
-      } else
-        ;
-
+      } else  {
+          System.out.println(e.getRol().toString() + ": Sin acceso !!!");
+      }
     } else { // es cliente (registrado)
       s = new ServiciosCompradorRegistradoModelo();
     }
