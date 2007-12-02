@@ -23,40 +23,35 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 	private JMenuBar jbarramenu = null;
 
 	private JMenu jMenuSesion = null;
-
+	private JMenu jarxiu = null;
+	
 	private JMenuItem jMenuItemLogin = null;
 
 	private JMenuItem jMenuItemLogout = null;
 
 	
 	private JMenu jMenuEmpleados = null;
-
-	private JMenuItem jMenuItemAltaEmpleado = null;
-
-	
-	
-	
-	private JMenu jarxiu = null;
-
 	private JMenu jmanteniment = null;
+	
+	private JMenuItem jMenuItemAltaEmpleado = null;
 
 	private JMenu jCuina = null;
 
 	private JMenu jStock_Estadisitiques = null;
 
 	private JMenu jStock = null;
+	private JMenuItem jaltaarticle = null;
 
 	private JMenu jFacturacio = null;
+	private JMenuItem jfactutotal = null;
+	private JMenuItem jFacturaciosand = null;
 
 	private JMenu jComandes = null;
 
 	private JMenuItem jRealitcomandes = null;
 
-	private JMenuItem jaltaarticle = null;
 
-	private JMenuItem jfactutotal = null;
 
-	private JMenuItem jFacturaciosand = null;
 
 	private JMenuItem jItemSandw = null;
 

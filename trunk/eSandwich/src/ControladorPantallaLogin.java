@@ -10,9 +10,7 @@ public class ControladorPantallaLogin implements ActionListener {
   AplicacionComprador   ac = null;
   AplicacionEmpleado    ae = null;
   ServiciosAccesoModelo sm = null;
-
-  // ServiciosCompradorModelo scrm2 = null;
-
+  
   public ControladorPantallaLogin(PantallaLogin pantallaLogin, Aplicacion ap) {
 
     if (ap instanceof AplicacionComprador) {
@@ -47,11 +45,11 @@ public class ControladorPantallaLogin implements ActionListener {
 
       } else {
         System.out.println("***\nObteniendo serviciosAdAuxModelo");
-//        sm = (ServiciosAdAuxModelo) ac.getSm();
-//        System.out.println("Realizando login");
-//        sm = (ServiciosAdAuxModelo) sm.login((pl.getTxtCUsuario()).getText(),
-//            (pl.getTxtPassword()).getText(), false);
-//        ae.setSm(sm);
+        sm = (ServiciosAdAuxModelo) ae.getSm();
+        System.out.println("Realizando login");
+        sm = (ServiciosAdAuxModelo) sm.login((pl.getTxtCUsuario()).getText(),
+            (pl.getTxtPassword()).getText(), false);
+        ae.setSm(sm);
       }
 
       // Actualizamos los servicios de la aplicacion a cliente registrado
