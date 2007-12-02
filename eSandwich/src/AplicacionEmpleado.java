@@ -76,6 +76,8 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 
 	private ControladorAplicacionEmpleado cae = null;
 
+	private JOptionPane jOptionPane = null;  //  @jve:decl-index=0:visual-constraint="161,283"
+
 
 	/**
 	 * This is the default constructor
@@ -237,6 +239,18 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 		return jMenuItemAltaEmpleado;
 	}
 	
+	/**
+	 * This method initializes jOptionPane	
+	 * 	
+	 * @return javax.swing.JOptionPane	
+	 */
+	private JOptionPane getJOptionPane() {
+		if (jOptionPane == null) {
+			jOptionPane = new JOptionPane();
+		}
+		return jOptionPane;
+	}
+
 	public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

@@ -76,8 +76,8 @@ public class PantallaAltaEmpleado extends JDialog {
 		this.setLocationRelativeTo(null);		
 		cpl = new ControladorPantallaAltaEmpleado(this,ae);
 		jButtonCrear.addActionListener(cpl);
-		cpl.iniCombo();
-		jPanelDadesAcces.add(getJComboBox(), null);
+		//cpl.iniCombo();
+		//jPanelDadesAcces.add(getJComboBox(), null);
 	}
 	
 

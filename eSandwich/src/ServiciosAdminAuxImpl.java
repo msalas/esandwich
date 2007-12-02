@@ -1,6 +1,5 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.Vector;
 
@@ -45,6 +44,7 @@ implements ServiciosRemotosAdminAux {
         idAux = emp.getId();
 			}
 			else {
+				System.out.println("Existe NIF");
 				throw new errorSQL("ERROR: Nif existente en empleados");
 			}
 		}
@@ -63,7 +63,7 @@ implements ServiciosRemotosAdminAux {
 		}
 		catch (errorSQL err) {
 			throw new errorSQL(err.getMessage());
-		}
+		}		
 		for (int i=0;i<v.size();i++){
 			Rol rolT=(Rol)vRet.get(i);
 			String desc = rolT.getDescripcion();
@@ -286,6 +286,7 @@ implements ServiciosRemotosAdminAux {
 		gs.liberarRecursos();
 		gfs.liberarRecursos();
 		gf.liberarRecursos();
+		gr.liberarRecursos();
 	}
 	
 }
