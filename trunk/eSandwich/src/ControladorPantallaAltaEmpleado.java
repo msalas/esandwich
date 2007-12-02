@@ -75,7 +75,7 @@ public class ControladorPantallaAltaEmpleado implements ActionListener {
 			} catch (Exception e) {
 				ae.mostrarError(e.getMessage(),"Error general");
 			}
-		ae.mostrarInformacion("Alta realizada","Alta empleados");
+		//ae.mostrarInformacion("Alta realizada","Alta empleados");
 		Pe.getJButtonCancellar(); 
 	}
 
