@@ -31,7 +31,7 @@ public class PantallaHacerPedido extends JDialog {
   private JComboBox              jcbTipoSandwich    = null;
   private JLabel                 jLabel             = null;
   private JComboBox              jcbUnidades        = null;
-  private JButton                jbtnAddUnidades    = null;
+  private JButton                jbtnAddSandwich    = null;
   private JPanel                 jPanel2            = null;
   private JPanel                 jPanel3            = null;
   private JPanel                 jPanel4            = null;
@@ -79,11 +79,24 @@ public class PantallaHacerPedido extends JDialog {
     this.setContentPane(getJContentPane());
     this.setTitle("Hacer Pedido");
     this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-    
+
+    jbtnAddSandwich.setActionCommand("addSandwich");
+    jbtnAddSandwich.addActionListener(cphp);
+
+    jbtnAddBebidas.setActionCommand("addBebida");
+    jbtnAddBebidas.addActionListener(cphp);
+
+    jbtnAddPostres.setActionCommand("addPostre");
+    jbtnAddPostres.addActionListener(cphp);
+
+    jbtnAddCafes.setActionCommand("addCafe");
+    jbtnAddCafes.addActionListener(cphp);
+
     jbtnFinalizaCompra.setActionCommand("compra");
     jbtnFinalizaCompra.addActionListener(cphp);
   }
 
+  // Prueba
   public void setDatos(String cod) {
     lblCodUsuario.setText(cod);
 
@@ -147,7 +160,7 @@ public class PantallaHacerPedido extends JDialog {
       jPanel1.add(getJcbTipoSandwich(), null);
       jPanel1.add(jLabel, null);
       jPanel1.add(getJcbUnidades(), null);
-      jPanel1.add(getJbtnAddUnidades(), null);
+      jPanel1.add(getJbtnAddSandwich(), null);
     }
     return jPanel1;
   }
@@ -165,8 +178,8 @@ public class PantallaHacerPedido extends JDialog {
     }
     return jcbTipoSandwich;
   }
-  
-  public void setJcbTipoSandwich( Vector v ){
+
+  public void setJcbTipoSandwich(Vector v) {
     jcbTipoSandwich.setModel(new DefaultComboBoxModel(v));
   }
 
@@ -189,13 +202,13 @@ public class PantallaHacerPedido extends JDialog {
    * 
    * @return javax.swing.JButton
    */
-  private JButton getJbtnAddUnidades() {
-    if (jbtnAddUnidades == null) {
-      jbtnAddUnidades = new JButton();
-      jbtnAddUnidades.setBounds(new Rectangle(400, 24, 83, 25));
-      jbtnAddUnidades.setText("Añade");
+  private JButton getJbtnAddSandwich() {
+    if (jbtnAddSandwich == null) {
+      jbtnAddSandwich = new JButton();
+      jbtnAddSandwich.setBounds(new Rectangle(400, 24, 83, 25));
+      jbtnAddSandwich.setText("Añade");
     }
-    return jbtnAddUnidades;
+    return jbtnAddSandwich;
   }
 
   /**
@@ -284,8 +297,8 @@ public class PantallaHacerPedido extends JDialog {
     }
     return jcbBebidas;
   }
-  
-  public void setJcbBebida(Vector v){
+
+  public void setJcbBebida(Vector v) {
     jcbBebidas.setModel(new DefaultComboBoxModel(v));
   }
 
@@ -332,6 +345,10 @@ public class PantallaHacerPedido extends JDialog {
     return jcbPostres;
   }
 
+  public void setJcbPostres(Vector v) {
+    jcbPostres.setModel(new DefaultComboBoxModel(v));
+  }
+
   /**
    * This method initializes jComboBox5
    * 
@@ -373,6 +390,10 @@ public class PantallaHacerPedido extends JDialog {
       jcbCafes.setBounds(new Rectangle(11, 25, 206, 23));
     }
     return jcbCafes;
+  }
+
+  public void setJcbCafes(Vector v) {
+    jcbCafes.setModel(new DefaultComboBoxModel(v));
   }
 
   /**
