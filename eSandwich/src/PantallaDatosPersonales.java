@@ -65,20 +65,37 @@ public class PantallaDatosPersonales extends JDialog {
 
   }
 
-  public void setUsuario(Usuario u) {
-    if (u == null) {
-      System.err.println("Usuario = null");
+  public void setCliente(Cliente cli) {
+    if (cli == null) {
+      System.err.println("Cliente = null");
       
     } else {
-      jTextFieldNif.setText(u.getNif());
-      jTextFieldNom.setText(u.getNombre());
-      jTextFieldCognoms.setText(u.getApellido1());
-      jTextFieldAdreça.setText(u.getDireccion());
-      jTextFieldPoblacio.setText(u.getPoblacion());
-      jTextFieldTelefon.setText(u.getTelefono());
-      jTextFieldMobil.setText(u.getMovil());
-      jTextFieldEMail.setText(u.getEmail());
+      jTextFieldNom.setText(cli.getNombre());
+      jTextFieldNif.setText(cli.getNif());
+      jPasswordFieldNContrasenya.setText(cli.getPassword());
+      jPasswordFieldCContrasenya.setText(cli.getPassword());
+      jTextFieldCognoms.setText(cli.getApellido1());
+      jTextFieldAdreça.setText(cli.getDireccion());
+      jTextFieldPoblacio.setText(cli.getPoblacion());
+      jTextFieldTelefon.setText(cli.getTelefono());
+      jTextFieldMobil.setText(cli.getMovil());
+      jTextFieldEMail.setText(cli.getEmail());
     }
+  }
+  
+  public Cliente getCliente(){
+    Cliente cli = new Cliente();
+//    cli.getId(??);
+    cli.setNombre(jTextFieldNom.getText());
+    cli.setNif(jTextFieldNif.getText());
+    cli.setApellido1(jTextFieldCognoms.getText());
+    cli.setDireccion(jTextFieldAdreça.getText());
+    cli.setPoblacion(jTextFieldPoblacio.getText());
+    cli.setTelefono(jTextFieldTelefon.getText());
+    cli.setMovil(jTextFieldMobil.getText());
+    cli.setEmail(jTextFieldEMail.getText());
+    
+    return cli;
   }
 
   /**
