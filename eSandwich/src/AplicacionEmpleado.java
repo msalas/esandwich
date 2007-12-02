@@ -36,6 +36,8 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 	private JMenuItem jMenuItemAltaEmpleado = null;
 
 	private JMenu jCuina = null;
+	private JMenuItem jItemSandw = null;
+	private JMenuItem jItemTipoSandw = null;
 
 	private JMenu jStock_Estadisitiques = null;
 
@@ -53,10 +55,7 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 
 
 
-	private JMenuItem jItemSandw = null;
-
-	private JMenuItem jItemTipoSandw = null;
-
+	
 	private JMenuItem jItemPedidoFin = null;
 
 	private JMenu jMenuUsuari = null;
@@ -73,7 +72,7 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 
 	private JMenuItem jMenuItemConsultar = null;
 
-	private ServiciosModelo sm = null;  //  @jve:decl-index=0:
+	private ServiciosModelo sm = null;  
 
 	private ControladorAplicacionEmpleado cae = null;
 
