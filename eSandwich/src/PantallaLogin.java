@@ -43,14 +43,14 @@ public class PantallaLogin extends JDialog {
   private void initializeAc() {
     this.setSize(300, 200);
     this.setContentPane(getJContentPane());
-    // cpl = new ControladorPantallaLogin(this,ac);
+    cpl = new ControladorPantallaLogin(this,ac);
     btnLogin.addActionListener(cpl);
   }
 
   private void initializeAe() {
     this.setSize(300, 200);
     this.setContentPane(getJContentPane());
-    // cpl = new ControladorPantallaLogin(this,ae);
+    cpl = new ControladorPantallaLogin(this,ae);
     btnLogin.addActionListener(cpl);
   }
 
