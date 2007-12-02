@@ -67,19 +67,7 @@ public class PantallaHacerPedido extends JDialog {
     super(ac, "Realizar Pedido", true);
     initialize();
     cphp = new ControladorPantallaHacerPedido(this);
-  }
-
-  /**
-   * This method initializes this
-   * 
-   * @return void
-   */
-  private void initialize() {
-    this.setSize(568, 738);
-    this.setContentPane(getJContentPane());
-    this.setTitle("Hacer Pedido");
-    this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
+    
     jbtnAddSandwich.setActionCommand("addSandwich");
     jbtnAddSandwich.addActionListener(cphp);
 
@@ -94,6 +82,18 @@ public class PantallaHacerPedido extends JDialog {
 
     jbtnFinalizaCompra.setActionCommand("compra");
     jbtnFinalizaCompra.addActionListener(cphp);
+  }
+
+  /**
+   * This method initializes this
+   * 
+   * @return void
+   */
+  private void initialize() {
+    this.setSize(568, 738);
+    this.setContentPane(getJContentPane());
+    this.setTitle("Hacer Pedido");
+    this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
   }
 
   // Prueba
