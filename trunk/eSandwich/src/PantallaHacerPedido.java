@@ -12,7 +12,9 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JComboBox;
 import java.awt.GridBagConstraints;
+import java.util.Vector;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -21,41 +23,42 @@ import javax.swing.JTable;
 
 public class PantallaHacerPedido extends JDialog {
 
-  private static final long serialVersionUID       = 1L;
+  private static final long      serialVersionUID   = 1L;
 
-  private JPanel            jContentPane           = null;
-  private JPanel            jPanel                 = null;
-  private JPanel            jPanel1                = null;
-  private JComboBox         jcbTipoSandwich              = null;
-  private JLabel            jLabel                 = null;
-  private JComboBox         jcbUnidades             = null;
-  private JButton           jbtnAddUnidades        = null;
-  private JPanel            jPanel2                = null;
-  private JPanel            jPanel3                = null;
-  private JPanel            jPanel4                = null;
-  private JComboBox         jcbBebidas             = null;
-  private JLabel            jLabel1                = null;
-  private JComboBox         jcbUnidadesBebidas             = null;
-  private JButton           jbtnAddBebidas         = null;
-  private JComboBox         jcbPostres             = null;
-  private JLabel            jLabel2                = null;
-  private JComboBox         jcbUnidadesPostres             = null;
-  private JButton           jbtnAddPostres         = null;
-  private JComboBox         jcbCafes             = null;
-  private JLabel            jLabel3                = null;
-  private JComboBox         jcbUnidadesCafes             = null;
-  private JButton           jbtnAddCafes           = null;
-  private JPanel            jPanel5                = null;
-  private JPanel            jPanel6                = null;
-  private JScrollPane       jScrollPaneCompra      = null;
-  private JTable            jTableCompra           = null;
-  private JButton           jButtonElimina         = null;
-  private JTable            jTableImport           = null;
-  private JButton           jbtnFinalizaCompra = null;
-  private JButton           jButtonSortir          = null;
-  private JLabel            lblCodUsuario               = null;
+  private JPanel                 jContentPane       = null;
+  private JPanel                 jPanel             = null;
+  private JPanel                 jPanel1            = null;
+  private JComboBox              jcbTipoSandwich    = null;
+  private JLabel                 jLabel             = null;
+  private JComboBox              jcbUnidades        = null;
+  private JButton                jbtnAddUnidades    = null;
+  private JPanel                 jPanel2            = null;
+  private JPanel                 jPanel3            = null;
+  private JPanel                 jPanel4            = null;
+  private JComboBox              jcbBebidas         = null;
+  private JLabel                 jLabel1            = null;
+  private JComboBox              jcbUnidadesBebidas = null;
+  private JButton                jbtnAddBebidas     = null;
+  private JComboBox              jcbPostres         = null;
+  private JLabel                 jLabel2            = null;
+  private JComboBox              jcbUnidadesPostres = null;
+  private JButton                jbtnAddPostres     = null;
+  private JComboBox              jcbCafes           = null;
+  private JLabel                 jLabel3            = null;
+  private JComboBox              jcbUnidadesCafes   = null;
+  private JButton                jbtnAddCafes       = null;
+  private JPanel                 jPanel5            = null;
+  private JPanel                 jPanel6            = null;
+  private JScrollPane            jScrollPaneCompra  = null;
+  private JTable                 jTableCompra       = null;
+  private JButton                jButtonElimina     = null;
+  private JTable                 jTableImport       = null;
+  private JButton                jbtnFinalizaCompra = null;
+  private JButton                jButtonSortir      = null;
+  private JLabel                 lblCodUsuario      = null;
 
-  AplicacionComprador       ac                     = null;
+  AplicacionComprador            ac                 = null;
+  ControladorPantallaHacerPedido cphp               = null;
 
   /**
    * This is the default constructor
@@ -63,6 +66,7 @@ public class PantallaHacerPedido extends JDialog {
   public PantallaHacerPedido(AplicacionComprador ac) {
     super(ac, "Realizar Pedido", true);
     initialize();
+    cphp = new ControladorPantallaHacerPedido(this);
   }
 
   /**
@@ -74,12 +78,15 @@ public class PantallaHacerPedido extends JDialog {
     this.setSize(568, 738);
     this.setContentPane(getJContentPane());
     this.setTitle("Hacer Pedido");
+    this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     
+    jbtnFinalizaCompra.setActionCommand("compra");
+    jbtnFinalizaCompra.addActionListener(cphp);
   }
-  
-  public void setDatos(String cod){
+
+  public void setDatos(String cod) {
     lblCodUsuario.setText(cod);
-    
+
   }
 
   /**
@@ -157,6 +164,10 @@ public class PantallaHacerPedido extends JDialog {
       jcbTipoSandwich.setBounds(new Rectangle(11, 25, 206, 23));
     }
     return jcbTipoSandwich;
+  }
+  
+  public void setJcbTipoSandwich( Vector v ){
+    jcbTipoSandwich.setModel(new DefaultComboBoxModel(v));
   }
 
   /**
@@ -272,6 +283,10 @@ public class PantallaHacerPedido extends JDialog {
       jcbBebidas.setBounds(new Rectangle(11, 25, 206, 23));
     }
     return jcbBebidas;
+  }
+  
+  public void setJcbBebida(Vector v){
+    jcbBebidas.setModel(new DefaultComboBoxModel(v));
   }
 
   /**
@@ -461,10 +476,10 @@ public class PantallaHacerPedido extends JDialog {
     return jTableCompra;
   }
 
-  public void setTablaCompra(TableModel tm){
+  public void setTablaCompra(TableModel tm) {
     getJTableCompra().setModel(tm);
   }
-  
+
   /**
    * This method initializes jButtonElimina
    * 

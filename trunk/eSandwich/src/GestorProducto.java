@@ -195,6 +195,8 @@ public class GestorProducto {
 			throw new errorSQL(e.toString());
 		}
 	}
+  
+  
 	
 	
 	public void liberarRecursos(){
