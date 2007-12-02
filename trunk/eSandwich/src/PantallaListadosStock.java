@@ -20,12 +20,6 @@ public class PantallaListadosStock extends JFrame {
 
 	private JPanel jContentPane = null;
 
-	private JLabel jstock = null;
-
-	private JLabel jfinsa = null;
-
-	private JTextField jfinsa1 = null;
-
 	private JLabel jLlistat = null;
 
 	private JRadioButton jTotalstock = null;
@@ -41,10 +35,6 @@ public class PantallaListadosStock extends JFrame {
 	private JButton jAcceptar = null;
 
 	private JButton jCancelar = null;
-
-	private JTextField jfinsa11 = null;
-
-	private JLabel jfinsa2 = null;
 
 	private JLabel jStockmp11 = null;
 
@@ -79,32 +69,20 @@ public class PantallaListadosStock extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jStockmp11 = new JLabel();
-			jStockmp11.setBounds(new Rectangle(88, 211, 113, 16));
+			jStockmp11.setBounds(new Rectangle(149, 132, 113, 16));
 			jStockmp11.setText("Stock por Familia:");
-			jfinsa2 = new JLabel();
-			jfinsa2.setBounds(new Rectangle(111, 59, 48, 16));
-			jfinsa2.setText("Desde");
 			jStockmp1 = new JLabel();
-			jStockmp1.setBounds(new Rectangle(88, 180, 156, 16));
+			jStockmp1.setBounds(new Rectangle(149, 94, 156, 16));
 			jStockmp1.setText("Stock por Producto:");
 			jTotalStock1 = new JLabel();
 			jTotalStock1.setText("Stock Total");
-			jTotalStock1.setLocation(new Point(88, 149));
+			jTotalStock1.setLocation(new Point(149, 60));
 			jTotalStock1.setSize(new Dimension(77, 16));
 			jLlistat = new JLabel();
-			jLlistat.setBounds(new Rectangle(29, 117, 61, 16));
+			jLlistat.setBounds(new Rectangle(43, 30, 61, 16));
 			jLlistat.setText("Listar:");
-			jfinsa = new JLabel();
-			jfinsa.setBounds(new Rectangle(114, 89, 38, 16));
-			jfinsa.setText("Hasta");
-			jstock = new JLabel();
-			jstock.setBounds(new Rectangle(29, 25, 257, 16));
-			jstock.setText("Selecciona el periodo a consultar:");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
-			jContentPane.add(jstock, null);
-			jContentPane.add(jfinsa, null);
-			jContentPane.add(getJfinsa1(), null);
 			jContentPane.add(jLlistat, null);
 			jContentPane.add(getJTotalstock(), null);
 			jContentPane.add(jTotalStock1, null);
@@ -113,28 +91,11 @@ public class PantallaListadosStock extends JFrame {
 			jContentPane.add(getJComboBox(), null);
 			jContentPane.add(getJAcceptar(), null);
 			jContentPane.add(getJCancelar(), null);
-			jContentPane.add(getJfinsa11(), null);
-			jContentPane.add(jfinsa2, null);
 			jContentPane.add(jStockmp11, null);
 			jContentPane.add(getJStockmp2(), null);
 			jContentPane.add(getJComboBox1(), null);
 		}
 		return jContentPane;
-	}
-
-	/**
-	 * This method initializes jfinsa1	
-	 * 	
-	 * @return javax.swing.JTextField	
-	 */
-	private JTextField getJfinsa1() {
-		if (jfinsa1 == null) {
-			jfinsa1 = new JTextField();
-			jfinsa1.setText("dd/mm/aa");
-			jfinsa1.setLocation(new Point(179, 87));
-			jfinsa1.setSize(new Dimension(114, 20));
-		}
-		return jfinsa1;
 	}
 
 	/**
@@ -146,7 +107,7 @@ public class PantallaListadosStock extends JFrame {
 		if (jTotalstock == null) {
 			jTotalstock = new JRadioButton();
 			jTotalstock.setSize(new Dimension(21, 21));
-			jTotalstock.setLocation(new Point(60, 147));
+			jTotalstock.setLocation(new Point(110, 57));
 		}
 		return jTotalstock;
 	}
@@ -159,7 +120,7 @@ public class PantallaListadosStock extends JFrame {
 	private JRadioButton getJStockmp() {
 		if (jStockmp == null) {
 			jStockmp = new JRadioButton();
-			jStockmp.setBounds(new Rectangle(60, 176, 21, 21));
+			jStockmp.setBounds(new Rectangle(111, 92, 21, 21));
 		}
 		return jStockmp;
 	}
@@ -172,7 +133,7 @@ public class PantallaListadosStock extends JFrame {
 	private JComboBox getJComboBox() {
 		if (jComboBox == null) {
 			jComboBox = new JComboBox();
-			jComboBox.setBounds(new Rectangle(252, 176, 115, 21));
+			jComboBox.setBounds(new Rectangle(311, 91, 115, 21));
 		}
 		return jComboBox;
 	}
@@ -206,20 +167,6 @@ public class PantallaListadosStock extends JFrame {
 	}
 
 	/**
-	 * This method initializes jfinsa11	
-	 * 	
-	 * @return javax.swing.JTextField	
-	 */
-	private JTextField getJfinsa11() {
-		if (jfinsa11 == null) {
-			jfinsa11 = new JTextField();
-			jfinsa11.setBounds(new Rectangle(180, 57, 112, 20));
-			jfinsa11.setText("dd/mm/aa");
-		}
-		return jfinsa11;
-	}
-
-	/**
 	 * This method initializes jStockmp2	
 	 * 	
 	 * @return javax.swing.JRadioButton	
@@ -227,7 +174,7 @@ public class PantallaListadosStock extends JFrame {
 	private JRadioButton getJStockmp2() {
 		if (jStockmp2 == null) {
 			jStockmp2 = new JRadioButton();
-			jStockmp2.setBounds(new Rectangle(60, 208, 21, 21));
+			jStockmp2.setBounds(new Rectangle(112, 128, 21, 21));
 		}
 		return jStockmp2;
 	}
@@ -240,7 +187,7 @@ public class PantallaListadosStock extends JFrame {
 	private JComboBox getJComboBox1() {
 		if (jComboBox1 == null) {
 			jComboBox1 = new JComboBox();
-			jComboBox1.setBounds(new Rectangle(252, 207, 115, 23));
+			jComboBox1.setBounds(new Rectangle(312, 126, 115, 23));
 		}
 		return jComboBox1;
 	}

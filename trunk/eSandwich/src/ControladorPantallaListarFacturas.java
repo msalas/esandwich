@@ -17,30 +17,37 @@ public class ControladorPantallaListarFacturas implements ActionListener{
 			this.plf = pantallaListadoFactura;	
 	}
 	
+	public ControladorPantallaListarFacturas(){
+		super();
+	}
+	
 	public void actionPerformed(ActionEvent arg0) {
-		
-		
-
+		String action = arg0.getActionCommand();
 		sm = (ServiciosAdAuxModelo) ae.getSm();
-		try {
-			sm.listaFacturas();
-					
-			
-		} catch (MalformedURLException e) {
-			ae.mostrarError(e.getMessage(), "Posar titol");
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (errorConexionBD e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (errorSQL e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		if (action.equals("A")) {
+			try {
+				sm.listaFacturas();				
+				} catch (MalformedURLException e) {
+					ae.mostrarError(e.getMessage(), "Posar titol");
+					e.printStackTrace();
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				} catch (errorConexionBD e) {
+					e.printStackTrace();
+				} catch (errorSQL e) {
+					e.printStackTrace();
+				} catch (NotBoundException e) {
+					e.printStackTrace();
+				}			
+		    } else if (action.equals("B")) {
+		     
+
+		    } else if (action.equals("C")) {
+		     
+		      
+		    } 
+
+		
+		
 	}
 }

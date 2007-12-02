@@ -26,23 +26,11 @@ public class PantallaListadoFactura extends JFrame {
 
 	private JTextField jTextField = null;
 
-	private JRadioButton jTotalstock11 = null;
-
-	private JLabel jStockmp11 = null;
-
-	private JLabel jfinsa2 = null;
-
-	private JLabel jfinsa = null;
-
-	private JTextField jfinsa11 = null;
-
-	private JTextField jfinsa111 = null;
-
 	private JButton jAcceptar = null;
 
 	private JButton jCancelar = null;
 
-	private JTextField jTextField1 = null;
+	private ControladorPantallaListarFacturas cplf = null;
 
 	/**
 	 * This is the default constructor
@@ -58,9 +46,18 @@ public class PantallaListadoFactura extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(562, 335);
+		this.setSize(518, 293);
 		this.setContentPane(getJContentPane());
 		this.setTitle("Listado Factura");
+		
+		cplf=new ControladorPantallaListarFacturas();
+		
+		jTotalstock.setActionCommand("A");
+		jTotalstock.addActionListener(cplf);
+		
+		jTotalstock1.setActionCommand("B");
+		jTotalstock1.addActionListener(cplf);
+		
 	}
 
 	/**
@@ -70,23 +67,14 @@ public class PantallaListadoFactura extends JFrame {
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
-			jfinsa = new JLabel();
-			jfinsa.setBounds(new Rectangle(380, 193, 33, 16));
-			jfinsa.setText("Hasta");
-			jfinsa2 = new JLabel();
-			jfinsa2.setBounds(new Rectangle(380, 165, 36, 16));
-			jfinsa2.setText("Desde");
-			jStockmp11 = new JLabel();
-			jStockmp11.setBounds(new Rectangle(175, 118, 217, 24));
-			jStockmp11.setText("Factura por Producto entre periodo:");
 			jStockmp1 = new JLabel();
-			jStockmp1.setBounds(new Rectangle(175, 70, 146, 25));
+			jStockmp1.setBounds(new Rectangle(181, 140, 146, 25));
 			jStockmp1.setText("Factura por Producto:");
 			jTotalStock1 = new JLabel();
-			jTotalStock1.setBounds(new Rectangle(173, 27, 116, 24));
+			jTotalStock1.setBounds(new Rectangle(181, 99, 116, 24));
 			jTotalStock1.setText("Facturacion Total");
 			jLlistat = new JLabel();
-			jLlistat.setBounds(new Rectangle(48, 30, 36, 16));
+			jLlistat.setBounds(new Rectangle(141, 51, 36, 16));
 			jLlistat.setText("Listar:");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
@@ -96,15 +84,8 @@ public class PantallaListadoFactura extends JFrame {
 			jContentPane.add(jTotalStock1, null);
 			jContentPane.add(jStockmp1, null);
 			jContentPane.add(getJTextField(), null);
-			jContentPane.add(getJTotalstock11(), null);
-			jContentPane.add(jStockmp11, null);
-			jContentPane.add(jfinsa2, null);
-			jContentPane.add(jfinsa, null);
-			jContentPane.add(getJfinsa11(), null);
-			jContentPane.add(getJfinsa111(), null);
 			jContentPane.add(getJAcceptar(), null);
 			jContentPane.add(getJCancelar(), null);
-			jContentPane.add(getJTextField1(), null);
 		}
 		return jContentPane;
 	}
@@ -117,7 +98,7 @@ public class PantallaListadoFactura extends JFrame {
 	private JRadioButton getJTotalstock() {
 		if (jTotalstock == null) {
 			jTotalstock = new JRadioButton();
-			jTotalstock.setBounds(new Rectangle(134, 29, 21, 21));
+			jTotalstock.setBounds(new Rectangle(143, 99, 21, 21));
 		}
 		return jTotalstock;
 	}
@@ -130,7 +111,7 @@ public class PantallaListadoFactura extends JFrame {
 	private JRadioButton getJTotalstock1() {
 		if (jTotalstock1 == null) {
 			jTotalstock1 = new JRadioButton();
-			jTotalstock1.setBounds(new Rectangle(134, 74, 21, 21));
+			jTotalstock1.setBounds(new Rectangle(142, 144, 21, 21));
 		}
 		return jTotalstock1;
 	}
@@ -143,50 +124,9 @@ public class PantallaListadoFactura extends JFrame {
 	private JTextField getJTextField() {
 		if (jTextField == null) {
 			jTextField = new JTextField();
-			jTextField.setBounds(new Rectangle(354, 70, 153, 19));
+			jTextField.setBounds(new Rectangle(343, 142, 153, 19));
 		}
 		return jTextField;
-	}
-
-	/**
-	 * This method initializes jTotalstock11	
-	 * 	
-	 * @return javax.swing.JRadioButton	
-	 */
-	private JRadioButton getJTotalstock11() {
-		if (jTotalstock11 == null) {
-			jTotalstock11 = new JRadioButton();
-			jTotalstock11.setBounds(new Rectangle(136, 120, 21, 21));
-		}
-		return jTotalstock11;
-	}
-
-	/**
-	 * This method initializes jfinsa11	
-	 * 	
-	 * @return javax.swing.JTextField	
-	 */
-	private JTextField getJfinsa11() {
-		if (jfinsa11 == null) {
-			jfinsa11 = new JTextField();
-			jfinsa11.setBounds(new Rectangle(445, 161, 60, 20));
-			jfinsa11.setText("dd/mm/aa");
-		}
-		return jfinsa11;
-	}
-
-	/**
-	 * This method initializes jfinsa111	
-	 * 	
-	 * @return javax.swing.JTextField	
-	 */
-	private JTextField getJfinsa111() {
-		if (jfinsa111 == null) {
-			jfinsa111 = new JTextField();
-			jfinsa111.setBounds(new Rectangle(444, 191, 60, 20));
-			jfinsa111.setText("dd/mm/aa");
-		}
-		return jfinsa111;
 	}
 
 	/**
@@ -197,7 +137,7 @@ public class PantallaListadoFactura extends JFrame {
 	private JButton getJAcceptar() {
 		if (jAcceptar == null) {
 			jAcceptar = new JButton();
-			jAcceptar.setBounds(new Rectangle(129, 240, 79, 26));
+			jAcceptar.setBounds(new Rectangle(147, 192, 79, 26));
 			jAcceptar.setText("Aceptar");
 		}
 		return jAcceptar;
@@ -211,23 +151,10 @@ public class PantallaListadoFactura extends JFrame {
 	private JButton getJCancelar() {
 		if (jCancelar == null) {
 			jCancelar = new JButton();
-			jCancelar.setBounds(new Rectangle(306, 240, 85, 26));
+			jCancelar.setBounds(new Rectangle(301, 191, 85, 26));
 			jCancelar.setText("Cancelar");
 		}
 		return jCancelar;
 	}
 
-	/**
-	 * This method initializes jTextField1	
-	 * 	
-	 * @return javax.swing.JTextField	
-	 */
-	private JTextField getJTextField1() {
-		if (jTextField1 == null) {
-			jTextField1 = new JTextField();
-			jTextField1.setBounds(new Rectangle(415, 120, 93, 21));
-		}
-		return jTextField1;
-	}
-
-}  //  @jve:decl-index=0:visual-constraint="10,10"
+}  //  @jve:decl-index=0:visual-constraint="53,-7"
