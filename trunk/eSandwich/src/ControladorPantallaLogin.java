@@ -45,6 +45,7 @@ public class ControladorPantallaLogin implements ActionListener {
 
       } else {
         System.out.println("***\nObteniendo serviciosAdAuxModelo");
+      
         sm = (ServiciosAdAuxModelo) ae.getSm();
         System.out.println("Realizando login");
         sm = (ServiciosAdAuxModelo) sm.login((pl.getTxtCUsuario()).getText(),
