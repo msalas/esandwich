@@ -17,6 +17,11 @@ public class ControladorPantallaHacerPedido implements ActionListener {
   PantallaHacerPedido       php              = null;
   ServiciosRemotosComprador src              = null;
 
+  Vector<Producto>          vSandwiches      = null;
+  Vector<Producto>          vBebidas         = null;
+  Vector<Producto>          vPostres         = null;
+  Vector<Producto>          vCafes           = null;
+
   public ControladorPantallaHacerPedido(PantallaHacerPedido p) {
     super();
     try {
@@ -25,11 +30,17 @@ public class ControladorPantallaHacerPedido implements ActionListener {
 
       php = p;
       try {
-        Vector<Producto> v = src.listaProductosPorFamilia(FAMILIA_SANDWICH);
-        php.setJcbTipoSandwich(toComboModel(v));
+        vSandwiches = src.listaProductosPorFamilia(FAMILIA_SANDWICH);
+        php.setJcbTipoSandwich(toComboModel(vSandwiches));
 
-        v = src.listaProductosPorFamilia(FAMILIA_BEBIDA);
-        php.setJcbBebida(toComboModel(v));
+        vBebidas = src.listaProductosPorFamilia(FAMILIA_BEBIDA);
+        php.setJcbBebida(toComboModel(vBebidas));
+
+        vPostres = src.listaProductosPorFamilia(FAMILIA_POSTRE);
+        php.setJcbPostres(toComboModel(vPostres));
+
+        vCafes = src.listaProductosPorFamilia(FAMILIA_CAFE);
+        php.setJcbCafes(toComboModel(vCafes));
 
       } catch (errorConexionBD e) {
         // TODO Auto-generated catch block
@@ -53,14 +64,12 @@ public class ControladorPantallaHacerPedido implements ActionListener {
   }
 
   private Vector<String> toComboModel(Vector<Producto> v) {
-
     Vector<String> vAux = new Vector<String>();
 
     for (int i = 0; i < v.size(); i++) {
       vAux.add(v.get(i).descripcion);
     }
     return vAux;
-
   }
 
   public void actionPerformed(ActionEvent e) {
@@ -71,7 +80,8 @@ public class ControladorPantallaHacerPedido implements ActionListener {
     if (cmd.equals("compra")) {
       System.out.println("Realizando compra");
 
-    } else {
+    } else if (cmd.equals("addSandwich")) {
+      System.out.println("add Sandwich");
 
     }
 
