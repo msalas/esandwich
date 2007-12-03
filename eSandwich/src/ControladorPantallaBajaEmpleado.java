@@ -6,21 +6,27 @@ import java.rmi.RemoteException;
 
 
 
-public class ControladorPantallaAltaEmpleado implements ActionListener {
+public class ControladorPantallaBajaEmpleado implements ActionListener {
 	private static final long serialVersionUID = 1L;
-	PantallaAltaEmpleado Pe;
+	PantallaBajaEmpleado Pe;
 	AplicacionEmpleado ae = null;
-	ServiciosAdAuxModelo scrm = null; 
+	ServiciosAdAuxModelo scrm = null;
+	private int idAux = 0;
+	private Rol rolAux = null;
 	
-	public ControladorPantallaAltaEmpleado(PantallaAltaEmpleado pAltEmp, AplicacionEmpleado ae) {
-		Pe = pAltEmp;	
+	public ControladorPantallaBajaEmpleado(PantallaBajaEmpleado pModEmp, AplicacionEmpleado ae) {
+		Pe = pModEmp;	
 		this.ae = ae;
 	}
-	
-	public void iniCombo() {
+
+	public void consulta() {
+		Empleado empP;
 		try {
 			scrm = (ServiciosAdAuxModelo) ae.getSm();
-			Pe.setVectorCombo(scrm.listaDescRol());
+			empP = scrm.consulEmpleado(1);
+			idAux = empP.getId();
+			rolAux = empP.getRol();
+			Pe.entraCampos(empP);
 			ae.setSm(scrm);
 		}
 		catch (MalformedURLException e) {
@@ -42,28 +48,29 @@ public class ControladorPantallaAltaEmpleado implements ActionListener {
 			ae.mostrarError(e.getMessage(),"Error general");
 		}
 	}
+	
 
 	public void actionPerformed(ActionEvent evt)  {
 		
 		
 		Empleado emp = null;
-		Empleado emp1 = null;
-		String selecRol = "";
-		Rol pRol = null;
-		
-		Pe.montaEmpleado();
+			
+		Pe.montaEmpleado();		
 		emp = Pe.getEmp();
-		selecRol = Pe.getRolDesplegable();
+		
+		emp.setId(idAux);
+		emp.setRol(rolAux);
+		
+		emp.setFechaBaja(new java.util.Date());
+
 		if (Pe.isIgualesPasswords() == false) {
 			ae.mostrarError("Las contraseñas no coinciden","Error Contraseñas");
 		} else {
 			try {
 				scrm = (ServiciosAdAuxModelo) ae.getSm();
-				pRol = scrm.RolDesc(selecRol);
-				emp.setRol(pRol);
-				emp1 = scrm.nuevoEmpleado(emp);				
+				scrm.modificaEmpleado(emp);
 				ae.setSm(scrm);
-				//ae.mostrarInformacion("Alta realizada (" + emp1.getCodUsuario() + ")", "Empleados");
+				//ae.mostrarInformacion("Baja realizada", "Empleados");
 				Pe.iniCampos();
 			}catch (MalformedURLException e) {
 				ae.mostrarError(e.getMessage(),"Error Url");
