@@ -19,17 +19,17 @@ public class ControladorAplicacionEmpleado implements ActionListener {
     
     if (action.equals("IS")) new PantallaLogin(ae).setVisible(true);
     else if (action.equals("AE")) new PantallaAltaEmpleado(ae).setVisible(true);
-    else if (action.equals("ME")) new PantallaXXX(ae).setVisible(true);
-    else if (action.equals("BE")) new PantallaXXX(ae).setVisible(true);
-    else if (action.equals("CE")) new PantallaXXX(ae).setVisible(true);
-    else if (action.equals("BC")) new PantallaXXX(ae).setVisible(true);
-    else if (action.equals("CC")) new PantallaXXX(ae).setVisible(true);
-    else if (action.equals("CSAN")) new PantallaXXX(ae).setVisible(true);
-    else if (action.equals("ASAN")) new PantallaXXX(ae).setVisible(true);
-    else if (action.equals("MASAN")) new PantallaXXX(ae).setVisible(true);
-    else if (action.equals("ATS")) new PantallaXXX(ae).setVisible(true);
-    else if (action.equals("MTS")) new PantallaXXX(ae).setVisible(true);
-    else if (action.equals("PF")) new PantallaXXX(ae).setVisible(true);
+    else if (action.equals("ME")) new PantallaModificacionEmpleado(ae).setVisible(true);
+    else if (action.equals("BE")) new PantallaBajaEmpleado(ae).setVisible(true);
+    else if (action.equals("CE")) new PantallaConsultaEmpleado(ae).setVisible(true);
+    else if (action.equals("BC")) new PantallaBajaCliente(ae).setVisible(true);
+    else if (action.equals("CC")) new PantallaConsultaCliente(ae).setVisible(true);
+    else if (action.equals("CSAN")) new PantallaCartaSandwich(ae).setVisible(true);
+    else if (action.equals("ASAN")) new PantallaAltaSandwich(ae).setVisible(true);
+    else if (action.equals("MASAN")) new PantallaMantenimientoSandwich(ae).setVisible(true);
+    else if (action.equals("ATS")) new PantallaAltaTipoSandwich(ae).setVisible(true);
+    else if (action.equals("MTS")) new PantallaMantenimientoTipoSandwich(ae).setVisible(true);
+    else if (action.equals("PF")) new PantallaFinalizarPedidos(ae).setVisible(true);
     else if (action.equals("AP")) new PantallaInsertarProducto(ae).setVisible(true);
     else if (action.equals("CP")) new PantallaBuscarProducto(ae).setVisible(true);
     else if (action.equals("BP")) new PantallaBuscarProducto(ae).setVisible(true);
@@ -42,12 +42,10 @@ public class ControladorAplicacionEmpleado implements ActionListener {
     else if (action.equals("SF")) new PantallaListadosStock(ae).setVisible(true);
     else if (action.equals("FT")) new PantallaListadoFactura(ae).setVisible(true);
     else if (action.equals("FS")) new PantallaListadoFactura(ae).setVisible(true);
-    else if (action.equals("APRO")) new PantallaXXX(ae).setVisible(true);
-    else if (action.equals("BPRO")) new PantallaXXX(ae).setVisible(true);
-    else if (action.equals("CPRO")) new PantallaXXX(ae).setVisible(true);
-    else if (action.equals("MPRO")) new PantallaXXX(ae).setVisible(true);
+    else if (action.equals("APRO")) new PantallaAltaPromocion(ae).setVisible(true);
+    else if (action.equals("BPRO")) new PantallaBajaPromocion(ae).setVisible(true);
     else if (action.equals("CS")) {
-    	ae.confirmacio("Estas seguro que quiere cerra la sesión?", "Cerrar Sesión");
+    	ae.confirmacio("Estas seguro que quiere cerrar la sesión?", "Cerrar Sesión");
     	// Falta hacer el logout
     }
     else;

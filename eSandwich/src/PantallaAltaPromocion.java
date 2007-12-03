@@ -11,13 +11,14 @@ import java.awt.Point;
 import javax.swing.BorderFactory;
 import javax.swing.border.BevelBorder;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 import java.awt.event.KeyEvent;
 
-public class PantallaAltaPromocio extends JFrame {
+public class PantallaAltaPromocion extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
@@ -63,12 +64,11 @@ public class PantallaAltaPromocio extends JFrame {
 
 	private JRadioButton jRadioButton2 = null;
 
-	/**
-	 * This is the default constructor
-	 */
-	public PantallaAltaPromocio() {
-		super();
+
+	public PantallaAltaPromocion(AplicacionEmpleado ae) {
+		// TODO Auto-generated constructor stub
 		initialize();
+
 	}
 
 	/**

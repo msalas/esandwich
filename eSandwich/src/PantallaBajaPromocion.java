@@ -4,6 +4,8 @@ import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.awt.Rectangle;
 import java.awt.Dimension;
+
+import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -14,7 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class PantallaBaixaPromocioWindow extends JFrame {
+public class PantallaBajaPromocion extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
@@ -32,13 +34,12 @@ public class PantallaBaixaPromocioWindow extends JFrame {
 
 	private JTable jTableLlista = null;
 
-	/**
-	 * This is the default constructor
-	 */
-	public PantallaBaixaPromocioWindow() {
-		super();
+	public PantallaBajaPromocion(AplicacionEmpleado ae) {
+		// TODO Auto-generated constructor stub
 		initialize();
-	}
+		}
+
+	
 
 	/**
 	 * This method initializes this
