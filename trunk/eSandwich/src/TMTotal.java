@@ -3,34 +3,36 @@ import java.util.Vector;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
-public class TMCompras extends AbstractTableModel implements TableModel {
+public class TMTotal extends AbstractTableModel implements TableModel {
 
-  public static String[] nombres = { "Producto", "unidades", "Precio" };
+  public static String[] nombres = { "Base", "IVA", "Total" };
 
-  private Vector         vCompras;
+  private Vector         vTotal;
 
-  public TMCompras(Vector lista) {
-    vCompras = lista;
+  public TMTotal(Vector lista) {
+    vTotal = lista;
+  }
+
+  public Vector getVector() {
+    return vTotal;
   }
 
   public void addFila(Vector v) {
-    vCompras.add(v);
-    fireTableDataChanged();
+    vTotal.add(v);
   }
 
   public Vector getFila(int i) {
-    return (Vector) vCompras.get(i);
+    return (Vector) vTotal.get(i);
   }
 
   public void borraFila(int i) {
-    if (i <= vCompras.size()) {
-      vCompras.remove(i);
-      fireTableDataChanged();
+    if (i < vTotal.size()) {
+      vTotal.remove(i);
     }
   }
 
   public int getNumFilas() {
-    return vCompras.size();
+    return vTotal.size();
   }
 
   public String geColumnName(int col) {
@@ -44,7 +46,7 @@ public class TMCompras extends AbstractTableModel implements TableModel {
   }
 
   public int getRowCount() {
-    return vCompras.size();
+    return vTotal.size();
   }
 
   public int getColumnCount() {
@@ -53,8 +55,8 @@ public class TMCompras extends AbstractTableModel implements TableModel {
 
   public Object getValueAt(int arg0, int arg1) {
     Vector vFila;
-    if (vCompras != null && arg0 <= vCompras.size()) {
-      vFila = (Vector) vCompras.get(arg0);
+    if (vTotal != null && arg0 <= vTotal.size()) {
+      vFila = (Vector) vTotal.get(arg0);
     } else {
       return null;
     }
@@ -67,5 +69,4 @@ public class TMCompras extends AbstractTableModel implements TableModel {
 
     }
   }
-
 }

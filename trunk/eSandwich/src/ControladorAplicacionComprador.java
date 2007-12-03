@@ -33,10 +33,12 @@ public class ControladorAplicacionComprador implements ActionListener {
     } else if (action.equals("CDP")) {// Consultar Datos Personales
 
       PantallaDatosPersonales pdp = new PantallaDatosPersonales(ac, false);
+      pdp.setVisible(true);
 
     } else if (action.equals("MDP")) {// Modificar Datos Personales
 
       PantallaDatosPersonales pdp = new PantallaDatosPersonales(ac, true);
+      pdp.setVisible(true);
 
     } else if (action.equals("PPa")) {// Panel de promociones
 

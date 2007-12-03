@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Date;
 
-public class Pedido {
+public class Pedido implements Serializable {
   private int    id;
   private int    idCliente;
   private int    idPromocion;

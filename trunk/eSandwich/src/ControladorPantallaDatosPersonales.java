@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 
 public class ControladorPantallaDatosPersonales implements ActionListener {
 
-  ServiciosCompradorRegistradoModelo scrm          = null;
+  ServiciosCompradorRegistradoModelo scrm        = null;
   AplicacionComprador                ac          = null;
   PantallaDatosPersonales            pdp         = null;
   Usuario                            userSession = null;
@@ -20,7 +20,11 @@ public class ControladorPantallaDatosPersonales implements ActionListener {
 
   // Exemple, fer el mateix amb totes les dades que necessitis
   public String getNombre() {
-    return userSession.getNombre();
+    if (userSession != null) {
+      return userSession.getNombre();
+    } else {
+      return null;
+    }
   }
 
   public Usuario getUsuario() {
@@ -35,13 +39,13 @@ public class ControladorPantallaDatosPersonales implements ActionListener {
 
     if (cmd.equals("crear")) {
       System.out.println("crear");
-//      System.out.println("pdp.setUsuario(userSession)");
+      // System.out.println("pdp.setUsuario(userSession)");
       // TODO cargar el usuario
       // sc.getUsuario(id);
       Cliente cli = pdp.getCliente();
       try {
         scrm.setU(cli);
-        
+
       } catch (RemoteException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
@@ -52,7 +56,7 @@ public class ControladorPantallaDatosPersonales implements ActionListener {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
-//      pdp.setUsuario(userSession);
+      // pdp.setUsuario(userSession);
 
     } else if (cmd.equals("modificar")) {
       System.out.println("modificar");

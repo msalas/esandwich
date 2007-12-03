@@ -4,8 +4,11 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
+
+import javax.swing.table.TableModel;
 
 public class ControladorPantallaHacerPedido implements ActionListener {
   // ServiciosCompradorRegistradoModelo scrm = null;
@@ -21,6 +24,8 @@ public class ControladorPantallaHacerPedido implements ActionListener {
   Vector<Producto>          vBebidas         = null;
   Vector<Producto>          vPostres         = null;
   Vector<Producto>          vCafes           = null;
+
+  Vector<Producto>          vCarroCompra     = new Vector<Producto>();
 
   public ControladorPantallaHacerPedido(PantallaHacerPedido p) {
     super();
@@ -81,14 +86,26 @@ public class ControladorPantallaHacerPedido implements ActionListener {
 
     if (cmd.equals("compra")) {
       System.out.println("Realizando compra");
-      TMCompras tm = (TMCompras) (php.getJTableCompra().getModel());
-      float cuanto = 0;
-      for (int i = 0; i < tm.getNumFilas(); i++) {
-        float f = ((Float) tm.getValueAt(i, 2)).floatValue();
-        cuanto += f;
+      // TODO Add pedido a BDD
+
+      for (int i = 0; i < vCarroCompra.size(); i++) {
+        Producto pr = vCarroCompra.get(i);
+        Pedido ped = new Pedido(-1, 0, 0, pr.getIdProducto(), pr.getPrecio(),
+            0, new Date(), "PENDIENTE");
+        System.out.println("PEDIDO: " + ped);
+        
+        try {
+          src.addPedido(ped);
+          
+        } catch (RemoteException e1) {
+          e1.printStackTrace();
+        } catch (errorConexionBD e1) {
+          e1.printStackTrace();
+        } catch (errorSQL e1) {
+          e1.printStackTrace();
+        }
       }
-      System.out.println("Valor total: " + cuanto);
-      
+
     } else if (cmd.equals("addSandwich")) {
       System.out.println("add Sandwich");
       int i = php.getJcbTipoSandwich().getSelectedIndex();
@@ -102,7 +119,7 @@ public class ControladorPantallaHacerPedido implements ActionListener {
       v.add(p.getPrecio());
 
       tm.addFila(v);
-      tm.fireTableDataChanged();
+      vCarroCompra.add(p);
 
     } else if (cmd.equals("addBebida")) {
       System.out.println("add Bebida");
@@ -117,7 +134,7 @@ public class ControladorPantallaHacerPedido implements ActionListener {
       v.add(p.getPrecio());
 
       tm.addFila(v);
-      tm.fireTableDataChanged();
+      vCarroCompra.add(p);
 
     } else if (cmd.equals("addPostre")) {
       System.out.println("add Postre");
@@ -132,7 +149,7 @@ public class ControladorPantallaHacerPedido implements ActionListener {
       v.add(p.getPrecio());
 
       tm.addFila(v);
-      tm.fireTableDataChanged();
+      vCarroCompra.add(p);
 
     } else if (cmd.equals("addCafe")) {
       System.out.println("add Café");
@@ -147,15 +164,38 @@ public class ControladorPantallaHacerPedido implements ActionListener {
       v.add(p.getPrecio());
 
       tm.addFila(v);
-      tm.fireTableDataChanged();
+      vCarroCompra.add(p);
 
     } else if (cmd.equals("borra")) {
       int fila = php.getJTableCompra().getSelectedRow();
       TMCompras tm = (TMCompras) (php.getJTableCompra().getModel());
       tm.borraFila(fila);
-      tm.fireTableDataChanged();
+      vCarroCompra.remove(fila);
+      
+    }else if(cmd.equals("salir")){
+      php.setVisible(false);
     }
+    
+    
+    System.out.println("Actualizando total");
+    updateTotal();
+  }
 
+  private void updateTotal() {
+    TMCompras tm = (TMCompras) (php.getJTableCompra().getModel());
+    float cuanto = 0;
+    for (int i = 0; i < tm.getNumFilas(); i++) {
+      float f = ((Float) tm.getValueAt(i, 2)).floatValue();
+      cuanto += f;
+    }
+    System.out.println("Valor base: " + cuanto);
+    Vector v = new Vector();
+    v.add(new Float(cuanto));
+    v.add(new Float(cuanto * 0.06));
+    v.add(new Float(cuanto + (cuanto * 0.06)));
+    Vector vaux = new Vector();
+    vaux.add(v);
+    php.getJTableImport().setModel((TableModel) new TMTotal(vaux));
   }
 
 }

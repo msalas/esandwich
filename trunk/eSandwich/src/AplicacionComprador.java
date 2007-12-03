@@ -233,7 +233,7 @@ public class AplicacionComprador extends JFrame implements Aplicacion {
 	private JMenu getJDatosPersonales() {
 		if (jDatosPersonales == null) {
 			jDatosPersonales = new JMenu();
-			jDatosPersonales.setText("Dades Personals");
+			jDatosPersonales.setText("Datos Personales");
 			jDatosPersonales.add(getJConsultarDP());
 			jDatosPersonales.add(getJModificarDP());
 		}
@@ -303,7 +303,7 @@ public class AplicacionComprador extends JFrame implements Aplicacion {
 	private JMenuItem getJPromocionesPuntos() {
 		if (jPromocionesPuntos == null) {
 			jPromocionesPuntos = new JMenuItem();
-			jPromocionesPuntos.setText("Consulta ePunts");
+			jPromocionesPuntos.setText("Consulta ePuntos");
 		}
 		return jPromocionesPuntos;
 	}
@@ -316,7 +316,7 @@ public class AplicacionComprador extends JFrame implements Aplicacion {
 	private JMenuItem getJPromocionesSeleccion() {
 		if (jPromocionesSeleccion == null) {
 			jPromocionesSeleccion = new JMenuItem();
-			jPromocionesSeleccion.setText("Promocions");
+			jPromocionesSeleccion.setText("Promociones");
 		}
 		return jPromocionesSeleccion;
 	}
@@ -329,7 +329,7 @@ public class AplicacionComprador extends JFrame implements Aplicacion {
 	private JMenu getJPedido() {
 		if (jPedido == null) {
 			jPedido = new JMenu();
-			jPedido.setText("Comandes");
+			jPedido.setText("Pedidos");
 			jPedido.add(getJRealizarPedido());
 		}
 		return jPedido;

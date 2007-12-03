@@ -67,7 +67,7 @@ public class PantallaHacerPedido extends JDialog {
     super(ac, "Realizar Pedido", true);
     initialize();
     cphp = new ControladorPantallaHacerPedido(this);
-    
+
     jbtnAddSandwich.setActionCommand("addSandwich");
     jbtnAddSandwich.addActionListener(cphp);
 
@@ -79,12 +79,15 @@ public class PantallaHacerPedido extends JDialog {
 
     jbtnAddCafes.setActionCommand("addCafe");
     jbtnAddCafes.addActionListener(cphp);
-    
+
     jButtonElimina.setActionCommand("borra");
     jButtonElimina.addActionListener(cphp);
 
     jbtnFinalizaCompra.setActionCommand("compra");
     jbtnFinalizaCompra.addActionListener(cphp);
+
+    jButtonSortir.setActionCommand("salir");
+    jButtonSortir.addActionListener(cphp);
   }
 
   /**
@@ -523,15 +526,20 @@ public class PantallaHacerPedido extends JDialog {
    * 
    * @return javax.swing.JTable
    */
-  private JTable getJTableImport() {
+  public JTable getJTableImport() {
     if (jTableImport == null) {
-      String[] columnNames = { "Subtotal", "IVA(%)", "Import Total" };
-      Object[][] data = { { "Subtotal", "IVA(%)", "Import Total" },
-          { "10.40 €", "1.66 €", "12.06 €" } };
-      jTableImport = new JTable(data, columnNames);
+      // String[] columnNames = { "Subtotal", "IVA(%)", "Import Total" };
+      // Object[][] data = { { "Subtotal", "IVA(%)", "Import Total" },
+      // { "10.40 €", "1.66 €", "12.06 €" } };
+      // jTableImport = new JTable(data, columnNames);
+      jTableImport = new JTable();
       jTableImport.setBounds(new Rectangle(8, 18, 289, 35));
     }
     return jTableImport;
+  }
+
+  public void setTablaTotal(TableModel tm) {
+    getJTableImport().setModel(tm);
   }
 
   /**
@@ -558,6 +566,17 @@ public class PantallaHacerPedido extends JDialog {
       jButtonSortir = new JButton();
       jButtonSortir.setBounds(new Rectangle(182, 645, 180, 30));
       jButtonSortir.setText("Cerrar");
+      // jButtonSortir.addActionListener(new java.awt.event.ActionListener() {
+      // public void actionPerformed(java.awt.event.ActionEvent e) {
+      // System.out.println("actionPerformed()");
+      // try {
+      // finalize();
+      // } catch (Throwable e1) {
+      // // TODO Auto-generated catch block
+      // e1.printStackTrace();
+      // }
+      // }
+      // });
     }
     return jButtonSortir;
   }
