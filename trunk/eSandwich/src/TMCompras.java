@@ -13,6 +13,24 @@ public class TMCompras extends AbstractTableModel implements TableModel {
     vCompras = lista;
   }
 
+  public void addFila(Vector v) {
+    vCompras.add(v);
+  }
+
+  public Vector getFila(int i) {
+    return (Vector) vCompras.get(i);
+  }
+
+  public void borraFila(int i) {
+    if (i < vCompras.size()) {
+      vCompras.remove(i);
+    }
+  }
+
+  public int getNumFilas() {
+    return vCompras.size();
+  }
+
   public String geColumnName(int col) {
     if (col <= nombres.length) {
       return nombres[col].toString();
@@ -32,8 +50,8 @@ public class TMCompras extends AbstractTableModel implements TableModel {
   }
 
   public Object getValueAt(int arg0, int arg1) {
-    Vector vFila ;
-    if (vCompras!=null && arg0 <= vCompras.size()) {
+    Vector vFila;
+    if (vCompras != null && arg0 <= vCompras.size()) {
       vFila = (Vector) vCompras.get(arg0);
     } else {
       return null;

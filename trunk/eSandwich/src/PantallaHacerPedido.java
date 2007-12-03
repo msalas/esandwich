@@ -79,6 +79,9 @@ public class PantallaHacerPedido extends JDialog {
 
     jbtnAddCafes.setActionCommand("addCafe");
     jbtnAddCafes.addActionListener(cphp);
+    
+    jButtonElimina.setActionCommand("borra");
+    jButtonElimina.addActionListener(cphp);
 
     jbtnFinalizaCompra.setActionCommand("compra");
     jbtnFinalizaCompra.addActionListener(cphp);
@@ -170,7 +173,7 @@ public class PantallaHacerPedido extends JDialog {
    * 
    * @return javax.swing.JComboBox
    */
-  private JComboBox getJcbTipoSandwich() {
+  public JComboBox getJcbTipoSandwich() {
     if (jcbTipoSandwich == null) {
       String[] tipusSandwich = { "Pernil Dolç", "Salat", "Iberic", "Tonyina" };
       jcbTipoSandwich = new JComboBox(tipusSandwich);
@@ -188,7 +191,7 @@ public class PantallaHacerPedido extends JDialog {
    * 
    * @return javax.swing.JComboBox
    */
-  private JComboBox getJcbUnidades() {
+  public JComboBox getJcbUnidades() {
     if (jcbUnidades == null) {
       String[] unitats = { "1", "2", "3" };
       jcbUnidades = new JComboBox(unitats);
@@ -288,7 +291,7 @@ public class PantallaHacerPedido extends JDialog {
    * 
    * @return javax.swing.JComboBox
    */
-  private JComboBox getJcbBebidas() {
+  public JComboBox getJcbBebidas() {
     if (jcbBebidas == null) {
       String[] tipusBeguda = { "Coca-Cola Llauna 33cl", "7up ampolla 50cl",
           "Fanta Taronja llauna 33 cl", "Nestea llauna 33cl" };
@@ -307,7 +310,7 @@ public class PantallaHacerPedido extends JDialog {
    * 
    * @return javax.swing.JComboBox
    */
-  private JComboBox getJcbUnidadesBebidas() {
+  public JComboBox getJcbUnidadesBebidas() {
     if (jcbUnidadesBebidas == null) {
       String[] unitats = { "1", "2", "3" };
       jcbUnidadesBebidas = new JComboBox(unitats);
@@ -335,7 +338,7 @@ public class PantallaHacerPedido extends JDialog {
    * 
    * @return javax.swing.JComboBox
    */
-  private JComboBox getJcbPostres() {
+  public JComboBox getJcbPostres() {
     if (jcbPostres == null) {
       String[] tipusPostres = { "Iogurt Natural", "Danao Vainilla",
           "Gelat Maduixa", "Tiramusú" };
@@ -354,7 +357,7 @@ public class PantallaHacerPedido extends JDialog {
    * 
    * @return javax.swing.JComboBox
    */
-  private JComboBox getJcbUnidadesPostres() {
+  public JComboBox getJcbUnidadesPostres() {
     if (jcbUnidadesPostres == null) {
       String[] unitats = { "1", "2", "3" };
       jcbUnidadesPostres = new JComboBox(unitats);
@@ -382,7 +385,7 @@ public class PantallaHacerPedido extends JDialog {
    * 
    * @return javax.swing.JComboBox
    */
-  private JComboBox getJcbCafes() {
+  public JComboBox getJcbCafes() {
     if (jcbCafes == null) {
       String[] tipusCafes = { "Cafè sol", "Expresso", "Descafeinato",
           "Cafè amb llet" };
@@ -401,7 +404,7 @@ public class PantallaHacerPedido extends JDialog {
    * 
    * @return javax.swing.JComboBox
    */
-  private JComboBox getJcbUnidadesCafes() {
+  public JComboBox getJcbUnidadesCafes() {
     if (jcbUnidadesCafes == null) {
       String[] unitats = { "1", "2", "3" };
       jcbUnidadesCafes = new JComboBox(unitats);
@@ -481,7 +484,7 @@ public class PantallaHacerPedido extends JDialog {
    * 
    * @return javax.swing.JTable
    */
-  private JTable getJTableCompra() {
+  public JTable getJTableCompra() {
     if (jTableCompra == null) {
       String[] columnNames = { "Productes", "Unitats", "Preu" };
       Object[][] data = { { "Sandwich pernil dolç", "2", "3.45 €" },
