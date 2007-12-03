@@ -36,8 +36,8 @@ public class AplicacionComprador extends JFrame implements Aplicacion {
   private JMenu                          jPedido               = null;
   private JMenuItem                      jRealizarPedido       = null;
 
-  // private ServiciosModelo sm = null;
-  private ServiciosCompradorModelo       sm                    = null;
+  private ServiciosModelo sm = null;
+ 
   private ControladorAplicacionComprador cac                   = null;
 
 	/**
@@ -63,7 +63,7 @@ public class AplicacionComprador extends JFrame implements Aplicacion {
 		// Inicializamos modelo
 
 		try {
-			sm = new ServiciosCompradorRegistradoModelo();
+			sm = new ServiciosCompradorModelo();
 
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -152,7 +152,7 @@ public class AplicacionComprador extends JFrame implements Aplicacion {
 	private JMenu getJLogin() {
 		if (jLogin == null) {
 			jLogin = new JMenu();
-			jLogin.setText("Login");
+			jLogin.setText("Sesión");
 			jLogin.add(getJIniciarSesion());
 		}
 		return jLogin;
@@ -179,7 +179,7 @@ public class AplicacionComprador extends JFrame implements Aplicacion {
 	private JMenu getJLogout() {
 		if (jLogout == null) {
 			jLogout = new JMenu();
-			jLogout.setText("Logout");
+			jLogout.setText("Sesión");
 			jLogout.add(getJCerrarSesion());
 		}
 		return jLogout;
@@ -248,7 +248,7 @@ public class AplicacionComprador extends JFrame implements Aplicacion {
 	private JMenuItem getJConsultarDP() {
 		if (jConsultarDP == null) {
 			jConsultarDP = new JMenuItem();
-			jConsultarDP.setText("Consulta");
+			jConsultarDP.setText("Consulta de datos");
 		}
 		return jConsultarDP;
 	}
@@ -261,7 +261,7 @@ public class AplicacionComprador extends JFrame implements Aplicacion {
 	private JMenuItem getJModificarDP() {
 		if (jModificarDP == null) {
 			jModificarDP = new JMenuItem();
-			jModificarDP.setText("Modificar");
+			jModificarDP.setText("Modificar datos");
 		}
 		return jModificarDP;
 	}
@@ -303,7 +303,7 @@ public class AplicacionComprador extends JFrame implements Aplicacion {
 	private JMenuItem getJPromocionesPuntos() {
 		if (jPromocionesPuntos == null) {
 			jPromocionesPuntos = new JMenuItem();
-			jPromocionesPuntos.setText("Consulta ePuntos");
+			jPromocionesPuntos.setText("Consulta ePunts");
 		}
 		return jPromocionesPuntos;
 	}
@@ -316,7 +316,7 @@ public class AplicacionComprador extends JFrame implements Aplicacion {
 	private JMenuItem getJPromocionesSeleccion() {
 		if (jPromocionesSeleccion == null) {
 			jPromocionesSeleccion = new JMenuItem();
-			jPromocionesSeleccion.setText("Promociones");
+			jPromocionesSeleccion.setText("Promocions");
 		}
 		return jPromocionesSeleccion;
 	}
@@ -329,7 +329,7 @@ public class AplicacionComprador extends JFrame implements Aplicacion {
 	private JMenu getJPedido() {
 		if (jPedido == null) {
 			jPedido = new JMenu();
-			jPedido.setText("Pedidos");
+			jPedido.setText("Comandes");
 			jPedido.add(getJRealizarPedido());
 		}
 		return jPedido;
@@ -354,7 +354,7 @@ public class AplicacionComprador extends JFrame implements Aplicacion {
     return (ServiciosCompradorModelo) sm;
   }
 
-	public void setSm(ServiciosCompradorRegistradoModelo sm) {
+	public void setSm(ServiciosCompradorModelo sm) {
 		this.sm = sm;
 	}
 

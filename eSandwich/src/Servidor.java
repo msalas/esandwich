@@ -1,5 +1,6 @@
 import java.awt.Color;
 import javax.swing.*;
+
 import java.awt.event.*;
 /*
  * Servidor.java
@@ -14,7 +15,7 @@ import java.rmi.RemoteException;
  * 
  * @author Marc
  */
-public class Servidor extends JFrame {
+public class Servidor extends JFrame implements Aplicacion {
 
   private static final long serialVersionUID = 1L;
   private JButton           jButton1;
@@ -27,13 +28,13 @@ public class Servidor extends JFrame {
     try {
       sm = new ServidorModelo();
     } catch (RemoteException re) {
-      crearError("Error: S'ha produït una excepció remota: \n" + re,
+      mostrarError("Error: S'ha produït una excepció remota: \n" + re,
           "Error connexió");
     } catch (errorConexionBD e) {
-      crearError(e.getMessage(), "Error Base de Dades");
+    	mostrarError(e.getMessage(), "Error Base de Dades");
       System.err.println("Error: " + e);
     } catch (Exception e) {
-      crearError("Error: S'ha produït una excepció general", "Error");
+    	mostrarError("Error: S'ha produït una excepció general", "Error");
       System.err.println("Error: " + e);
     }
 
@@ -96,14 +97,14 @@ public class Servidor extends JFrame {
       jButton1.setEnabled(true);
       jButton2.setEnabled(false);
     } catch (MalformedURLException murle) {
-      crearError("Error: URL del servidor incorrecte", "Error connexió");
+    	mostrarError("Error: URL del servidor incorrecte", "Error connexió");
     } catch (NotBoundException nbe) {
-      crearError("Error: Falta de referència de l'objecte en el registre",
+    	mostrarError("Error: Falta de referència de l'objecte en el registre",
           "Error connexió");
     } catch (RemoteException re) {
-      crearError("Error: S'ha produït una excepció remota", "Error connexió");
+    	mostrarError("Error: S'ha produït una excepció remota", "Error connexió");
     } catch (Exception e) {
-      crearError("Error: S'ha produït una excepció general", "Error");
+    	mostrarError("Error: S'ha produït una excepció general", "Error");
     }
 
   }
@@ -118,34 +119,46 @@ public class Servidor extends JFrame {
       jButton2.setEnabled(true);
 
     } catch (MalformedURLException murle) {
-      crearError("Error: URL del servidor incorrecte", "Error connexió");
+      mostrarError("Error: URL del servidor incorrecte", "Error connexió");
       System.err.println("Error: " + murle);
     } catch (RemoteException re) {
-      crearError("Error: S'ha produït una excepció remota", "Error connexió");
+      mostrarError("Error: S'ha produït una excepció remota", "Error connexió");
       System.err.println("Error: " + re);
     } catch (Exception e) {
-      crearError("Error: S'ha produït una excepció general", "Error");
+      mostrarError("Error: S'ha produït una excepció general", "Error");
       System.err.println("Error: " + e);
     }
 
   }
 
-  private void crearError(String missatge, String titol) {
+  
+	public int confirmacio(String mensaje, String titulo) {
+		return JOptionPane.showConfirmDialog(null,mensaje,titulo, JOptionPane.YES_NO_OPTION);
+		
+	}
 
-    JOptionPane.showMessageDialog(this, missatge, titol,
-        JOptionPane.ERROR_MESSAGE);
-  }
 
-  /**
-   * @param args
-   *          the command line arguments
-   */
-  public static void main(String args[]) {
-    java.awt.EventQueue.invokeLater(new Runnable() {
-      public void run() {
-        new Servidor().setVisible(true);
-      }
-    });
-  }
+	public void mostrarError(String mensaje, String titulo) {
+		JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.ERROR_MESSAGE);
+		
+	}
+
+
+	public void mostrarInformacion(String mensaje, String titulo) {
+		 JOptionPane.showInternalMessageDialog(this, mensaje,titulo, JOptionPane.INFORMATION_MESSAGE);
+		
+	}
+
+/**
+ * @param args
+ *          the command line arguments
+ */
+public static void main(String args[]) {
+  java.awt.EventQueue.invokeLater(new Runnable() {
+    public void run() {
+      new Servidor().setVisible(true);
+    }
+  });
+}
 
 }

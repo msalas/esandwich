@@ -17,11 +17,12 @@ public class GestorUsuario {
 
     pId = Util.getNumDeCodigo(codUsuario);
 
+    System.out.println(pId);
     if (isCliente) {
       System.out.println("isCliente=true");
       rUsu = gCli.getCliente(pId);
     } else {
-      System.out.println("no es cliente: empleado");
+      System.out.println("no es cliente. ES empleado");
       rUsu = gEmp.consultaEmpleado(pId);
     }
 

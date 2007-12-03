@@ -89,6 +89,7 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 	public AplicacionEmpleado() {
 		super();
 		initialize();
+		
 	}
 
 	/**
@@ -107,8 +108,8 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 		// Inicializamos modelo
 		
 		try {
-			sm = new ServiciosAdAuxModelo();
-			//sm = new ServiciosAccesoModelo();
+		
+			sm = new ServiciosAccesoModelo();
 
 		} catch (MalformedURLException e) {
 			mostrarError(e.getMessage(), "");
@@ -188,6 +189,9 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 		//jMenuItemConsultarPromo.addActionListener(cae);
 
 	
+		this.setMenuBasico();
+		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	
@@ -213,6 +217,7 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 	private JMenuBar getJJMenuBar() {
 		if (jJMenuBar == null) {
 			jJMenuBar = new JMenuBar();
+			jJMenuBar.setPreferredSize(new Dimension(800,25));
 			jJMenuBar.add(getJMenuSesion());
 			jJMenuBar.add(getJMenuUsuarios());
 			jJMenuBar.add(getJMenuPromocio());
@@ -357,11 +362,9 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 	private JMenu getJMenuSesion() {
 		if (jMenuSesion == null) {
 			jMenuSesion = new JMenu();
-			jMenuSesion.setPreferredSize(new Dimension(60, 5));
 			jMenuSesion.setRolloverEnabled(false);
 			jMenuSesion.setHorizontalAlignment(SwingConstants.LEADING);
 			jMenuSesion.setHorizontalTextPosition(SwingConstants.TRAILING);
-			jMenuSesion.setSize(new Dimension(50, 21));
 			jMenuSesion.setText("Sesión");
 			jMenuSesion.add(getJMenuItemLogin());
 			jMenuSesion.add(getJMenuItemLogout());
@@ -377,7 +380,6 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 	private JMenuItem getJMenuItemLogin() {
 		if (jMenuItemLogin == null) {
 			jMenuItemLogin = new JMenuItem();
-			jMenuItemLogin.setPreferredSize(new Dimension(63, 21));
 			jMenuItemLogin.setText("Iniciar Sesión");
 		}
 		return jMenuItemLogin;
@@ -762,7 +764,59 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 	}
 
 
+	public void setMenuAdAux() {
+
+		// Mostramos ...
+		jMenuItemLogout.setVisible(true);
+		
+		jMenuUsuarios.setVisible(true);
+		jMenuProducto.setVisible(true);
+		jMenuPromocio.setVisible(true);
+		jMenuSandwich.setVisible(true);
+		jStock_Estadisitiques.setVisible(true);
+		
+		// No mostramos
+		jMenuItemLogin.setVisible(false);
+		
+		jMenuCocina.setVisible(false);	
+	}
+
+	public void setMenuCocina() {
+
+		// Mostramos ...
+		jMenuItemLogout.setVisible(true);
+		jMenuCocina.setVisible(true);
+		// No mostramos
+		jMenuUsuarios.setVisible(false);
+		jMenuProducto.setVisible(false);
+		jMenuPromocio.setVisible(false);
+		jMenuSandwich.setVisible(false);
+		jStock_Estadisitiques.setVisible(false);
+		
+		jMenuItemLogin.setVisible(false);
+			
+
 	
+	}
+	
+	public void setMenuBasico() {
+
+		// Mostramos ...
+		jMenuSesion.setVisible(true);
+		jMenuItemLogin.setVisible(true);
+		
+		// No mostramos
+		jMenuCocina.setVisible(false);
+		jMenuUsuarios.setVisible(false);
+		jMenuProducto.setVisible(false);
+		jMenuPromocio.setVisible(false);
+		jMenuSandwich.setVisible(false);
+		jStock_Estadisitiques.setVisible(false);
+		
+		jMenuItemLogout.setVisible(false);
+			
+	
+	}
 
 	public ServiciosModelo getSm() {
 		return sm;

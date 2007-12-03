@@ -6,17 +6,15 @@ import java.rmi.RemoteException;
 public class ServiciosAccesoModelo extends ServiciosModelo {
 
   ServiciosRemotosAcceso    sra;
-  ServiciosRemotosComprador src;
-  Usuario                   u;
+ 
   boolean                   accesible = false;
 
   public ServiciosAccesoModelo() throws MalformedURLException,
       RemoteException, NotBoundException {
-
+	  super();
     sra = (ServiciosRemotosAcceso) Naming
         .lookup("rmi://localhost:1099/ServiciosAcceso");
-    src = (ServiciosRemotosComprador) Naming
-        .lookup("rmi://localhost:1099/ServiciosComprador");
+  
 
   }
 
@@ -30,6 +28,7 @@ public class ServiciosAccesoModelo extends ServiciosModelo {
     System.out.println("Ejecutando ServiciosRemotosAcceso.login()");
     u = sra.login(usuario, password, isCliente);
 
+    System.out.println("Acceso"+u.getNombre());
     if (u instanceof Empleado) {
       System.out.println("Usuario es empleado");
       Empleado e = (Empleado) u;
@@ -44,25 +43,16 @@ public class ServiciosAccesoModelo extends ServiciosModelo {
       }
     } else { // es cliente (registrado)
       s = new ServiciosCompradorRegistradoModelo();
+      s.setU(u);
+      
     }
 
     accesible = true;
+    
     return s;
 
   }
-
-  public Usuario getU() {
-    return u;
-  }
-
-  public void setU(Usuario u) throws RemoteException, errorConexionBD,
-      errorSQL {
-    System.out.println("ServiciosAccesoModelo.setU()");
-    src.setUsuario(u);
-    // this.u = u;
-
-  }
-
+  
   public boolean isAccesible() {
     return accesible;
   }

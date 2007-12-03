@@ -44,7 +44,7 @@ public class GestorDisco
 		  this.pass = prop.getProperty("password");
 		  this.driver = prop.getProperty("driver");
 		
-		  //Carrega el driver del postgre
+		  //Carrega el driver 
 		   Class.forName(driver); 
 		}
 		catch (FileNotFoundException fnfe) 

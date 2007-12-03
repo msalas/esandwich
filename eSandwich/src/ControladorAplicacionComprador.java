@@ -16,8 +16,7 @@ public class ControladorAplicacionComprador implements ActionListener {
 
     if (action.equals("IS")) {// Inicial sesion
       System.out.println("Iniciar Sesión");
-      PantallaLogin login = new PantallaLogin(ac);
-      login.setVisible(true);
+      new PantallaLogin(ac).setVisible(true);
 
     } else if (action.equals("CS")) {// Cerrar sesion
       System.out.println("Cerrar sesión");
@@ -27,18 +26,15 @@ public class ControladorAplicacionComprador implements ActionListener {
       System.out.println("Alta registro");
 
       // PantallaAltaRegistro pap = new PantallaAltaRegistro(ac);
-      PantallaDatosPersonales pdp = new PantallaDatosPersonales(ac, false);
-      pdp.setVisible(true);
+      new PantallaDatosPersonales(ac, false).setVisible(true);
 
     } else if (action.equals("CDP")) {// Consultar Datos Personales
-
-      PantallaDatosPersonales pdp = new PantallaDatosPersonales(ac, false);
-      pdp.setVisible(true);
+    	 System.out.println("Consulta Datos Personales");
+      new PantallaDatosPersonales(ac, false).setVisible(true);
 
     } else if (action.equals("MDP")) {// Modificar Datos Personales
 
-      PantallaDatosPersonales pdp = new PantallaDatosPersonales(ac, true);
-      pdp.setVisible(true);
+      new PantallaDatosPersonales(ac, true).setVisible(true);
 
     } else if (action.equals("PPa")) {// Panel de promociones
 
@@ -47,8 +43,7 @@ public class ControladorAplicacionComprador implements ActionListener {
     } else if (action.equals("PS")) {// Promociones seleccion
 
     } else if (action.equals("RP")) {// Realizar Pedido
-      PantallaHacerPedido php = new PantallaHacerPedido(ac);
-      php.setVisible(true);
+      new PantallaHacerPedido(ac).setVisible(true);
     }
 
   }

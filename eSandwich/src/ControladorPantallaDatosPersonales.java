@@ -2,67 +2,81 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 
+import javax.swing.JComboBox;
+
 public class ControladorPantallaDatosPersonales implements ActionListener {
 
-  ServiciosCompradorRegistradoModelo scrm        = null;
+  ServiciosCompradorModelo scrm          = null;
   AplicacionComprador                ac          = null;
   PantallaDatosPersonales            pdp         = null;
-  Usuario                            userSession = null;
+  Cliente                            cli = null;
 
   public ControladorPantallaDatosPersonales(
       PantallaDatosPersonales pantallaDatosPersonales, AplicacionComprador ac) {
 
     this.ac = ac;
     this.pdp = pantallaDatosPersonales;
-    scrm = (ServiciosCompradorRegistradoModelo) ac.getSm();
-    userSession = scrm.getU();
-  }
-
-  // Exemple, fer el mateix amb totes les dades que necessitis
-  public String getNombre() {
-    if (userSession != null) {
-      return userSession.getNombre();
-    } else {
-      return null;
+  
+    scrm = ac.getSm();
+//    Quin servei estem?
+    if (scrm instanceof ServiciosCompradorRegistradoModelo) {
+    	// Mas de lo mismo, mostrem segons si estem modificant o consultant dades
+    	if(pdp.isModificar())pdp.setModificar();
+    	else pdp.setConsultar();
+		// Forcem la nostra instancia a ser de comprador registrat
+    	scrm = (ServiciosCompradorRegistradoModelo) ac.getSm();
+    	System.out.println("MODIF O CONS");
+    	this.llenarDatos();
+	
+    }else 
+	{
+    	//Vol dir que no esta registrat, per tant fem Alta Registro
+    	// Aixo ho deixa editable per posar les dades
+    	pdp.setCrear();
+    System.out.println("CREAR");	
+    
     }
   }
 
-  public Usuario getUsuario() {
-    return userSession;
-  }
 
-  public void actionPerformed(ActionEvent arg0) {
+
+  private void llenarDatos() {
+	  // Tant si es modificar com consultar omplim les dades del cliente
+
+      cli = (Cliente) scrm.getU();
+         System.out.println(cli.getNombre());  
+	(pdp.getJTextFieldCodiUsuari()).setText(cli.getCodUsuario());
+	
+}
+
+
+
+public void actionPerformed(ActionEvent arg0) {
     System.out.println("ControladorPantallaDatosPersonales.actionPerformed");
 
     String cmd = arg0.getActionCommand();
     System.out.println("ActionCommand: " + cmd);
 
     if (cmd.equals("crear")) {
-      System.out.println("crear");
-      // System.out.println("pdp.setUsuario(userSession)");
-      // TODO cargar el usuario
-      // sc.getUsuario(id);
-      Cliente cli = pdp.getCliente();
-      try {
-        scrm.setU(cli);
+      System.out.println("Alta Registro");
 
-      } catch (RemoteException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      } catch (errorConexionBD e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      } catch (errorSQL e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-      // pdp.setUsuario(userSession);
-
+      //Hem de pillar les dades de la pantalla via get's
+      // I enviar-ho al model
+      
+      // I el model ens torna el codi usuari, que l'hem de mostrar per pantalla
+     // Per exemple fent mostrarInformacion passantli el codi usuari
+      ac.mostrarInformacion("","");
+      
     } else if (cmd.equals("modificar")) {
       System.out.println("modificar");
-
+     
+// Si apreten modificar hem de posar les dades al model
+           
+      
+      
     } else if (cmd.equals("cancelar")) {
       System.out.println("Cancelar");
+    
     }
 
   }
