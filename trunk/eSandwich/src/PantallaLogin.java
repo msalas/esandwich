@@ -33,6 +33,8 @@ public class PantallaLogin extends JDialog {
     super(ae, "Iniciar Sesión ...", true);
     this.ae = ae;
     initializeAe();
+	// Para centrar pantalla
+	this.setLocationRelativeTo(null);
   }
 
   /**
