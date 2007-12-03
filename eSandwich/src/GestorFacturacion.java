@@ -111,9 +111,27 @@ public class GestorFacturacion {
 	public Vector<Facturacion> listaFacturas() throws errorSQL, errorConexionBD{
 		
 		Vector<Facturacion> v = new Vector<Facturacion>();
+		Facturacion p = null;
+		if(gd.isConectado()) con = gd.getConexion();
+		else throw new errorConexionBD("No hay conexion!");
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT * from factura");
+			while(rs.next()){
+				p = new Facturacion(rs.getInt(1), rs.getInt(2),
+						rs.getDate(3), rs.getInt(4));
+				v.add(p);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new errorSQL(e.toString());
+		}
 		return v;
-	
 	}
+
 	
 	public boolean existeFactura(int id) throws errorSQL, errorConexionBD{
 		String strSQL = "";
