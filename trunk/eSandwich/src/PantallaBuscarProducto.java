@@ -1,16 +1,19 @@
 
 
 import java.awt.BorderLayout;
+
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
 import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import java.awt.Color;
 import javax.swing.JButton;
-import java.awt.Point;
 
-public class PantallaBuscarProducto extends JFrame {
+public class PantallaBuscarProducto extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,11 +27,16 @@ public class PantallaBuscarProducto extends JFrame {
 
 	private JButton jCancelar = null;
 
+	private AplicacionEmpleado ae = null;
+	
+	private ControladorPantallaBuscarProducto cpbp = null;
+	
 	/**
 	 * This is the default constructor
 	 */
-	public PantallaBuscarProducto() {
-		super();
+	public PantallaBuscarProducto(AplicacionEmpleado ae) {
+		super(ae, "Buscar Producto", true);
+		this.ae = ae;
 		initialize();
 	}
 
@@ -41,6 +49,11 @@ public class PantallaBuscarProducto extends JFrame {
 		this.setSize(409, 200);
 		this.setContentPane(getJContentPane());
 		this.setTitle("Buscar Producto");
+		
+
+		cpbp = new ControladorPantallaBuscarProducto(this,ae);
+		
+		jAcceptar.addActionListener(cpbp);
 	}
 
 	/**
@@ -85,8 +98,7 @@ public class PantallaBuscarProducto extends JFrame {
 		if (jAcceptar == null) {
 			jAcceptar = new JButton();
 			jAcceptar.setText("Aceptar");
-			jAcceptar.setLocation(new Point(98, 114));
-			jAcceptar.setSize(new Dimension(86, 26));
+			jAcceptar.setBounds(new Rectangle(104, 114, 91, 26));
 		}
 		return jAcceptar;
 	}
@@ -99,7 +111,7 @@ public class PantallaBuscarProducto extends JFrame {
 	public JButton getJCancelar() {
 		if (jCancelar == null) {
 			jCancelar = new JButton();
-			jCancelar.setBounds(new Rectangle(214, 114, 91, 26));
+			jCancelar.setBounds(new Rectangle(223, 113, 91, 26));
 			jCancelar.setText("Cancelar");
 		}
 		return jCancelar;

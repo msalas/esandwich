@@ -13,7 +13,6 @@ public class ControladorAplicacionComprador implements ActionListener {
   public void actionPerformed(ActionEvent evt) {
     System.out.println("ControladorAplicacionComprador.actionPerformed()");
     String action = evt.getActionCommand();
-    System.out.println("ActionCommand=" + action);
 
     if (action.equals("IS")) {// Inicial sesion
       System.out.println("Iniciar Sesión");
@@ -46,7 +45,7 @@ public class ControladorAplicacionComprador implements ActionListener {
     } else if (action.equals("PS")) {// Promociones seleccion
 
     } else if (action.equals("RP")) {// Realizar Pedido
-      new PantallaHacerPedido(ac).setVisible(true);
+
     }
 
   }

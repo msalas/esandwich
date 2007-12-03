@@ -1,20 +1,19 @@
 
-
 import java.awt.BorderLayout;
+
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
-import javax.swing.JToggleButton;
 import javax.swing.JTextField;
-import javax.swing.JRadioButton;
-import javax.swing.JList;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
+import javax.swing.JTextArea;
+import java.awt.Color;
+import javax.swing.*;
 import java.awt.Point;
 
-public class PantallaListadosStock extends JFrame {
+public class PantallaListadosStock extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,11 +41,15 @@ public class PantallaListadosStock extends JFrame {
 
 	private JComboBox jComboBox1 = null;
 
+	private ControladorPantallaListarStock cpls = null;
+	
+	private AplicacionEmpleado ae = null;
+	
 	/**
 	 * This is the default constructor
 	 */
-	public PantallaListadosStock() {
-		super();
+	public PantallaListadosStock(AplicacionEmpleado ae) {
+		super(ae, "Listar Stock", true);
 		initialize();
 	}
 
@@ -59,6 +62,18 @@ public class PantallaListadosStock extends JFrame {
 		this.setSize(457, 325);
 		this.setContentPane(getJContentPane());
 		this.setTitle("Listar Stocks");
+	
+		cpls = new ControladorPantallaListarStock(this,ae);
+		
+		jTotalstock.setActionCommand("A");
+		jTotalstock.addActionListener(cpls);
+		
+		jStockmp.setActionCommand("B");
+		jStockmp.addActionListener(cpls);
+		
+		jStockmp2.setActionCommand("C");
+		jStockmp2.addActionListener(cpls);
+				
 	}
 
 	/**
@@ -76,6 +91,7 @@ public class PantallaListadosStock extends JFrame {
 			jStockmp1.setText("Stock por Producto:");
 			jTotalStock1 = new JLabel();
 			jTotalStock1.setText("Stock Total");
+			jTotalStock1.setLocation(new Point(150, 58));
 			jTotalStock1.setLocation(new Point(149, 60));
 			jTotalStock1.setSize(new Dimension(77, 16));
 			jLlistat = new JLabel();
@@ -107,7 +123,7 @@ public class PantallaListadosStock extends JFrame {
 		if (jTotalstock == null) {
 			jTotalstock = new JRadioButton();
 			jTotalstock.setSize(new Dimension(21, 21));
-			jTotalstock.setLocation(new Point(110, 57));
+			jTotalstock.setLocation(new Point(110, 54));
 		}
 		return jTotalstock;
 	}
@@ -130,7 +146,7 @@ public class PantallaListadosStock extends JFrame {
 	 * 	
 	 * @return javax.swing.JComboBox	
 	 */
-	private JComboBox getJComboBox() {
+	public JComboBox getJComboBox() {
 		if (jComboBox == null) {
 			jComboBox = new JComboBox();
 			jComboBox.setBounds(new Rectangle(311, 91, 115, 21));
@@ -184,7 +200,7 @@ public class PantallaListadosStock extends JFrame {
 	 * 	
 	 * @return javax.swing.JComboBox	
 	 */
-	private JComboBox getJComboBox1() {
+	public JComboBox getJComboBox1() {
 		if (jComboBox1 == null) {
 			jComboBox1 = new JComboBox();
 			jComboBox1.setBounds(new Rectangle(312, 126, 115, 23));
