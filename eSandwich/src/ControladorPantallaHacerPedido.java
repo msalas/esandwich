@@ -42,6 +42,8 @@ public class ControladorPantallaHacerPedido implements ActionListener {
         vCafes = src.listaProductosPorFamilia(FAMILIA_CAFE);
         php.setJcbCafes(toComboModel(vCafes));
 
+        php.getJTableCompra().setModel(new TMCompras(new Vector()));
+
       } catch (errorConexionBD e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
@@ -79,21 +81,79 @@ public class ControladorPantallaHacerPedido implements ActionListener {
 
     if (cmd.equals("compra")) {
       System.out.println("Realizando compra");
-
+      TMCompras tm = (TMCompras) (php.getJTableCompra().getModel());
+      float cuanto = 0;
+      for (int i = 0; i < tm.getNumFilas(); i++) {
+        float f = ((Float) tm.getValueAt(i, 2)).floatValue();
+        cuanto += f;
+      }
+      System.out.println("Valor total: " + cuanto);
+      
     } else if (cmd.equals("addSandwich")) {
       System.out.println("add Sandwich");
-      
-      
-      
+      int i = php.getJcbTipoSandwich().getSelectedIndex();
+      Producto p = vSandwiches.get(i);
+
+      TMCompras tm = (TMCompras) (php.getJTableCompra().getModel());
+      Vector v = new Vector();
+      int cuantos = php.getJcbUnidades().getSelectedIndex();
+      v.add(new Integer(++cuantos));
+      v.add(p.getDescripcion());
+      v.add(p.getPrecio());
+
+      tm.addFila(v);
+      tm.fireTableDataChanged();
+
     } else if (cmd.equals("addBebida")) {
       System.out.println("add Bebida");
+      int i = php.getJcbBebidas().getSelectedIndex();
+      Producto p = vBebidas.get(i);
+
+      TMCompras tm = (TMCompras) (php.getJTableCompra().getModel());
+      Vector v = new Vector();
+      int cuantos = php.getJcbUnidadesBebidas().getSelectedIndex();
+      v.add(new Integer(++cuantos));
+      v.add(p.getDescripcion());
+      v.add(p.getPrecio());
+
+      tm.addFila(v);
+      tm.fireTableDataChanged();
 
     } else if (cmd.equals("addPostre")) {
       System.out.println("add Postre");
+      int i = php.getJcbPostres().getSelectedIndex();
+      Producto p = vPostres.get(i);
+
+      TMCompras tm = (TMCompras) (php.getJTableCompra().getModel());
+      Vector v = new Vector();
+      int cuantos = php.getJcbUnidadesPostres().getSelectedIndex();
+      v.add(new Integer(++cuantos));
+      v.add(p.getDescripcion());
+      v.add(p.getPrecio());
+
+      tm.addFila(v);
+      tm.fireTableDataChanged();
 
     } else if (cmd.equals("addCafe")) {
       System.out.println("add Café");
+      int i = php.getJcbCafes().getSelectedIndex();
+      Producto p = vCafes.get(i);
 
+      TMCompras tm = (TMCompras) (php.getJTableCompra().getModel());
+      Vector v = new Vector();
+      int cuantos = php.getJcbUnidadesCafes().getSelectedIndex();
+      v.add(new Integer(++cuantos));
+      v.add(p.getDescripcion());
+      v.add(p.getPrecio());
+
+      tm.addFila(v);
+      tm.fireTableDataChanged();
+
+    } else if (cmd.equals("borra")) {
+      int fila = php.getJTableCompra().getSelectedRow();
+      TMCompras tm = (TMCompras) (php.getJTableCompra().getModel());
+      tm.borraFila(fila);
+      tm.fireTableDataChanged();
     }
 
   }

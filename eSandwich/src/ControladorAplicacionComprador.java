@@ -45,7 +45,8 @@ public class ControladorAplicacionComprador implements ActionListener {
     } else if (action.equals("PS")) {// Promociones seleccion
 
     } else if (action.equals("RP")) {// Realizar Pedido
-
+      PantallaHacerPedido php = new PantallaHacerPedido(ac);
+      php.setVisible(true);
     }
 
   }
