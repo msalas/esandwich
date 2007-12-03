@@ -12,4 +12,7 @@ public interface ServiciosRemotosComprador extends ServiciosRemotos {
   public Vector<Producto> listaProductosPorFamilia(int familias)
       throws RemoteException, errorConexionBD, errorSQL;
 
+  public void addPedido(Pedido ped) throws RemoteException, errorConexionBD,
+      errorSQL;
+
 }
