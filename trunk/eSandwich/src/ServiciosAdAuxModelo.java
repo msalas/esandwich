@@ -33,6 +33,14 @@ public class ServiciosAdAuxModelo extends ServiciosAccesoModelo {
 		return sraa.consultaRol_por_Desc (queRolDes);
 	}
 	
+	public Empleado consulEmpleado(int idEmp) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
+		return sraa.consultarEmpleado(idEmp);
+	}
+
+	public void modificaEmpleado (Empleado Emp) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
+		sraa.modEmpleado(Emp);
+	}
+	
 	public void nuevoProducto(Producto p) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
 		sraa.añadirProducto(p);
 	}

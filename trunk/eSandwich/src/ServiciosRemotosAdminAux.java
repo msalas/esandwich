@@ -13,6 +13,12 @@ public interface ServiciosRemotosAdminAux extends ServiciosRemotos {
   public Rol consultaRol_por_Desc(String pDescripcion) throws errorSQL, errorConexionBD,
 	RemoteException;
   
+  public Empleado consultarEmpleado(int pId) throws errorSQL, errorConexionBD,
+	RemoteException;
+  
+  public void modEmpleado (Empleado e) throws errorSQL, errorConexionBD,
+	RemoteException;
+  
   public int añadirProducto(Producto p) throws errorSQL, errorConexionBD,
       RemoteException;
 

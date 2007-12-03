@@ -159,7 +159,7 @@ public class GestorEmpleado {
 			pstmt = con.prepareStatement(strSQL);
 			
 			pstmt.setString(1,pEmpleado.getPassword());
-			if (pEmpleado.getFechaBaja() != null) {
+			if (pEmpleado.getFechaBaja() != null || pEmpleado.isDesactivado()) {
 				pstmt.setBoolean(2, true);
 			}
 			else {
@@ -232,7 +232,9 @@ public class GestorEmpleado {
 		}
 	}
 	
-	public boolean existeNif(String pNif) throws errorSQL, 
+	// Si el nif informado es del mismo empleado diremos que NIF no existe, para poder realizar
+	// modificaciones al mismo empleado
+	public boolean existeNif(String pNif, int id) throws errorSQL, 
 	errorConexionBD{
 		String strSQL = "";
 		boolean existeAux;
@@ -245,9 +247,9 @@ public class GestorEmpleado {
 		try {
 			gd.begin();
 			
-			strSQL = "SELECT nif "
+			strSQL = "SELECT id,nif "
 				+ "FROM persona "
-				+ "WHERE nif ='" + pNif + "' ";
+				+ "WHERE nif ='" + pNif + "' AND id <> " + id;
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(strSQL);
 			if (rs.next()){

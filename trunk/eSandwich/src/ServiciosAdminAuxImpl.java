@@ -38,7 +38,7 @@ implements ServiciosRemotosAdminAux {
 		Empleado emp = null;
 		try {
 
-			if (!ge.existeNif(e.getNif())) {
+			if (!ge.existeNif(e.getNif(),e.getId())) {
 				emp = ge.addEmpleado(e);
 			} else {
 				throw new errorSQL("ERROR: Nif existente en empleados");
@@ -49,6 +49,21 @@ implements ServiciosRemotosAdminAux {
 		}
 		return emp;
 	}
+	
+	public void modEmpleado (Empleado e) throws errorSQL, errorConexionBD,
+	RemoteException {
+		try {
+			if (!ge.existeNif(e.getNif(),e.getId())) {
+				ge.setEmpleado(e);
+			} else {
+				throw new errorSQL("ERROR: Nif existente en empleados");
+			}
+		}
+		catch (errorSQL err) {
+			throw new errorSQL(err.getMessage());
+		}
+	}
+
 	
 	public Vector  <String>  listaDescripcionesRol() throws errorSQL, errorConexionBD,
 	RemoteException {
@@ -79,6 +94,18 @@ implements ServiciosRemotosAdminAux {
 		}
 		return pRol;
 		
+	}
+	
+	public Empleado consultarEmpleado(int pId) throws errorSQL, errorConexionBD,
+	RemoteException {
+		Empleado pEmp;
+		try {
+			pEmp= ge.consultaEmpleado(pId);
+		}
+		catch (errorSQL err) {
+			throw new errorSQL(err.getMessage());
+		}
+		return pEmp;		
 	}
 	
 	public int añadirProducto (Producto p) throws errorSQL, errorConexionBD,
