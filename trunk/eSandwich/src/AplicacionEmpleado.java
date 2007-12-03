@@ -153,8 +153,8 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 		jFacturaciosand.setActionCommand("FS");
 		jMenuItemCrearPromo.setActionCommand("APRO");
 		jMenuItemBorrarPromo.setActionCommand("BPRO");
-		jMenuItemModificarPromo.setActionCommand("MPRO");
-		jMenuItemConsultarPromo.setActionCommand("CPRO");
+		//jMenuItemModificarPromo.setActionCommand("MPRO");
+		//jMenuItemConsultarPromo.setActionCommand("CPRO");
 
 		jMenuItemLogin.addActionListener(cae);
 		jMenuItemLogout.addActionListener(cae);
@@ -184,8 +184,8 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 		jFacturaciosand.addActionListener(cae);
 		jMenuItemCrearPromo.addActionListener(cae);
 		jMenuItemBorrarPromo.addActionListener(cae);
-		jMenuItemModificarPromo.addActionListener(cae);
-		jMenuItemConsultarPromo.addActionListener(cae);
+	//	jMenuItemModificarPromo.addActionListener(cae);
+		//jMenuItemConsultarPromo.addActionListener(cae);
 
 	
 	}
@@ -515,9 +515,9 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 			jMenuPromocio = new JMenu();
 			jMenuPromocio.setText("Promociones");
 			jMenuPromocio.add(getJMenuItemCrearPromo());
-			jMenuPromocio.add(getJMenuItemModificarPromo());
+		//	jMenuPromocio.add(getJMenuItemModificarPromo());
 			jMenuPromocio.add(getJMenuItemBorrarPromo());
-			jMenuPromocio.add(getJMenuItemConsultarPromo());
+			//jMenuPromocio.add(getJMenuItemConsultarPromo());
 			
 		}
 		return jMenuPromocio;
@@ -785,7 +785,7 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 
 
 	public void mostrarInformacion(String mensaje, String titulo) {
-		 JOptionPane.showInternalMessageDialog(null, mensaje,titulo, JOptionPane.INFORMATION_MESSAGE);
+		 JOptionPane.showInternalMessageDialog(this, mensaje,titulo, JOptionPane.INFORMATION_MESSAGE);
 		
 	}
 
