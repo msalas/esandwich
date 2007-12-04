@@ -1,4 +1,5 @@
 import java.rmi.RemoteException;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Vector;
 
@@ -103,4 +104,16 @@ public interface ServiciosRemotosAdminAux extends ServiciosRemotos {
   public int insertarFacturacionSandwich(int idProducto) throws errorSQL,
       errorConexionBD, RemoteException;
 
+  
+    public Collection listaCartaSandwich() throws errorConexionBD,RemoteException;
+	public boolean altaSandwich(Sandwich sandwich) throws errorConexionBD,RemoteException;
+	public Sandwich consultaSandwich(int idSandwich) throws errorConexionBD,RemoteException;
+	public boolean modificacionSandwich (Sandwich sandwich) throws errorConexionBD,RemoteException;
+	public boolean eliminaSandwich(int idSandwich) throws errorConexionBD,RemoteException;
+	public Collection filtraTipoSandwich(String nombre)throws errorConexionBD,RemoteException;
+	public Collection listaTipoSandwich()throws errorConexionBD,RemoteException;
+	public boolean altaTipoSandwich(TipoSandwich tipoSandwich)throws errorConexionBD,RemoteException;
+	public boolean eliminaTipoSandwich(String nombreTipoSandwich)throws errorConexionBD,RemoteException;
+	public Collection listaIngredientesDisponibles()throws errorConexionBD,RemoteException;
+	public int devuelveIdTipoSandwich(String descripcion) throws errorConexionBD,RemoteException;
 }

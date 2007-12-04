@@ -1,5 +1,6 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Vector;
 
@@ -381,6 +382,68 @@ implements ServiciosRemotosAdminAux {
 		return idP;
 	}
 	
+	
+	public boolean altaSandwich(Sandwich sandwich) throws errorConexionBD {
+		GestorSandwich gs=new GestorSandwich();
+		gs.guarda(sandwich);
+		return true;
+	}
+
+	public boolean altaTipoSandwich(TipoSandwich tipoSandwich) throws errorConexionBD {
+		GestorTipoSandwich gts=new GestorTipoSandwich();
+		gts.guarda(tipoSandwich);
+		return true;
+	}
+
+	public Sandwich consultaSandwich(int idSandwich) throws errorConexionBD {
+		GestorSandwich gs=new GestorSandwich();
+		return gs.lee(idSandwich);
+	}
+
+	public boolean eliminaSandwich(int idSandwich) throws errorConexionBD {
+		GestorSandwich gs=new GestorSandwich();
+		gs.elimina(gs.lee(idSandwich));
+		return true;
+	}
+
+	public Collection filtraTipoSandwich(String nombre) throws errorConexionBD {
+		GestorTipoSandwich gts=new GestorTipoSandwich();
+		return gts.listaPorNombre(nombre);
+	}
+
+	public Collection listaCartaSandwich() throws errorConexionBD {
+		
+		GestorSandwich gs=new GestorSandwich();
+		return gs.lista();
+	}
+
+
+	public Collection listaTipoSandwich() throws errorConexionBD {
+		GestorTipoSandwich gts=new GestorTipoSandwich();
+		return gts.lista();
+	}
+	public boolean modificacionSandwich(Sandwich sandwich) throws errorConexionBD {
+		GestorSandwich gs=new GestorSandwich();
+		gs.guarda(sandwich);
+		return true;
+	}
+
+	public boolean eliminaTipoSandwich(String nombreTipoSandwich) throws errorConexionBD {
+		GestorTipoSandwich gts=new GestorTipoSandwich();
+		gts.elimina(nombreTipoSandwich);
+		return true;
+	}
+
+	public Collection listaIngredientesDisponibles() throws errorConexionBD, RemoteException {
+		GestorIngredienteSandwich gi=new GestorIngredienteSandwich();
+		return gi.listaIngredientes();
+		
+	}
+
+	public int devuelveIdTipoSandwich(String descripcion) throws errorConexionBD, RemoteException {
+		GestorTipoSandwich gts=new GestorTipoSandwich();
+		return gts.devuelveId(descripcion);
+	}
 	public void desactivarRecursos() {
 		ge.liberarRecursos();
 		gc.liberarRecursos();

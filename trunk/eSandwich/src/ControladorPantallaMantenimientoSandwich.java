@@ -7,7 +7,7 @@ import java.util.Vector;
 public class ControladorPantallaMantenimientoSandwich implements ActionListener {
     
 	
-	private ServiciosCocinaModelo serviciosCocinaModelo = null;
+	private ServiciosAdAuxModelo serviciosAdAuxModelo = null;
 	private PantallaMantenimientoSandwich pantallaMantenimientoSandwich = null;
 	private AplicacionEmpleado aplicacionEmpleado = null;
 	
@@ -22,11 +22,11 @@ public class ControladorPantallaMantenimientoSandwich implements ActionListener 
 	
 	public Object[][] listaSandwich(){
 		
-		serviciosCocinaModelo=(ServiciosCocinaModelo) aplicacionEmpleado.getSm();
+		serviciosAdAuxModelo=(ServiciosAdAuxModelo) aplicacionEmpleado.getSm();
 		Vector cartaSandwich=null;
 		Object [][] tablaSandwich=new Object[10][2];
 		try {
-			cartaSandwich = (Vector)serviciosCocinaModelo.listaCartaSandwich();
+			cartaSandwich = (Vector)serviciosAdAuxModelo.listaCartaSandwich();
 			
 			for (int i=0;i<cartaSandwich.size();i++){
 				tablaSandwich[i][0]=((Sandwich)cartaSandwich.get(i)).getIdProducto();

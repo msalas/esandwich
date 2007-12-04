@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 public class ControladorPantallaMantenimientoTipoSandwich implements
 		ActionListener {
 	
-	private ServiciosCocinaModelo serviciosCocinaModelo = null;
+	private ServiciosAdAuxModelo serviciosAdAuxModelo = null;
 	private PantallaMantenimientoTipoSandwich pantallaMantenimientoTipoSandwich = null;
 	private AplicacionEmpleado aplicacionEmpleado = null;
 	
@@ -28,10 +28,10 @@ public class ControladorPantallaMantenimientoTipoSandwich implements
 	@SuppressWarnings("unchecked")
 	public Collection <String> getTipoSandwich(){
 		Collection <String> cl=new Vector<String>();
-		serviciosCocinaModelo=(ServiciosCocinaModelo) aplicacionEmpleado.getSm();
+		serviciosAdAuxModelo=(ServiciosAdAuxModelo) aplicacionEmpleado.getSm();
 		Iterator<TipoSandwich> it;
 		try {
-			Collection<TipoSandwich> ctipo = serviciosCocinaModelo.listaTipoSandwich();
+			Collection<TipoSandwich> ctipo = serviciosAdAuxModelo.listaTipoSandwich();
 			it = ctipo.iterator();
 			while (it.hasNext()){
 				cl.add(it.next().getDescripcion());
@@ -50,9 +50,9 @@ public class ControladorPantallaMantenimientoTipoSandwich implements
 	public void actionPerformed(ActionEvent e) {
 		String s=(String)pantallaMantenimientoTipoSandwich.getJIngredientesList().getSelectedValue();
 		//System.out.println(s);
-		serviciosCocinaModelo=(ServiciosCocinaModelo) aplicacionEmpleado.getSm();
+		serviciosAdAuxModelo=(ServiciosAdAuxModelo) aplicacionEmpleado.getSm();
 		try {
-			serviciosCocinaModelo.eliminaTipoSandwich(s);
+			serviciosAdAuxModelo.eliminaTipoSandwich(s);
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

@@ -10,7 +10,7 @@ import javax.print.attribute.standard.Severity;
 
 public class ControladorPantallaAltaSandwich implements ActionListener {
 
-	private ServiciosCocinaModelo serviciosCocinaModelo = null;
+	private ServiciosAdAuxModelo serviciosAdAuxModelo = null;
 	private PantallaAltaSandwich pantallaAltaSandwich = null;
 	private AplicacionEmpleado aplicacionEmpleado = null;
 	
@@ -26,10 +26,10 @@ public class ControladorPantallaAltaSandwich implements ActionListener {
 	
 	public Collection <String> getIngredientes(){
 		Collection <String> cl=new Vector<String>();
-		serviciosCocinaModelo=(ServiciosCocinaModelo) aplicacionEmpleado.getSm();
+		serviciosAdAuxModelo=(ServiciosAdAuxModelo) aplicacionEmpleado.getSm();
 		Iterator<String> it;
 		try {
-			Collection <String> csan = serviciosCocinaModelo.listaIngredientesDisponibles();
+			Collection <String> csan = serviciosAdAuxModelo.listaIngredientesDisponibles();
 			it = csan.iterator();
 			while (it.hasNext()){
 				cl.add(it.next());
@@ -47,10 +47,10 @@ public class ControladorPantallaAltaSandwich implements ActionListener {
 	
 	public Collection <String> getTiposSandwich(){
 		Collection <String> cl=new Vector<String>();
-		serviciosCocinaModelo=(ServiciosCocinaModelo) aplicacionEmpleado.getSm();
+		serviciosAdAuxModelo=(ServiciosAdAuxModelo) aplicacionEmpleado.getSm();
 		Iterator<TipoSandwich> it;
 		try {
-			Collection<TipoSandwich> ctipo = serviciosCocinaModelo.listaTipoSandwich();
+			Collection<TipoSandwich> ctipo = serviciosAdAuxModelo.listaTipoSandwich();
 			it = ctipo.iterator();
 			while (it.hasNext()){
 				cl.add(it.next().getDescripcion());
@@ -97,16 +97,16 @@ public class ControladorPantallaAltaSandwich implements ActionListener {
 			
 			
 			
-			serviciosCocinaModelo=(ServiciosCocinaModelo) aplicacionEmpleado.getSm();
+			serviciosAdAuxModelo=(ServiciosAdAuxModelo) aplicacionEmpleado.getSm();
 			
 			try {
 				TipoSandwich ts=new TipoSandwich();
 				String descripcion=(String)pantallaAltaSandwich.getJTipoComboBox().getSelectedItem();
-				int id=serviciosCocinaModelo.devuelveIdTipoSandwich(descripcion);
+				int id=serviciosAdAuxModelo.devuelveIdTipoSandwich(descripcion);
 				ts.setId(id);
 				ts.setDescripcion(descripcion);
 				sandwich.setTipoSandwich(ts);
-				serviciosCocinaModelo.altaSandwich(sandwich);
+				serviciosAdAuxModelo.altaSandwich(sandwich);
 			} catch (RemoteException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
