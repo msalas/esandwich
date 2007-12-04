@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 
 public class ControladorPantallaAltaTipoSandwich implements ActionListener {
 	
-	private ServiciosCocinaModelo serviciosCocinaModelo = null;
+	private ServiciosAdAuxModelo serviciosAdAuxModelo = null;
 	private PantallaAltaTipoSandwich pantallaAltaTipoSandwich = null;
 	private AplicacionEmpleado aplicacionEmpleado = null;
 	
@@ -25,9 +25,9 @@ public class ControladorPantallaAltaTipoSandwich implements ActionListener {
 		//tipoSandwich.setId(new Integer((pantallaAltaTipoSandwich.getJIdentificadorTextField()).getText()));
 		tipoSandwich.setDescripcion((pantallaAltaTipoSandwich.getJNombreTextField()).getText());
 		
-		serviciosCocinaModelo=(ServiciosCocinaModelo) aplicacionEmpleado.getSm();
+		serviciosAdAuxModelo=(ServiciosAdAuxModelo) aplicacionEmpleado.getSm();
 		try {
-			serviciosCocinaModelo.altaTipoSandwich(tipoSandwich);
+			serviciosAdAuxModelo.altaTipoSandwich(tipoSandwich);
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

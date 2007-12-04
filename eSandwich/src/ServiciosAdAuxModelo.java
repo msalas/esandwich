@@ -2,6 +2,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Vector;
 import java.util.Date;
@@ -255,5 +256,53 @@ public class ServiciosAdAuxModelo extends ServiciosAccesoModelo {
 		}
 	return vv;
 	}
+	
+	public boolean altaSandwich(Sandwich sandwich) throws errorConexionBD,RemoteException {
+		return sraa.altaSandwich(sandwich);
+	}
+
+	public boolean altaTipoSandwich(TipoSandwich tipoSandwich) throws errorConexionBD,RemoteException {
+		return sraa.altaTipoSandwich(tipoSandwich);
+	}
+
+	public Sandwich consultaSandwich(int idSandwich) throws errorConexionBD,RemoteException {
+	    return sraa.consultaSandwich(idSandwich);
+	}
+
+	public boolean eliminaSandwich(int idSandwich) throws errorConexionBD,RemoteException {
+		return sraa.eliminaSandwich(idSandwich);
+	}
+
+	public Collection filtraTipoSandwich(String nombre) throws errorConexionBD,RemoteException {
+		return sraa.filtraTipoSandwich(nombre);
+	}
+
+	public Collection listaCartaSandwich() throws errorConexionBD, RemoteException {
+		return sraa.listaCartaSandwich();
+	}
+	
+	public Collection listaTipoSandwich() throws errorConexionBD,RemoteException {
+		return sraa.listaTipoSandwich();
+	}
+
+	public boolean modificacionSandwich(Sandwich sandwich) throws errorConexionBD,RemoteException {
+		return sraa.modificacionSandwich(sandwich);
+	}
+
+	public boolean eliminaTipoSandwich(String nombreTipoSandwich) throws errorConexionBD,RemoteException {
+		return sraa.eliminaTipoSandwich(nombreTipoSandwich);
+	}
+	
+	public Collection listaIngredientesDisponibles() throws RemoteException, errorConexionBD{
+		return sraa.listaIngredientesDisponibles();
+	}
+	
+	public int devuelveIdTipoSandwich(String descripcion) throws RemoteException, errorConexionBD{
+		return sraa.devuelveIdTipoSandwich(descripcion);
+	}
+	
+	
+	
+	
 	
 }
