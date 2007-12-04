@@ -221,8 +221,7 @@ public class GestorCliente {
 				+ "desactivado,tarjeta_credito,puntos,fecha_baja "
 				+ "FROM persona,usuario,cliente "
 				+ "WHERE cliente.cod_cliente = usuario.cod_usuario AND "
-				+ "cliente.cod_cliente = persona.id AND "
-				+ "desactivado = false "
+				+ "cliente.cod_cliente = persona.id "
 				+ strConsulta
 				+ "ORDER BY nif";
 		
