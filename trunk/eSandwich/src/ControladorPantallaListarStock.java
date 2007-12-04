@@ -14,64 +14,83 @@ public class ControladorPantallaListarStock implements ActionListener{
 	private PantallaListadosStock pls = null;
 	private AplicacionEmpleado ae = null;
 	private PantallaListados pl = null;
-	private Vector<String> v = new Vector<String>();
+	private Vector<String> vStock = new Vector<String>();
 	
 	public ControladorPantallaListarStock(
 			PantallaListadosStock pantallaListadosStock,
 			AplicacionEmpleado ae) {
 			this.ae = ae;
 			this.pls = pantallaListadosStock;	
-			v.add("Id");
-			v.add("Descripcion");
-			v.add("Descripcion Ampliada");
-			v.add("Existencias");
-			v.add("Id Familia");
-			v.add("Precio");
+			
+			vStock.add("Id");
+			vStock.add("Descripcion");
+			vStock.add("Existencias");
+					
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
 		String action = arg0.getActionCommand();
-		sm = (ServiciosAdAuxModelo) ae.getSm();
-	
+		
+
+		
 		try {
-		if (action.equals("A")) {
-			pl = new PantallaListados();
-			JTable t = pl.getJTable();
-			t.setModel(new DefaultTableModel(sm.listaProductos(),v));
-			pl.setJTable(t);
-			pl.setVisible(true);
+		
+		
+			sm = (ServiciosAdAuxModelo) ae.getSm();
+		
+		
+			if (action.equals("acceptar")) {
+				
+				pl = new PantallaListados(ae);
+				Vector<Vector> vv = null;
+				if(ae.getComanda().equalsIgnoreCase("A")){
+				//Total
+					vv= sm.listaStock();
+					
+				}else if(ae.getComanda().equalsIgnoreCase("B")){
+				//Por producto	
+					int id = new Integer(pls.getJComboBox().getSelectedIndex());
+					vv = sm.listaStockPorFamilia(id);
+					
+				}else if(ae.getComanda().equalsIgnoreCase("C")){
+				//Por familia
+					int id = new Integer(pls.getJComboBox1().getSelectedIndex());
 
-		} else if (action.equals("B")) {
-			int id = new Integer(pls.getJComboBox().getSelectedIndex());
-			pl = new PantallaListados();
-			JTable t = pl.getJTable();
-			t.setModel(new DefaultTableModel(sm.listaProductos(id),v));
-			pl.setJTable(t);
-			pl.setVisible(true);
+				}
+				
+				(pl.getJTable()).setModel(new DefaultTableModel(vv,vStock));			
+				pls.setVisible(false);
+				pl.setVisible(true);
+			
+			
+			
 
-		}  else if (action.equals("C")) {
-			int id = new Integer(pls.getJComboBox1().getSelectedIndex());
-			pl = new PantallaListados();
-			JTable t = pl.getJTable();
-			t.setModel(new DefaultTableModel(sm.listaProductos(id),v));
-			pl.setJTable(t);
-			pl.setVisible(true);
-
-	    } 
+	    }else if (action.equals("cancelar")) {
+	    	
+	    }else  	ae.setComanda(action);
+	    
+ 
+ 
 		
 		} catch (MalformedURLException e) {
 			ae.mostrarError(e.getMessage(), "Posar titol");
-			e.printStackTrace();
+			
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			ae.mostrarError(e.getMessage(), "Posar titol");
+			
 		} catch (errorConexionBD e) {
-			e.printStackTrace();
+			ae.mostrarError(e.getMessage(), "Posar titol");
+			
 		} catch (errorSQL e) {
-			e.printStackTrace();
+			ae.mostrarError(e.getMessage(), "Posar titol");
+			
 		} catch (NotBoundException e) {
-			e.printStackTrace();
+			ae.mostrarError(e.getMessage(), "Posar titol");
+			
+		} catch (Exception e) {
+			ae.mostrarError(e.getMessage(), "Posar titol");
 		}
-		
+
 	}
 	
 	

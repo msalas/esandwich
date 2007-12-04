@@ -50,6 +50,7 @@ public class PantallaListadosStock extends JDialog {
 	 */
 	public PantallaListadosStock(AplicacionEmpleado ae) {
 		super(ae, "Listar Stock", true);
+		this.ae=ae;
 		initialize();
 	}
 
@@ -64,6 +65,12 @@ public class PantallaListadosStock extends JDialog {
 		this.setTitle("Listar Stocks");
 	
 		cpls = new ControladorPantallaListarStock(this,ae);
+		
+		jAcceptar.setActionCommand("acceptar");
+		jAcceptar.addActionListener(cpls);
+		
+		jCancelar.setActionCommand("cancelar");
+		jCancelar.addActionListener(cpls);
 		
 		jTotalstock.setActionCommand("A");
 		jTotalstock.addActionListener(cpls);

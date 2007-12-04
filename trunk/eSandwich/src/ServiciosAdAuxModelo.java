@@ -171,6 +171,8 @@ public class ServiciosAdAuxModelo extends ServiciosAccesoModelo {
 					Producto pr = p.nextElement();
 
 					v = new Vector<Object>();
+					v.add(pr.getIdProducto());
+					v.add(pr.getDescripcion());
 					v.add(pr.getExistencias());
 					vv.add(v);
 		}
@@ -185,7 +187,10 @@ public class ServiciosAdAuxModelo extends ServiciosAccesoModelo {
 					Producto pr = p.nextElement();
 
 					v = new Vector<Object>();
+					v.add(pr.getIdProducto());
+					v.add(pr.getDescripcion());
 					v.add(pr.getExistencias());
+					
 					vv.add(v);
 		}
 	return vv;

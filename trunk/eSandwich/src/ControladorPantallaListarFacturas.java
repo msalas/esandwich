@@ -35,14 +35,14 @@ public class ControladorPantallaListarFacturas implements ActionListener{
 	
 		try {
 		if (action.equals("A")) {
-				pl = new PantallaListados();
+				pl = new PantallaListados(ae);
 				JTable t = pl.getJTable();
 				t.setModel(new DefaultTableModel(sm.listaFacturas(),v));
 				pl.setJTable(t);
 				pl.setVisible(true);
 
 		} else if (action.equals("B")) {
-			pl = new PantallaListados();
+			pl = new PantallaListados(ae);
 			JTable t = pl.getJTable();
 			t.setModel(new DefaultTableModel(sm.listaFacturas(),v));
 			pl.setJTable(t);
