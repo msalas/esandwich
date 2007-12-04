@@ -68,13 +68,15 @@ public class ControladorPantallaDatosPersonales implements ActionListener {
 
       // Hem de pillar les dades de la pantalla via get's
       // I enviar-ho al model
-      Cliente cli = new Cliente();
       cli.setNombre(pdp.getJTextFieldNom().getText());
       cli.setApellido1(pdp.getJTextFieldCognoms().getText());
       cli.setDireccion(pdp.getJTextFieldAdreça().getText());
       cli.setEmail(pdp.getJTextFieldEMail().getText());
       cli.setMovil(pdp.getJTextFieldMobil().getText());
       cli.setTelefono(pdp.getJTextFieldTelefon().getText());
+      cli.setPoblacion(pdp.getJTextFieldPoblacio().getText());
+      cli.setTarjetaCredito(pdp.getJTextFieldNumTargCredit().getText());
+      cli.setPassword(pdp.getJPasswordFieldCContrasenya().getText());
 //      cli.set
       try {
         scrm.setU(cli);
@@ -98,6 +100,30 @@ public class ControladorPantallaDatosPersonales implements ActionListener {
       System.out.println("modificar");
 
       // Si apreten modificar hem de posar les dades al model
+      Cliente cli = new Cliente();
+      cli.setNombre(pdp.getJTextFieldNom().getText());
+      cli.setApellido1(pdp.getJTextFieldCognoms().getText());
+      cli.setDireccion(pdp.getJTextFieldAdreça().getText());
+      cli.setEmail(pdp.getJTextFieldEMail().getText());
+      cli.setMovil(pdp.getJTextFieldMobil().getText());
+      cli.setTelefono(pdp.getJTextFieldTelefon().getText());
+      cli.setPoblacion(pdp.getJTextFieldPoblacio().getText());
+      cli.setTarjetaCredito(pdp.getJTextFieldNumTargCredit().getText());
+      cli.setPassword(pdp.getJPasswordFieldCContrasenya().getText());
+      
+      try {
+        scrm.setU(cli);
+        
+      } catch (RemoteException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      } catch (errorConexionBD e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      } catch (errorSQL e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
 
     } else if (cmd.equals("cancelar")) {
       System.out.println("Cancelar");
