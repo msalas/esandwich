@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.*;
 
 import java.awt.event.*;
@@ -21,50 +23,37 @@ public class Servidor extends JFrame implements Aplicacion {
   private JButton           jButton1;
   private JButton           jButton2;
   private JLabel            jLabel1;
-  private ServidorModelo    sm;
+  private ControladorServidor cs = null;
+  
+
 
   public Servidor() {
 
-    try {
-      sm = new ServidorModelo();
-    } catch (RemoteException re) {
-      mostrarError("Error: S'ha produït una excepció remota: \n" + re,
-          "Error connexió");
-    } catch (errorConexionBD e) {
-    	mostrarError(e.getMessage(), "Error Base de Dades");
-      System.err.println("Error: " + e);
-    } catch (Exception e) {
-    	mostrarError("Error: S'ha produït una excepció general", "Error");
-      System.err.println("Error: " + e);
-    }
-
+	  cs = new ControladorServidor(this);
+	  
+    
     initComponents();
   }
 
   private void initComponents() {
-    jLabel1 = new JLabel();
+	this.setLocation(200, 200);
+	    
+	jLabel1 = new JLabel();
     jButton1 = new JButton();
     jButton2 = new JButton();
 
-    this.setLocation(200, 200);
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    setTitle("Gesti\u00f3 del servidor RMI de MySandwich");
-    jLabel1.setText("Pendent d'iniciar el servidor RMI de la PAC 3");
+    setTitle("Servidor RMI de MySandwich");
+    jLabel1.setText("Pendiente de iniciar el servidor RMI");
 
     jButton1.setText("Iniciar Servidor");
-    jButton1.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent evt) {
-        jButton1ActionPerformed(evt);
-      }
-    });
+    jButton1.setActionCommand("ISERV");
+    jButton1.addActionListener(cs);
 
-    jButton2.setText("Aturar Servidor");
+    jButton2.setText("Apagar Servidor");
     jButton2.setEnabled(false);
-    jButton2.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent evt) {
-        jButton2ActionPerformed(evt);
-      }
-    });
+    jButton2.setActionCommand("ASERV");
+    jButton2.addActionListener(cs);
 
     GroupLayout layout = new GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -88,49 +77,7 @@ public class Servidor extends JFrame implements Aplicacion {
             .addContainerGap(24, Short.MAX_VALUE)));
     pack();
   }
-
-  private void jButton2ActionPerformed(ActionEvent evt) {
-    try {
-      sm.apagarServidor();
-      jLabel1.setText("Servidor Aturat!");
-      jLabel1.setForeground(Color.RED);
-      jButton1.setEnabled(true);
-      jButton2.setEnabled(false);
-    } catch (MalformedURLException murle) {
-    	mostrarError("Error: URL del servidor incorrecte", "Error connexió");
-    } catch (NotBoundException nbe) {
-    	mostrarError("Error: Falta de referència de l'objecte en el registre",
-          "Error connexió");
-    } catch (RemoteException re) {
-    	mostrarError("Error: S'ha produït una excepció remota", "Error connexió");
-    } catch (Exception e) {
-    	mostrarError("Error: S'ha produït una excepció general", "Error");
-    }
-
-  }
-
-  private void jButton1ActionPerformed(ActionEvent evt) {
-
-    try {
-      sm.encenderServidor();
-      jLabel1.setText("Servidor Engegat!");
-      jLabel1.setForeground(Color.BLUE);
-      jButton1.setEnabled(false);
-      jButton2.setEnabled(true);
-
-    } catch (MalformedURLException murle) {
-      mostrarError("Error: URL del servidor incorrecte", "Error connexió");
-      System.err.println("Error: " + murle);
-    } catch (RemoteException re) {
-      mostrarError("Error: S'ha produït una excepció remota", "Error connexió");
-      System.err.println("Error: " + re);
-    } catch (Exception e) {
-      mostrarError("Error: S'ha produït una excepció general", "Error");
-      System.err.println("Error: " + e);
-    }
-
-  }
-
+ 
   
 	public int confirmacio(String mensaje, String titulo) {
 		return JOptionPane.showConfirmDialog(null,mensaje,titulo, JOptionPane.YES_NO_OPTION);
@@ -159,6 +106,30 @@ public static void main(String args[]) {
       new Servidor().setVisible(true);
     }
   });
+}
+
+public JButton getJButton1() {
+	return jButton1;
+}
+
+public void setJButton1(JButton button1) {
+	jButton1 = button1;
+}
+
+public JButton getJButton2() {
+	return jButton2;
+}
+
+public void setJButton2(JButton button2) {
+	jButton2 = button2;
+}
+
+public JLabel getJLabel1() {
+	return jLabel1;
+}
+
+public void setJLabel1(JLabel label1) {
+	jLabel1 = label1;
 }
 
 }
