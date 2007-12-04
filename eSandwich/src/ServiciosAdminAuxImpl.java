@@ -192,16 +192,10 @@ implements ServiciosRemotosAdminAux {
 		return idP;
 	}
 	
-	public int consultaProducto (int idProducto) throws errorSQL, errorConexionBD,
+	public Producto consultaProducto (int idProducto) throws errorSQL, errorConexionBD,
 	RemoteException {
-		int idP = idProducto;
-		try {
-			gp.consultaProducto(idProducto);
-		}
-		catch (errorSQL err) {
-			throw new errorSQL(err.getMessage());
-		}
-		return idP;
+		
+		return gp.consultaProducto(idProducto);
 	}
 	
 	public Vector<Producto> listaProductos() throws errorSQL, errorConexionBD{

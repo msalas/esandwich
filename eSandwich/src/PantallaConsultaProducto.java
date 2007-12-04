@@ -52,6 +52,11 @@ public class PantallaConsultaProducto extends JFrame {
 		initialize();
 	}
 
+	public PantallaConsultaProducto(
+			ControladorPantallaBuscarProducto controladorPantallaBuscarProducto) {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * This method initializes this
 	 * 
