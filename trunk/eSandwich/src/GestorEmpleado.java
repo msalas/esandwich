@@ -271,7 +271,9 @@ public class GestorEmpleado {
 			return Emp;
 		} 
 		catch (SQLException e) {
+			gd.rollback();
 			throw new GestorEmpleadoException("Error SQL numero: " + e.getErrorCode());			
+		
 		}
 	}
 	
