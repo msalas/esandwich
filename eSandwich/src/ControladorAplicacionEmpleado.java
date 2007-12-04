@@ -19,9 +19,9 @@ public class ControladorAplicacionEmpleado implements ActionListener {
     
     if (action.equals("IS")) new PantallaLogin(ae).setVisible(true);
     else if (action.equals("AE")) new PantallaAltaEmpleado(ae).setVisible(true);
-    else if (action.equals("ME")) new PantallaModificacionEmpleado(ae).setVisible(true);
-    else if (action.equals("BE")) new PantallaBajaEmpleado(ae).setVisible(true);
-    else if (action.equals("CE")) new PantallaConsultaEmpleado(ae).setVisible(true);
+    else if (action.equals("ME")) new PantallaBuscarEmpleado(ae, "ME").setVisible(true);
+    else if (action.equals("BE")) new PantallaBuscarEmpleado(ae, "BE").setVisible(true);
+    else if (action.equals("CE")) new PantallaBuscarEmpleado(ae, "CE").setVisible(true);
     else if (action.equals("BC")) new PantallaBajaCliente(ae).setVisible(true);
     else if (action.equals("CC")) new PantallaConsultaCliente(ae).setVisible(true);
     else if (action.equals("CSAN")) new PantallaCartaSandwich(ae).setVisible(true);
