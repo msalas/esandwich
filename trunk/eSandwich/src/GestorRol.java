@@ -74,6 +74,7 @@ public class GestorRol {
 				pRol = montaRol(rs);
 			}
 			else {
+				gd.rollback();
 				throw new GestorRolException("No existe rol");
 			}
 			rs.close();
@@ -110,6 +111,7 @@ public class GestorRol {
 				pRol = montaRol(rs);
 			}
 			else {
+				gd.rollback();
 				throw new GestorRolException("No existe rol");
 			}
 			rs.close();

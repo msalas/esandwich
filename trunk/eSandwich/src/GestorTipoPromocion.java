@@ -83,6 +83,7 @@ public class GestorTipoPromocion {
 				pTipProm = montaTipoPromocion(rs);				
 			}
 			else {
+				gd.rollback();
 				throw new GestorTipoPromocionException("No existe tipo promoción");
 			}
 			rs.close();
