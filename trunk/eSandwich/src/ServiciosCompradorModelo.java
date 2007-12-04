@@ -14,5 +14,10 @@ public class ServiciosCompradorModelo extends ServiciosAccesoModelo {
         .lookup("rmi://localhost:1099/ServiciosComprador");
 
   }
+  
+  public void editaUsuario(Usuario usu) throws errorConexionBD, errorSQL {
+    GestorCliente gcli = new GestorCliente();
+    gcli.editaCliente((Cliente)usu);
+  }
 
 }
