@@ -13,20 +13,13 @@ public class ServidorModelo {
   private ServiciosRemotosAcceso    sra;
 
   public ServidorModelo() throws errorConexionBD, RemoteException {
-
-  
-    scomp = new ServiciosCompradorImpl();
-    scoc = new ServiciosCocinaImpl();
-    sadaux = new ServiciosAdminAuxImpl();
-    sra = new ServiciosAccesoImpl();
-
     createRegistry(1099);
     // 1099 puerto utilizado por defecto por rmiregistry
 
   }
 
-  public void encenderServidor() throws RemoteException, MalformedURLException {
-
+  public void encenderServidor() throws RemoteException, MalformedURLException, errorConexionBD {
+	  iniciarServicios();
     // Publicamos todos los servicios en el servicio de nombres
     Naming.rebind("rmi://localhost/ServiciosComprador", scomp);
     Naming.rebind("rmi://localhost/ServiciosCocina", scoc);
@@ -72,4 +65,10 @@ public class ServidorModelo {
     }
   }
 
+  private void iniciarServicios() throws RemoteException, errorConexionBD{
+	  scomp = new ServiciosCompradorImpl();
+	    scoc = new ServiciosCocinaImpl();
+	    sadaux = new ServiciosAdminAuxImpl();
+	    sra = new ServiciosAccesoImpl();
+  }
 }

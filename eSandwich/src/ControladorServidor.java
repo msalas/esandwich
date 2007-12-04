@@ -44,7 +44,11 @@ public class ControladorServidor implements ActionListener {
 			} catch (RemoteException re) {
 				s.mostrarError("Error: Se ha producido una excepción remota: \n" + re,
 						"Error connexión");
-			} catch (Exception e) {
+			}catch (errorConexionBD e) {
+				s.mostrarError("Error: Conexion de Base de Datos" + e,
+						"Error connexión");
+			}
+			catch (Exception e) {
 				s.mostrarError("Error: Se ha producido una excepción general", "Error");
 			}
 
