@@ -1,8 +1,10 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collection;
+import java.util.Vector;
 
 
 
@@ -56,8 +58,8 @@ public class GestorIngredienteSandwich {
 		
 		
 		
-		sql="DELETE FROM ingrediente WHERE id-producto="+ingredienteSandwich.getIdSandwich()
-		                +" AND id-ingrediente="+ingredienteSandwich.getIdIngrediente()+";";
+		sql="DELETE FROM ingrediente WHERE id_producto="+ingredienteSandwich.getIdSandwich()
+		                +" AND id_ingrediente="+ingredienteSandwich.getIdIngrediente()+";";
 		
 		try {
 			st=con.createStatement();
@@ -67,10 +69,66 @@ public class GestorIngredienteSandwich {
 		}
 		
 	}
-	public Collection listaPorSandwich(){
+	public Collection listaIngredientePorSandwich(int idSandwich) throws errorConexionBD{
 		
-		// Se necesita la relación sandwich ingrediente en persistencia
-		return null;
+		if(gd.isConectado()) con = gd.getConexion();
+		else throw new errorConexionBD("No hay conexion!");
+		
+		Statement st=null;
+		ResultSet rs=null;
+		String sql="";
+		
+		
+		
+		Collection<IngredienteSandwich> cl=new Vector<IngredienteSandwich>();
+		sql="SELECT * FROM ingrediente WHERE id_producto="+idSandwich+";";
+		
+		try {
+			st=con.createStatement();
+			rs=st.executeQuery(sql);
+			
+			while (rs.next()){
+				IngredienteSandwich is=new IngredienteSandwich();
+				is.setIdSandwich(rs.getInt(1));
+				is.setIdIngrediente(rs.getInt(2));
+				is.setNombreIngrediente(rs.getString(3));
+				cl.add(is);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cl;
+		
+	}
+	
+	public Collection listaIngredientes() throws errorConexionBD{
+		
+		if(gd.isConectado()) con = gd.getConexion();
+		else throw new errorConexionBD("No hay conexion!");
+		
+		Statement st=null;
+	    ResultSet rs=null;
+		String sql="";
+	
+		
+		
+		Collection<String> cl=new Vector<String>();
+		sql="select p.descripcion from producto p,ingrediente i where p.id=i.id_ingrediente;"; ;
+		
+		
+		try {
+			st=con.createStatement();
+		    rs=st.executeQuery(sql);
+		
+			
+			while (rs.next()){
+		          cl.add(rs.getString(1));
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return cl;
 		
 	}
 

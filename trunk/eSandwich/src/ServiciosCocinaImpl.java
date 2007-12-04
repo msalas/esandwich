@@ -50,13 +50,14 @@ public class ServiciosCocinaImpl extends UnicastRemoteObject implements Servicio
 	}
 
 	public Collection listaCartaSandwich() throws errorConexionBD {
+		
 		GestorSandwich gs=new GestorSandwich();
 		return gs.lista();
 	}
 
-	public Collection listaPedidosPendientes() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection listaPedidosPendientes() throws errorConexionBD {
+		GestorIngredienteSandwich gis=new GestorIngredienteSandwich();
+		return gis.listaIngredientes();
 	}
 
 	public Collection listaTipoSandwich() throws errorConexionBD {
@@ -75,10 +76,23 @@ public class ServiciosCocinaImpl extends UnicastRemoteObject implements Servicio
 		return true;
 	}
 
-	public boolean modificacionTipoSandwich(TipoSandwich tipoSandwich) throws errorConexionBD {
+	public boolean eliminaTipoSandwich(String nombreTipoSandwich) throws errorConexionBD {
 		GestorTipoSandwich gts=new GestorTipoSandwich();
-		gts.guarda(tipoSandwich);
+		gts.elimina(nombreTipoSandwich);
 		return true;
 	}
+
+	public Collection listaIngredientesDisponibles() throws errorConexionBD, RemoteException {
+		GestorIngredienteSandwich gi=new GestorIngredienteSandwich();
+		return gi.listaIngredientes();
+		
+	}
+
+	public int devuelveIdTipoSandwich(String descripcion) throws errorConexionBD, RemoteException {
+		GestorTipoSandwich gts=new GestorTipoSandwich();
+		return gts.devuelveId(descripcion);
+	}
+	
+	
 
 }

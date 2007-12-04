@@ -10,7 +10,7 @@ public class Sandwich extends Producto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private TipoSandwich tipoSandwich;
-	private IngredienteSandwich []ingredienteSandwich;
+	private String []ingredienteSandwich;
 	private Date fechaBaja;
 	
 	
@@ -25,10 +25,10 @@ public class Sandwich extends Producto implements Serializable {
 	public void setFechaBaja(Date fechaBaja) {
 		this.fechaBaja = fechaBaja;
 	}
-	public IngredienteSandwich[] getIngredienteSandwich() {
+	public String[] getIngredienteSandwich() {
 		return ingredienteSandwich;
 	}
-	public void setIngredienteSandwich(IngredienteSandwich[] ingredienteSandwich) {
+	public void setIngredienteSandwich(String[] ingredienteSandwich) {
 		this.ingredienteSandwich = ingredienteSandwich;
 	}
 	public TipoSandwich getTipoSandwich() {

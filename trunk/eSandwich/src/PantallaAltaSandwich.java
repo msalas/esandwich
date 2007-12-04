@@ -6,11 +6,15 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.util.Vector;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JTable;
+import javax.swing.JList;
 
 public class PantallaAltaSandwich extends JDialog {
 
@@ -48,12 +52,17 @@ public class PantallaAltaSandwich extends JDialog {
 
 	private JTextArea jDescripcionTextArea = null;
 
-	private JTable jIngredientesTable = null;
-
 	private JButton jSuprimirButton = null;
 	
 	private AplicacionEmpleado aplicacionEmpleado=null;
     private ControladorPantallaAltaSandwich cPantallaAltaSandwich=null;
+
+	private JList jIngredientesList = null;
+
+	private JButton jAñadirIngredienteButton = null;
+	
+	Vector <String> v=new Vector<String>();
+	Vector <String> ingredientesSelec=new Vector<String>();
 
 	/**
 	 * @param owner
@@ -70,11 +79,22 @@ public class PantallaAltaSandwich extends JDialog {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(669, 464);
-		this.setContentPane(getJContentPane());
+		this.setSize(788, 464);
 		
 		cPantallaAltaSandwich=new ControladorPantallaAltaSandwich(this,aplicacionEmpleado);
+		this.setContentPane(getJContentPane());
+		
+		jAceptarButton.setActionCommand("aceptar");
 	    jAceptarButton.addActionListener(cPantallaAltaSandwich);
+	    
+	    jCancelarButton.setActionCommand("cancelar");
+		jCancelarButton.addActionListener(cPantallaAltaSandwich);
+
+		jSuprimirButton.setActionCommand("suprimir");
+		jCancelarButton.addActionListener(cPantallaAltaSandwich);
+		
+		jAñadirIngredienteButton.setActionCommand("añadir");
+        jAñadirIngredienteButton.addActionListener(cPantallaAltaSandwich);
 	}
 
 	/**
@@ -123,8 +143,9 @@ public class PantallaAltaSandwich extends JDialog {
 			jContentPane.add(getJTipoComboBox(), null);
 			jContentPane.add(getJIngredientesComboBox(), null);
 			jContentPane.add(getJDescripcionTextArea(), null);
-			jContentPane.add(getJIngredientesTable(), null);
 			jContentPane.add(getJSuprimirButton(), null);
+			jContentPane.add(getJIngredientesList(v), null);
+			jContentPane.add(getJAñadirIngredienteButton(), null);
 		}
 		return jContentPane;
 	}
@@ -134,7 +155,7 @@ public class PantallaAltaSandwich extends JDialog {
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getJAceptarButton() {
+	JButton getJAceptarButton() {
 		if (jAceptarButton == null) {
 			jAceptarButton = new JButton();
 			jAceptarButton.setBounds(new Rectangle(194, 337, 106, 21));
@@ -148,7 +169,7 @@ public class PantallaAltaSandwich extends JDialog {
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getJCancelarButton() {
+	 JButton getJCancelarButton() {
 		if (jCancelarButton == null) {
 			jCancelarButton = new JButton();
 			jCancelarButton.setBounds(new Rectangle(388, 337, 105, 22));
@@ -159,13 +180,15 @@ public class PantallaAltaSandwich extends JDialog {
 
 	/**
 	 * This method initializes jIdSandwichText	
+	 * 
 	 * 	
-	 * @return javax.swing.JTextField	
+	 * @return javax.swing.JTextField
 	 */
-	 JTextField getJIdSandwichText() {
+	  JTextField getJIdSandwichText() {
 		if (jIdSandwichText == null) {
 			jIdSandwichText = new JTextField();
 			jIdSandwichText.setBounds(new Rectangle(284, 91, 56, 20));
+			jIdSandwichText.setEditable(false);
 		}
 		return jIdSandwichText;
 	}
@@ -201,9 +224,12 @@ public class PantallaAltaSandwich extends JDialog {
 	 * 	
 	 * @return javax.swing.JComboBox	
 	 */
+	
       JComboBox getJTipoComboBox() {
 		if (jTipoComboBox == null) {
-			jTipoComboBox = new JComboBox();
+			Vector <String> tipos=new Vector <String>();
+			tipos=(Vector<String>) cPantallaAltaSandwich.getTiposSandwich();
+			jTipoComboBox = new JComboBox(tipos);
 			jTipoComboBox.setBounds(new Rectangle(284, 175, 142, 17));
 		}
 		return jTipoComboBox;
@@ -216,11 +242,23 @@ public class PantallaAltaSandwich extends JDialog {
 	 */
 	 JComboBox getJIngredientesComboBox() {
 		if (jIngredientesComboBox == null) {
-			jIngredientesComboBox = new JComboBox();
+			Vector <String> ingredientes=new Vector <String>();
+			ingredientes=(Vector<String>) cPantallaAltaSandwich.getIngredientes();
+			jIngredientesComboBox = new JComboBox(ingredientes);
+			
+			
+			
+			
 			jIngredientesComboBox.setBounds(new Rectangle(285, 208, 141, 17));
 		}
 		return jIngredientesComboBox;
 	}
+	 
+	/*public void  jIngredientesComboBoxActionPerformed(ActionEvent evt){
+		ingredientesSelec.addElement((String) jIngredientesComboBox.getSelectedItem());
+		jIngredientesList.setListData(ingredientesSelec);
+		
+	}*/
 
 	/**
 	 * This method initializes jDescripcionTextArea	
@@ -236,19 +274,6 @@ public class PantallaAltaSandwich extends JDialog {
 	}
 
 	/**
-	 * This method initializes jIngredientesTable	
-	 * 	
-	 * @return javax.swing.JTable	
-	 */
-	 JTable getJIngredientesTable() {
-		if (jIngredientesTable == null) {
-			jIngredientesTable = new JTable();
-			jIngredientesTable.setBounds(new Rectangle(513, 80, 94, 80));
-		}
-		return jIngredientesTable;
-	}
-
-	/**
 	 * This method initializes jSuprimirButton	
 	 * 	
 	 * @return javax.swing.JButton	
@@ -256,10 +281,38 @@ public class PantallaAltaSandwich extends JDialog {
 	 JButton getJSuprimirButton() {
 		if (jSuprimirButton == null) {
 			jSuprimirButton = new JButton();
-			jSuprimirButton.setBounds(new Rectangle(519, 183, 86, 21));
+			jSuprimirButton.setBounds(new Rectangle(623, 273, 86, 21));
 			jSuprimirButton.setText("Suprimir");
 		}
 		return jSuprimirButton;
+	}
+
+	/**
+	 * This method initializes jIngredientesList	
+	 * 	
+	 * @return javax.swing.JList	
+	 */
+	JList getJIngredientesList(Vector v) {
+		if (jIngredientesList == null) {
+			
+			jIngredientesList = new JList(v);
+			jIngredientesList.setBounds(new Rectangle(600, 120, 132, 135));
+		}
+		return jIngredientesList;
+	}
+
+	/**
+	 * This method initializes jAñadirIngredienteButton	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	JButton getJAñadirIngredienteButton() {
+		if (jAñadirIngredienteButton == null) {
+			jAñadirIngredienteButton = new JButton();
+			jAñadirIngredienteButton.setBounds(new Rectangle(466, 198, 103, 26));
+			jAñadirIngredienteButton.setText("Añade >>");
+		}
+		return jAñadirIngredienteButton;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
