@@ -82,6 +82,7 @@ public class GestorRol {
 			return pRol;
 		} 
 		catch (SQLException e) {
+			gd.rollback();
 			throw new GestorRolException("Error SQL numero: " + e.getErrorCode());			
 		}
 	}
@@ -117,6 +118,7 @@ public class GestorRol {
 			return pRol;
 		} 
 		catch (SQLException e) {
+			gd.rollback();
 			throw new GestorRolException("Error SQL numero: " + e.getErrorCode());			
 		}
 	}
@@ -147,6 +149,7 @@ public class GestorRol {
 			stmt.close();
 			gd.commit();
 		} catch (SQLException e) {
+			gd.rollback();
 			throw new errorSQL(e.toString());
 		}
 		return v;
@@ -181,14 +184,14 @@ public class GestorRol {
 	public static void main (String[] args) {
 		Rol pRol = new Rol();
 		
-		//pRol.setDescripcion("Admin");
-		//pRol.setLetraRol("A");
+		pRol.setDescripcion("Otro");
+		pRol.setLetraRol("O");
 		
 		try {
 			GestorRol gRol = new GestorRol();
 			try {
-				//gRol.addRol(pRol);
-				//pRol = gRol.consultaRol(1);
+				gRol.addRol(pRol);
+				pRol = gRol.consultaRol(1);
 				pRol = gRol.consultaRolDescripcion("AdAux");
 				System.out.println(pRol.getId());
 				System.out.println(pRol.getDescripcion());

@@ -192,6 +192,7 @@ public class GestorProducto {
 			return existeProducto;
 		} 
 		catch (SQLException e) {
+			gd.rollback();
 			throw new errorSQL(e.toString());
 		}
 	}

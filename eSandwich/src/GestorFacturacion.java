@@ -162,6 +162,7 @@ public class GestorFacturacion {
 			return existeFactura;
 		} 
 		catch (SQLException e) {
+			gd.rollback();
 			throw new errorSQL(e.toString());
 		}
 	}	

@@ -155,6 +155,7 @@ public class GestorFamiliaProd {
 			return existeFamilia;
 		} 
 		catch (SQLException e) {
+			gd.rollback();
 			throw new errorSQL(e.toString());
 		}
 	}
