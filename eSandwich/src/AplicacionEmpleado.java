@@ -112,14 +112,17 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 			sm = new ServiciosAccesoModelo();
 
 		} catch (MalformedURLException e) {
-			mostrarError(e.getMessage(), "");
-			//e.printStackTrace();
+			mostrarError("Error: URL del servidor incorrecta",
+			"Error connexión");
+			System.exit(0);
 		} catch (RemoteException e) {
-			mostrarError(e.getMessage(), "");
-			//e.printStackTrace();
+			//mostrarError("Error: Se ha producido una excepción remota: \n" + re,
+			//"Error connexión");
+			mostrarError(e.getMessage(), "Error remoto");
+			System.exit(0);
 		} catch (NotBoundException e) {
-			mostrarError(e.getMessage(), "");
-			//e.printStackTrace();
+			mostrarError("No se puede acceder a los servicios remotos", "Servidor no encendido");
+			System.exit(0);
 		} 
 		
 		// Inicializamos controlador para acciones del menu

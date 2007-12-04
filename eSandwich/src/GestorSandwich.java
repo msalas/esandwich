@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -70,26 +71,67 @@ public class GestorSandwich {
 		else throw new errorConexionBD("No hay conexion!");
 		
 		PreparedStatement ps=null;
+		ResultSet rs=null;
 		String sql="";
+		int id=0;
+		GestorTipoSandwich gts=new GestorTipoSandwich();
 		
 		
-		
-		
-		sql="INSERT INTO sandwich VALUES (?,?,?,?,?);";
+		//MODIFICADO
+		sql="INSERT INTO producto(descripcion,descripcion_ampliada,existencias, id_familia" +
+				",precio)  VALUES (?,?,?,?,?) RETURNING id; ";
 		
 		try {
 			ps=con.prepareStatement(sql);
-			ps.setInt(1, sandwich.getIdProducto());
-			ps.setString(2, sandwich.getDescripcion());
-			ps.setFloat(3,sandwich.getPrecio());
-			ps.setInt(4, (sandwich.getTipoSandwich()).getId());
-			ps.setDate(5, new java.sql.Date((sandwich.getFechaBaja()).getTime()));
 			
-			ps.executeUpdate();
+			//ps.setInt(1, sandwich.getIdProducto());
+			ps.setString(1, sandwich.getDescripcion());
+			ps.setString(2, sandwich.getDescripcionAmpliada());
+			ps.setInt(3, 1);
+			ps.setInt(4,1);
+			ps.setFloat(5, sandwich.getPrecio());
+			//ps.setDate(4, new java.sql.Date((sandwich.getFechaBaja()).getTime()));
+			
+			rs=ps.executeQuery();
+			
+			if (rs.next()) id = rs.getInt(1);
+			rs.close();
+			ps.close();
+			
 		} catch (SQLException e) {
 	
 			e.printStackTrace();
 		}
+		
+		sql="INSERT INTO sandwich(id, nombre, id_tipo_sandwich, fecha_baja) VALUES (?, ?, ?, ?);";
+		Date dt=sandwich.getFechaBaja();
+		try {
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, id);
+			ps.setString(2, sandwich.getDescripcion());
+			ps.setInt(3, (gts.devuelveId(sandwich.getTipoSandwich().getDescripcion())));
+			if (dt!=null){
+				ps.setDate(4, new java.sql.Date((sandwich.getFechaBaja()).getTime()));
+			}else{
+				ps.setDate(4,null);
+			}
+			
+			
+			
+			ps.executeUpdate();
+			
+			rs.close();
+			ps.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+	
 		
 		
 		
@@ -136,17 +178,22 @@ public class GestorSandwich {
 		Collection<Sandwich> cl=new Vector<Sandwich>();
 		sql="SELECT * FROM sandwich";
 		GestorTipoSandwich gts=new GestorTipoSandwich();
+		
 		try {
 			st=con.createStatement();
 			rs=st.executeQuery(sql);
 			
 			while (rs.next()){
 				Sandwich sa=new Sandwich();
+				Date dt=sa.getFechaBaja();
 				sa.setIdProducto(rs.getInt(1));
 				sa.setDescripcion(rs.getString(2));
-				sa.setPrecio(rs.getFloat(3));
-				sa.setTipoSandwich(gts.leePorId(rs.getInt(4)));
-				sa.setFechaBaja(rs.getDate(5));
+				sa.setTipoSandwich(gts.leePorId(rs.getInt(3)));
+				if (dt!=null){
+				sa.setFechaBaja(rs.getDate(4));
+				}else{
+					sa.setFechaBaja(null);
+				}
 				cl.add(sa);
 			}
 		} catch (SQLException e) {
@@ -169,7 +216,7 @@ public class GestorSandwich {
 		
 		
 		Collection<Sandwich> cl=new Vector<Sandwich>();
-		sql="SELECT * FROM tiposandwich WHERE descripcion='"+tipoSandwich+"';";
+		sql="SELECT * FROM tipo_sandwich WHERE descripcion='"+tipoSandwich+"';";
 		GestorTipoSandwich gts=new GestorTipoSandwich();
 		try {
 			st=con.createStatement();
@@ -197,19 +244,23 @@ public class GestorSandwich {
     	GestorSandwich gs=new GestorSandwich();
     	GestorTipoSandwich gts=new GestorTipoSandwich();
     	Sandwich sa=new Sandwich();
-    	sa.setIdProducto(1001);
-    	sa.setDescripcion("bigmac");
+    	//sa.setIdProducto(20);
+    	sa.setDescripcion("superbigmac8");
+    	sa.setDescripcionAmpliada("Un gran sandwich, pero no tanto como los de mi abuela");
+    	
     	sa.setPrecio(20.50f);
-    	sa.setTipoSandwich(gts.leePorId(30));
+    	sa.setTipoSandwich(gts.leePorId(2));
     	sa.setFechaBaja(new java.sql.Date(2007,11,23));
     	//gs.guarda(sa);
     	
     	
-    	Collection cn=gs.lista();
-		Iterator it=cn.iterator();
-		while (it.hasNext()){
-			System.out.println(it.next());
-		}
+    	//Collection cn=gs.lista();
+		//Iterator it=cn.iterator();
+		//while (it.hasNext()){
+		//	System.out.println(it.next());
+		//}
+    	
+    	gs.guarda(sa);
     	
     }
 

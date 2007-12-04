@@ -10,8 +10,18 @@ public class IngredienteSandwich implements Serializable {
 	
 	private int idSandwich;
 	private int idIngrediente;
+	private String nombreIngrediente;
 	
 	
+	
+	
+	
+	public String getNombreIngrediente() {
+		return nombreIngrediente;
+	}
+	public void setNombreIngrediente(String nombreIngrediente) {
+		this.nombreIngrediente = nombreIngrediente;
+	}
 	public int getIdIngrediente() {
 		return idIngrediente;
 	}

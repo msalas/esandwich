@@ -10,6 +10,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 
 
 
@@ -45,7 +48,7 @@ public class GestorTipoSandwich {
 		
 		
 		
-		sql="SELECT * FROM tiposandwich WHERE id="+id+";";
+		sql="SELECT * FROM tipo_sandwich WHERE id="+id+";";
 		TipoSandwich ts=new TipoSandwich();
 		
 		try {
@@ -75,19 +78,37 @@ public class GestorTipoSandwich {
 		else throw new errorConexionBD("No hay conexion!");
 		
 		PreparedStatement ps=null;
+		Statement st=null;
+		ResultSet rs=null;
 		String sql="";
-		
+		int id=0;
 		
 		
 		Date dt=tipoSandwich.getFechaBaja();
-		sql="INSERT INTO tiposandwich VALUES (?,?,?);";
+		sql="INSERT INTO tipo_sandwich (descripcion,fecha_baja) VALUES (?,?) RETURNING id;";
 		
 		try {
 			ps=con.prepareStatement(sql);
-			ps.setInt(1, tipoSandwich.getId());
-			ps.setString(2, tipoSandwich.getDescripcion());
-			ps.setDate(3,new java.sql.Date(dt.getTime()));
-			ps.executeUpdate();
+			ps.setString(1, tipoSandwich.getDescripcion());
+			if (dt!=null){
+				ps.setDate(2,new java.sql.Date(dt.getTime()));
+			}else{
+				ps.setDate(2,null);
+			}
+			
+			rs=ps.executeQuery();
+			
+			
+		
+			
+			if (rs.next()) id = rs.getInt(1);
+			rs.close();
+			
+		
+			
+			
+				
+			
 		} catch (SQLException e) {
 	
 			e.printStackTrace();
@@ -96,22 +117,42 @@ public class GestorTipoSandwich {
 		
 	}
 	
-	public void elimina(TipoSandwich tipoSandwich) throws errorConexionBD{
+	public void elimina(String nombreTipoSandwich) throws errorConexionBD{
 		
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
 		
 		Statement st=null;
-		String sql="";
+		ResultSet rs=null;
+		String sql1="";
+		String sql2="";
+		String sql3="";
+		
+		int id=0;
 		
 		
 		
 		
-		sql="DELETE FROM tiposandwich WHERE id="+tipoSandwich.getId()+";";
+		sql1="SELECT id FROM tipo_sandwich WHERE descripcion='"+nombreTipoSandwich+"';";
+		sql2="DELETE FROM sandwich WHERE id_tipo_sandwich="+id+";";
+		sql3="DELETE FROM tipo_sandwich WHERE descripcion='"+nombreTipoSandwich+"';";
 		
 		try {
 			st=con.createStatement();
-			st.executeUpdate(sql);
+			//rs=st.executeQuery(sql1);
+			//while (rs.next()){
+			//	id=rs.getInt(1);
+			//}
+			
+			//System.out.println("id:"+id);
+			//st=con.createStatement();
+			//st.execute(sql2);
+			//rs.close();
+			//st.close();
+			
+			//st=con.createStatement();
+			st.executeUpdate(sql3);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -122,7 +163,7 @@ public class GestorTipoSandwich {
 	}
 	
 	public Collection lista() throws errorConexionBD{
-		
+		System.out.println("GestorTipoSandwich");
 		if(gd.isConectado()) con = gd.getConexion();
 		else throw new errorConexionBD("No hay conexion!");
 		
@@ -133,7 +174,7 @@ public class GestorTipoSandwich {
 		
 		
 		Collection<TipoSandwich> cl=new Vector<TipoSandwich>();
-		sql="SELECT * FROM tiposandwich";
+		sql="SELECT * FROM tipo_sandwich";
 		
 		try {
 			st=con.createStatement();
@@ -167,7 +208,7 @@ public class GestorTipoSandwich {
 		
 		
 		Collection<TipoSandwich> cl=new Vector<TipoSandwich>();
-		sql="SELECT * FROM tiposandwich WHERE descripcion='"+nombre+"';";
+		sql="SELECT * FROM tipo_sandwich WHERE descripcion='"+nombre+"';";
 		
 		try {
 			st=con.createStatement();
@@ -189,20 +230,57 @@ public class GestorTipoSandwich {
 		
 	}
 	
+	public int devuelveId(String descripcion) throws errorConexionBD{
+		int id=0;
+		
+		if(gd.isConectado()) con = gd.getConexion();
+		else throw new errorConexionBD("No hay conexion!");
+		
+		Statement st=null;
+		ResultSet rs=null;
+		String sql="";
+		
+		
+		sql="SELECT id FROM tipo_sandwich WHERE descripcion='"+descripcion+"';";
+		
+		try {
+			st=con.createStatement();
+			rs=st.executeQuery(sql);
+			
+			while (rs.next()){
+				
+				id=rs.getInt(1);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return id;
+		
+	}
+	
+	
+	
+	
 	@SuppressWarnings("deprecation")
 	public static void main(String[] arg) throws errorConexionBD, ParseException{
 		
 		GestorTipoSandwich gts=new GestorTipoSandwich();
-		TipoSandwich ts=new TipoSandwich();
-		ts.setId(70);
-		ts.setDescripcion("prueba1");
-		ts.setFechaBaja(new java.sql.Date(2007,11,21));
+		//TipoSandwich ts=new TipoSandwich();
 		
-		Collection cn=gts.lista();
-		Iterator it=cn.iterator();
-		while (it.hasNext()){
-			System.out.println(it.next());
-		}
+		//ts.setDescripcion("vamos a ver ahora");
+		//ts.setFechaBaja(new java.sql.Date(2007,11,10));
+		
+		//Collection cn=gts.lista();
+		//Iterator it=cn.iterator();
+		//while (it.hasNext()){
+		//	System.out.println(it.next());
+		//}
+		
+		gts.elimina("hola");
 		
 		
 		
@@ -212,6 +290,8 @@ public class GestorTipoSandwich {
 		
 		
 	}
+	
+	
 	
 	
 	

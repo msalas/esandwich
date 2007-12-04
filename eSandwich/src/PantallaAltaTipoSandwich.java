@@ -31,6 +31,8 @@ public class PantallaAltaTipoSandwich extends JDialog {
 	
 	private AplicacionEmpleado aplicacionEmpleado=null;
     private ControladorPantallaAltaTipoSandwich cPantallaAltaTipoSandwich=null;
+    
+    
 	/**
 	 * @param owner
 	 */
@@ -47,6 +49,7 @@ public class PantallaAltaTipoSandwich extends JDialog {
 	 */
 	private void initialize() {
 		this.setSize(551, 269);
+		this.setVisible(false);
 		this.setSize(new Dimension(768, 509));
 		this.setContentPane(getJContentPane());
 		
@@ -96,6 +99,8 @@ public class PantallaAltaTipoSandwich extends JDialog {
 		if (jIdentificadorTextField == null) {
 			jIdentificadorTextField = new JTextField();
 			jIdentificadorTextField.setBounds(new Rectangle(276, 60, 61, 20));
+			jIdentificadorTextField.setEditable(false);
+			jIdentificadorTextField.setVisible(true);
 			jIdentificadorTextField.setBounds(new Rectangle(256, 164, 61, 20));
 		}
 		return jIdentificadorTextField;
@@ -144,5 +149,7 @@ public class PantallaAltaTipoSandwich extends JDialog {
 		}
 		return jCancelarButton;
 	}
+	
+	
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
