@@ -10,7 +10,6 @@ public class ControladorPantallaAltaSandwich implements ActionListener {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 

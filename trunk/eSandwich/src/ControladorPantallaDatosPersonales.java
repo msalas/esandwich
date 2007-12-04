@@ -57,7 +57,7 @@ public class ControladorPantallaDatosPersonales implements ActionListener {
 
   }
 
-  public void actionPerformed(ActionEvent arg0) throws RemoteException, errorConexionBD, errorSQL {
+  public void actionPerformed(ActionEvent arg0) {
     System.out.println("ControladorPantallaDatosPersonales.actionPerformed");
 
     String cmd = arg0.getActionCommand();
@@ -76,7 +76,19 @@ public class ControladorPantallaDatosPersonales implements ActionListener {
       cli.setMovil(pdp.getJTextFieldMobil().getText());
       cli.setTelefono(pdp.getJTextFieldTelefon().getText());
 //      cli.set
-      scrm.setU(cli);
+      try {
+        scrm.setU(cli);
+        
+      } catch (RemoteException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      } catch (errorConexionBD e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      } catch (errorSQL e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
       
       // I el model ens torna el codi usuari, que l'hem de mostrar per pantalla
       // Per exemple fent mostrarInformacion passantli el codi usuari
