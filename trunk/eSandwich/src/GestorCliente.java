@@ -259,6 +259,7 @@ public class GestorCliente {
 			stmt.close();
 			gd.commit();
 		} catch (SQLException e) {
+			gd.rollback();
 			throw new errorSQL(e.toString());
 		}
 		return v;

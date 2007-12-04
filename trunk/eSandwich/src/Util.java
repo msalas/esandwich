@@ -85,7 +85,7 @@ public class Util {
 
 	public static boolean IsNumeric(String s){
 		for(int i=0;i<s.length();i++){
-			if(s.charAt(i) < '0' || s.charAt(i)> '9' ){
+			if((s.charAt(i) < '0' || s.charAt(i)> '9') && (s.charAt(i) != '.')){
 				return false;
 			}
 		}

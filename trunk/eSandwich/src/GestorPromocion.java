@@ -140,6 +140,7 @@ public class GestorPromocion {
 			gd.commit();			
 		} 
 		catch (SQLException e) {
+			gd.rollback();
 			throw new GestorPromocionException("Error SQL numero: " + e.getErrorCode());			
 		}
 		return pProm;
@@ -189,6 +190,7 @@ public class GestorPromocion {
 			stmt.close();
 			gd.commit();
 		} catch (SQLException e) {
+			gd.rollback();
 			throw new errorSQL(e.toString());
 		}
 		return v;
@@ -226,7 +228,7 @@ public class GestorPromocion {
 		gd.cerrarConexion();	
 	}
 
-	/*public static void main (String[] args) {
+	public static void main (String[] args) {
 		Promocion Prom = new Promocion();
 		GestorPromocion gProm = null;
 		Vector v;
@@ -236,6 +238,7 @@ public class GestorPromocion {
 		try {
 			gProm = new GestorPromocion();
 			try {
+				// Ha de existir idTipoPromoción, idSandwich, idProducto:				
 				Prom.setIdTipoPromocion(1);
 				Prom.setIdSandwich(1);
 				Prom.setIdProducto(1);
@@ -244,12 +247,12 @@ public class GestorPromocion {
 				idAux = gProm.addPromocion(Prom);
 				Prom.setId(idAux);				
 				Prom = gProm.consultaPromocion(Prom.getId());				
-				//System.out.println(Prom.toString());
+				System.out.println(Prom.toString());
 				
 				Prom.setValor(150);
 				gProm.setPromocion(Prom);
 				Prom = gProm.consultaPromocion(Prom.getId());
-				//System.out.println(Prom.toString());
+				System.out.println(Prom.toString());
 				
 				
 				Prom.setPuntosMinimos(35);
@@ -275,7 +278,7 @@ public class GestorPromocion {
 			System.out.println(e.getMessage());
 		}
 		
-	} */  
+	}   
 	
 	
 }

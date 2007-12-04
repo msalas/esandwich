@@ -90,6 +90,7 @@ public class GestorTipoPromocion {
 			gd.commit();			
 		} 
 		catch (SQLException e) {
+			gd.rollback();
 			throw new GestorTipoPromocionException("Error SQL numero: " + e.getErrorCode());			
 		}
 		return pTipProm;
@@ -162,6 +163,7 @@ public class GestorTipoPromocion {
 			stmt.close();
 			gd.commit();
 		} catch (SQLException e) {
+			gd.rollback();
 			throw new errorSQL(e.toString());
 		}
 		return v;
@@ -189,7 +191,7 @@ public class GestorTipoPromocion {
 		gd.cerrarConexion();	
 	}
 
-/*	public static void main (String[] args) {
+	public static void main (String[] args) {
 		TipoPromocion tProm = new TipoPromocion();
 		GestorTipoPromocion gTipProm = null;
 		int idAux = 0;
@@ -237,7 +239,7 @@ public class GestorTipoPromocion {
 			System.out.println(e.getMessage());
 		}
 		
-	} */  
+	} 
 	
 	
 }

@@ -309,6 +309,7 @@ public class GestorEmpleado {
 			return existeAux;
 		} 
 		catch (SQLException e) {
+			gd.rollback();
 			throw new GestorEmpleadoException("Error SQL numero: " + e.getErrorCode());			
 		}
 	}
@@ -376,6 +377,7 @@ public class GestorEmpleado {
 			stmt.close();
 			gd.commit();
 		} catch (SQLException e) {
+			gd.rollback();
 			throw new errorSQL(e.toString());
 		}
 		return v;
@@ -465,7 +467,7 @@ public class GestorEmpleado {
 		gd.cerrarConexion();	
 	}
 	
-/*	public static void main (String[] args) {
+	public static void main (String[] args) {
 		Empleado pEmpleado = new Empleado();		
 		Rol pRol = new Rol();
 		GestorEmpleado gEmpl = null;
@@ -481,7 +483,7 @@ public class GestorEmpleado {
 		catch (errorConexionBD e) {
 			System.out.println(e.getMessage());
 		}
-		pEmpleado.setNif("59994999N");
+		pEmpleado.setNif("59999009N");
 		pEmpleado.setNombre("Eruka");
 		pEmpleado.setApellido1("Java");
 		pEmpleado.setApellido2("Dificil");
@@ -492,12 +494,12 @@ public class GestorEmpleado {
 		pEmpleado.setEmail("email 2");
 		pEmpleado.setPassword("123410");
 		pEmpleado.setDesactivado(false);
-//		pEmpleado.setRol(pRol);
+		pEmpleado.setRol(pRol);
 		
 		try {
 			gEmpl = new GestorEmpleado();
 			try {
-				if (!gEmpl.existeNif(pEmpleado.getNif())) {
+				if (!gEmpl.existeNif(pEmpleado.getNif(),pEmpleado.getId())) {
 					pEmpleado = gEmpl.addEmpleado(pEmpleado);
 				}
 				else {
@@ -506,13 +508,22 @@ public class GestorEmpleado {
 				pEmpleado = gEmpl.consultaEmpleado(pEmpleado.getId());
 				System.out.println(pEmpleado.getCodUsuario());
 				
-				pEmpleado.setFechaBaja(new java.util.Date());
-				gEmpl.setEmpleado(pEmpleado);
-
-				Vector v = gEmpl.lista(1, null, null, null);
+				Vector v = gEmpl.lista(1, "", "", "");
 				int x;
 				for (x=0;x<v.size();x++)
 					System.out.println((v.elementAt(x)).toString());
+				
+				pEmpleado.setNif("59994999N");
+				gEmpl.setEmpleado(pEmpleado);
+				v = gEmpl.lista(1, "", "", "");
+				for (x=0;x<v.size();x++)
+					System.out.println((v.elementAt(x)).toString());
+
+				gEmpl.eliminaEmpleado(pEmpleado);
+				v = gEmpl.lista(1, "", "", "");
+				for (x=0;x<v.size();x++)
+					System.out.println((v.elementAt(x)).toString());
+
 				
 				gEmpl.liberarRecursos();
 			}
@@ -525,5 +536,5 @@ public class GestorEmpleado {
 		}
 		
 	}   
-*/
+
 }
