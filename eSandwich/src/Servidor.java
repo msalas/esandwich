@@ -37,7 +37,7 @@ public class Servidor extends JFrame implements Aplicacion {
 
   private void initComponents() {
 	this.setLocation(200, 200);
-	    
+	 setResizable(false);   
 	jLabel1 = new JLabel();
     jButton1 = new JButton();
     jButton2 = new JButton();

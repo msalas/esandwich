@@ -1,23 +1,27 @@
 import java.awt.BorderLayout;
+
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import javax.swing.JTable;
 import java.awt.Rectangle;
 
-public class PantallaListados extends JFrame {
+public class PantallaListados extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
+	// Se deberia realizar con JScrollPane
 	private JPanel jContentPane = null;
 
 	private JTable jTable = null;
 
 	/**
 	 * This is the default constructor
+	 * @param ae 
 	 */
-	public PantallaListados() {
-		super();
+	public PantallaListados(AplicacionEmpleado ae) {
+		super(ae,"Listado",true);
 		initialize();
 	}
 
@@ -29,7 +33,7 @@ public class PantallaListados extends JFrame {
 	private void initialize() {
 		this.setSize(492, 337);
 		this.setContentPane(getJContentPane());
-		this.setTitle("Listado");
+
 	}
 
 	/**
@@ -37,11 +41,12 @@ public class PantallaListados extends JFrame {
 	 * 
 	 * @return javax.swing.JPanel
 	 */
-	private JPanel getJContentPane() {
+	public JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			jContentPane.add(getJTable(), null);
+			
 		}
 		return jContentPane;
 	}

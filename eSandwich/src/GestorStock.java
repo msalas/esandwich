@@ -28,9 +28,9 @@ public class GestorStock {
 		ResultSet rs = null;
 		try {
 			stmt = con.createStatement();
-			rs = stmt.executeQuery("SELECT producto.existencias from producto");
+			rs = stmt.executeQuery("SELECT * from producto");
 			while(rs.next()){
-				p= new Producto(rs.getInt(1));
+				p= new Producto(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getInt(4),rs.getFloat(4));
 				v.add(p);
 			}
 			rs.close();
@@ -50,10 +50,10 @@ public class GestorStock {
 		Statement stmt = null;
 		try {
 			stmt = con.createStatement();
-			String s = "SELECT producto.existencias FROM producto WHERE producto.id_familia="+idFamilia;
+			String s = "SELECT * FROM producto WHERE producto.id_familia="+idFamilia;
 			ResultSet rs = stmt.executeQuery(s);
 			while(rs.next()){
-				p = new Producto(rs.getInt(1));
+				p= new Producto(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getInt(4),rs.getFloat(4));
 				v.add(p);
 			}
 				
