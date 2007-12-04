@@ -20,7 +20,8 @@ public class ControladorAplicacionComprador implements ActionListener {
 
     } else if (action.equals("CS")) {// Cerrar sesion
       System.out.println("Cerrar sesión");
-      ac.setMenuNoRegistrado();
+      int a = ac.confirmacio("Estas seguro que quiere cerrar la sesión?", "Cerrar Sesión");
+      if(a==0) ac.setMenuNoRegistrado();
 
     } else if (action.equals("AR")) {// Alta registro
       System.out.println("Alta registro");

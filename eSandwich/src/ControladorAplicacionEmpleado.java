@@ -45,8 +45,9 @@ public class ControladorAplicacionEmpleado implements ActionListener {
     else if (action.equals("APRO")) new PantallaAltaPromocion(ae).setVisible(true);
     else if (action.equals("BPRO")) new PantallaBajaPromocion(ae).setVisible(true);
     else if (action.equals("CS")) {
-    	ae.confirmacio("Estas seguro que quiere cerrar la sesión?", "Cerrar Sesión");
+    	int a = ae.confirmacio("Estas seguro que quiere cerrar la sesión?", "Cerrar Sesión");
     	// Falta hacer el logout
+    	if (a==0)ae.setMenuBasico();
     }
     else;
     
