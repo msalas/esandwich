@@ -397,7 +397,7 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 	private JMenuItem getJMenuItemLogout() {
 		if (jMenuItemLogout == null) {
 			jMenuItemLogout = new JMenuItem();
-			jMenuItemLogout.setText("Cerrar Sessión");
+			jMenuItemLogout.setText("Cerrar Sesión");
 		}
 		return jMenuItemLogout;
 	}

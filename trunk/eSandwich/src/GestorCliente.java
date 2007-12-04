@@ -103,6 +103,7 @@ public class GestorCliente {
       rs.close();
 
     } catch (SQLException e) {
+    	gd.rollback();
       throw new errorSQL(e.toString());
 
     }
