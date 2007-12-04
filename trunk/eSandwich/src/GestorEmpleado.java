@@ -351,8 +351,7 @@ public class GestorEmpleado {
 				+ "desactivado,id_rol "
 				+ "FROM persona,usuario,empleado "
 				+ "WHERE empleado.cod_empleado = usuario.cod_usuario AND "
-				+ "empleado.cod_empleado = persona.id AND "
-				+ "desactivado = false "
+				+ "empleado.cod_empleado = persona.id "
 				+ strConsulta
 				+ "ORDER BY nif";
 		
