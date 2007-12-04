@@ -19,11 +19,11 @@ public class ControladorPantallaConsultaEmpleado implements ActionListener {
 		this.ae = ae;
 	}
 
-	public void consulta() {
+	public void consulta(int idReg) {
 		Empleado empP;
 		try {
 			scrm = (ServiciosAdAuxModelo) ae.getSm();
-			empP = scrm.consulEmpleado(1);
+			empP = scrm.consulEmpleado(idReg);
 			idAux = empP.getId();
 			rolAux = empP.getRol();
 			Pe.entraCampos(empP);

@@ -57,10 +57,12 @@ public class PantallaConsultaEmpleado extends JDialog {
 	private Empleado emp = null; 	
 	private AplicacionEmpleado ae;
 	private ControladorPantallaConsultaEmpleado cpl = null;
+	private int idRegAux;
 	
-	public PantallaConsultaEmpleado(AplicacionEmpleado ae) {
+	public PantallaConsultaEmpleado(AplicacionEmpleado ae,int idRegistro) {
 		super(ae,"Consulta Empleado",true);
 		this.ae = ae;
+		idRegAux = idRegistro;
 		initialize();
 	}
 
@@ -77,7 +79,7 @@ public class PantallaConsultaEmpleado extends JDialog {
 		// Para centrar pantalla
 		this.setLocationRelativeTo(null);
 		cpl = new ControladorPantallaConsultaEmpleado(this,ae);
-		cpl.consulta();		
+		cpl.consulta(idRegAux);		
 	}
 
 	/**

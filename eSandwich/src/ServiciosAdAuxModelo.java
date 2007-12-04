@@ -41,6 +41,15 @@ public class ServiciosAdAuxModelo extends ServiciosAccesoModelo {
 		sraa.modEmpleado(Emp);
 	}
 	
+	public void borrarEmpleado (Empleado Emp) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
+		sraa.borraEmpleado(Emp);
+	}
+	
+	public Vector <Empleado> listEmpleados(int pIdRol, String pNif, String pNombre, String pApellido1) throws errorConexionBD, errorSQL, 
+	MalformedURLException, RemoteException, NotBoundException {
+		return sraa.listaEmpleados(pIdRol, pNif, pNombre, pApellido1);
+	}
+	
 	public void nuevoProducto(Producto p) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
 		sraa.añadirProducto(p);
 	}

@@ -19,11 +19,11 @@ public class ControladorPantallaModificacionEmpleado implements ActionListener {
 		this.ae = ae;
 	}
 
-	public void consulta() {
+	public void consulta(int idReg) {
 		Empleado empP;
 		try {
 			scrm = (ServiciosAdAuxModelo) ae.getSm();
-			empP = scrm.consulEmpleado(1);
+			empP = scrm.consulEmpleado(idReg);
 			idAux = empP.getId();
 			rolAux = empP.getRol();
 			Pe.entraCampos(empP);
@@ -69,7 +69,7 @@ public class ControladorPantallaModificacionEmpleado implements ActionListener {
 				scrm.modificaEmpleado(emp);
 				ae.setSm(scrm);
 				//ae.mostrarInformacion("Modificacion realizada", "Empleados");
-				Pe.iniCampos();
+				Pe.dispose();
 			}catch (MalformedURLException e) {
 				ae.mostrarError(e.getMessage(),"Error Url");
 			} catch (RemoteException e) {

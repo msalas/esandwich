@@ -10,6 +10,12 @@ public interface ServiciosRemotosAdminAux extends ServiciosRemotos {
   public Vector <String> listaDescripcionesRol() throws errorSQL, errorConexionBD,
 	RemoteException;
   
+  public void borraEmpleado(Empleado pEmpleado) throws errorSQL, 
+	errorConexionBD, RemoteException;
+
+  public Vector <Empleado> listaEmpleados(int pIdRol, String pNif, String pNombre, String pApellido1) throws errorSQL, errorConexionBD,
+	RemoteException;  
+  
   public Rol consultaRol_por_Desc(String pDescripcion) throws errorSQL, errorConexionBD,
 	RemoteException;
   

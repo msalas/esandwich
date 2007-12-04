@@ -6,27 +6,21 @@ import java.rmi.RemoteException;
 
 
 
-public class ControladorPantallaBajaEmpleado implements ActionListener {
+public class ControladorPantallaBuscarEmpleado implements ActionListener {
 	private static final long serialVersionUID = 1L;
-	PantallaBajaEmpleado Pe;
+	PantallaBuscarEmpleado Pe;
 	AplicacionEmpleado ae = null;
-	ServiciosAdAuxModelo scrm = null;
-	private int idAux = 0;
-	private Rol rolAux = null;
+	ServiciosAdAuxModelo scrm = null; 
 	
-	public ControladorPantallaBajaEmpleado(PantallaBajaEmpleado pModEmp, AplicacionEmpleado ae) {
-		Pe = pModEmp;	
+	public ControladorPantallaBuscarEmpleado(PantallaBuscarEmpleado pBusEmp, AplicacionEmpleado ae) {
+		Pe = pBusEmp;	
 		this.ae = ae;
 	}
-
-	public void consulta(int idReg) {
-		Empleado empP;
+	
+	public void iniCombo() {
 		try {
 			scrm = (ServiciosAdAuxModelo) ae.getSm();
-			empP = scrm.consulEmpleado(idReg);
-			idAux = empP.getId();
-			rolAux = empP.getRol();
-			Pe.entraCampos(empP);
+			Pe.setVectorCombo(scrm.listaDescRol());
 			ae.setSm(scrm);
 		}
 		catch (MalformedURLException e) {
@@ -48,28 +42,44 @@ public class ControladorPantallaBajaEmpleado implements ActionListener {
 			ae.mostrarError(e.getMessage(),"Error general");
 		}
 	}
-	
 
 	public void actionPerformed(ActionEvent evt)  {
 		
+		String action = evt.getActionCommand();
+		Rol pRol = null;
+		String selecRol;
+		int idRol = 0;
+		int idSelec = 0;
 		
-		Empleado emp = null;
-			
-		Pe.montaEmpleado();		
-		emp = Pe.getEmp();
-		
-		emp.setId(idAux);
-		emp.setRol(rolAux);
-		
-		emp.setFechaBaja(new java.util.Date());
-
+		selecRol = Pe.getRolDesplegable();
 		try {
-			scrm = (ServiciosAdAuxModelo) ae.getSm();
-			scrm.borrarEmpleado(emp);
-			//scrm.modificaEmpleado(emp); Posibilidad de baja lógica
-			ae.setSm(scrm);
-			//ae.mostrarInformacion("Baja realizada", "Empleados");
-			Pe.dispose();
+			if (action.equals("BUS")) {
+				scrm = (ServiciosAdAuxModelo) ae.getSm();
+				if (!selecRol.isEmpty()) {
+					pRol = scrm.RolDesc(selecRol);
+					idRol = pRol.getId();
+				}				
+				Pe.setListaData(scrm.listEmpleados(idRol, Pe.getNifBusqueda(), 
+						Pe.getNombreBusqueda(), Pe.getApellidoBusqueda()));
+				ae.setSm(scrm);
+			}
+			if (action.equals("SEL")) {
+				scrm = (ServiciosAdAuxModelo) ae.getSm();
+				idSelec = Pe.getIdSelecTabla();
+				ae.setSm(scrm);
+				if (idSelec > 0) {
+					if (Pe.getPantallaDestino().equals("ME")) {
+						new PantallaModificacionEmpleado(ae,idSelec).setVisible(true);
+					}
+					if (Pe.getPantallaDestino().equals("BE")) {
+						new PantallaBajaEmpleado(ae,idSelec).setVisible(true);
+					}
+					if (Pe.getPantallaDestino().equals("CE")) {
+						new PantallaConsultaEmpleado(ae,idSelec).setVisible(true);
+					}
+					Pe.dispose();
+				}
+			}
 		}catch (MalformedURLException e) {
 			ae.mostrarError(e.getMessage(),"Error Url");
 		} catch (RemoteException e) {
@@ -84,4 +94,6 @@ public class ControladorPantallaBajaEmpleado implements ActionListener {
 			ae.mostrarError(e.getMessage(),"Error general");
 		}				 
 	}
+		
+
 }

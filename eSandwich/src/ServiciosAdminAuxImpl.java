@@ -33,6 +33,11 @@ implements ServiciosRemotosAdminAux {
 		
 	}
 	
+	public void borraEmpleado(Empleado pEmpleado) throws errorSQL, 
+	errorConexionBD, RemoteException {
+		ge.eliminaEmpleado(pEmpleado);
+	}
+	
 	public Empleado anadirEmpleado (Empleado e) throws errorSQL, errorConexionBD,
 	RemoteException {
 		Empleado emp = null;
@@ -75,12 +80,27 @@ implements ServiciosRemotosAdminAux {
 		catch (errorSQL err) {
 			throw new errorSQL(err.getMessage());
 		}
+		vRet.add(""); // Se añade blanco para poder hacer búsquedas sin tener en cuenta ROL
 		for (int i=0;i<v.size();i++){
 			Rol rolT=(Rol)v.get(i);
 			String desc = rolT.getDescripcion();
 			vRet.add(desc);			
 		}
 		return vRet;
+	}
+	
+	public Vector <Empleado> listaEmpleados(int pIdRol, String pNif, String pNombre, String pApellido1) throws errorSQL, errorConexionBD,	
+	RemoteException {
+		Vector<Empleado> v;
+
+		try {
+			v = ge.lista(pIdRol, pNif, pNombre, pApellido1);
+		}
+		catch (errorSQL err) {
+			throw new errorSQL(err.getMessage());
+		}
+		
+		return v;
 	}
 
 	public Rol consultaRol_por_Desc(String pDescripcion) throws errorSQL, errorConexionBD,
