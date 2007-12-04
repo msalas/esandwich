@@ -8,7 +8,7 @@ public class ServidorModelo {
 
   
   private ServiciosRemotosComprador scomp;
-  //private ServiciosRemotosCocina scoc;
+  private ServiciosRemotosCocina scoc;
   private ServiciosRemotosAdminAux  sadaux;
   private ServiciosRemotosAcceso    sra;
 
@@ -16,7 +16,7 @@ public class ServidorModelo {
 
   
     scomp = new ServiciosCompradorImpl();
-    //scoc = new ServiciosCocinaImpl();
+    scoc = new ServiciosCocinaImpl();
     sadaux = new ServiciosAdminAuxImpl();
     sra = new ServiciosAccesoImpl();
 
@@ -29,7 +29,7 @@ public class ServidorModelo {
 
     // Publicamos todos los servicios en el servicio de nombres
     Naming.rebind("rmi://localhost/ServiciosComprador", scomp);
-    //Naming.rebind("rmi://localhost/ServiciosCocina", scoc);
+    Naming.rebind("rmi://localhost/ServiciosCocina", scoc);
     Naming.rebind("rmi://localhost/ServiciosAdAux", sadaux);
     Naming.rebind("rmi://localhost/ServiciosAcceso", sra);
 
@@ -41,14 +41,14 @@ public class ServidorModelo {
     // Quitamos todos los servicios disponibles del servicio de nombres
    
     Naming.unbind("rmi://localhost/ServiciosComprador");
-    //Naming.unbind("rmi://localhost/ServiciosCocina");
+    Naming.unbind("rmi://localhost/ServiciosCocina");
     Naming.unbind("rmi://localhost/ServiciosAdAux");
     Naming.unbind("rmi://localhost/ServiciosAcceso");
 
     // Desactivamos los recursos que ha adquirido objeto remoto
     
     scomp.desactivarRecursos();
-   // scoc.desactivarRecursos();
+    scoc.desactivarRecursos();
     sadaux.desactivarRecursos();
     sra.desactivarRecursos();
 
