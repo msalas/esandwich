@@ -15,9 +15,6 @@ public class ServiciosCompradorModelo extends ServiciosAccesoModelo {
 
   }
   
-  public void editaUsuario(Usuario usu) throws errorConexionBD, errorSQL {
-    GestorCliente gcli = new GestorCliente();
-    gcli.editaCliente((Cliente)usu);
-  }
+
 
 }
