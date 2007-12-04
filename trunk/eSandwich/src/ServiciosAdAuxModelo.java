@@ -72,8 +72,8 @@ public class ServiciosAdAuxModelo extends ServiciosAccesoModelo {
 		sraa.eliminaProducto(id);
 	}
 	
-	public void consultaProducto(int id) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		sraa.consultaProducto(id);
+	public Producto consultaProducto(int id) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
+		return sraa.consultaProducto(id);
 	}
 
 	public Vector<Vector> listaProductos() throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{

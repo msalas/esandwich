@@ -15,7 +15,7 @@ public class ControladorAplicacionEmpleado implements ActionListener {
 
     System.out.println("Action = " + action);
 
-  
+    ae.setComanda(action);
     
     if (action.equals("IS")) new PantallaLogin(ae).setVisible(true);
     else if (action.equals("AE")) new PantallaAltaEmpleado(ae).setVisible(true);

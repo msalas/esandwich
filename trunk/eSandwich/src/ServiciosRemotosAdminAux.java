@@ -39,7 +39,7 @@ public interface ServiciosRemotosAdminAux extends ServiciosRemotos {
   public int eliminaProducto(int idProducto) throws errorSQL, errorConexionBD,
       RemoteException;
 
-  public int consultaProducto(int idProducto) throws errorSQL,
+  public Producto consultaProducto(int idProducto) throws errorSQL,
       errorConexionBD, RemoteException;
 
   public Vector<Producto> listaProductos() throws errorSQL, errorConexionBD,

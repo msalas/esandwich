@@ -81,6 +81,7 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 
 	private ControladorAplicacionEmpleado cae = null;
 
+	private String comanda = null;
 
 	/**
 	 * This is the default constructor
@@ -842,7 +843,7 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
 
 
 	public void mostrarInformacion(String mensaje, String titulo) {
-		 JOptionPane.showInternalMessageDialog(this, mensaje,titulo, JOptionPane.INFORMATION_MESSAGE);
+		 JOptionPane.showMessageDialog(null, mensaje,titulo, JOptionPane.INFORMATION_MESSAGE);
 		
 	}
 
@@ -855,6 +856,14 @@ public class AplicacionEmpleado extends JFrame implements Aplicacion {
             }
         });
     }
+
+	public String getComanda() {
+		return comanda;
+	}
+
+	public void setComanda(String comanda) {
+		this.comanda = comanda;
+	}
 
 }
 
