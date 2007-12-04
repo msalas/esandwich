@@ -9,8 +9,16 @@ public interface ServiciosRemotosAdminAux extends ServiciosRemotos {
 
   public Vector <String> listaDescripcionesRol() throws errorSQL, errorConexionBD,
 	RemoteException;
+
+  public Vector <Cliente> listaClientes(int id, String pNombre, String pApellido1) throws 
+	errorSQL, errorConexionBD,RemoteException;
+
+  public Cliente consultarCliente(int id) throws errorSQL, errorConexionBD,RemoteException;
   
   public void borraEmpleado(Empleado pEmpleado) throws errorSQL, 
+	errorConexionBD, RemoteException;
+  
+  public void borraCliente(Cliente pCliente) throws errorSQL, 
 	errorConexionBD, RemoteException;
 
   public Vector <Empleado> listaEmpleados(int pIdRol, String pNif, String pNombre, String pApellido1) throws errorSQL, errorConexionBD,

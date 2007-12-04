@@ -32,7 +32,9 @@ public class Util {
 	
 	public static int getNumDeCodigo(String codUsuario) {
 		int n = 0;
-		n = Integer.parseInt(codUsuario.substring(1));		
+		if (!codUsuario.isEmpty()) {
+			n = Integer.parseInt(codUsuario.substring(1));			
+		}			
 		return n;
 	}
 
