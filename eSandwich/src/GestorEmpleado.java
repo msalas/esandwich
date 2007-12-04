@@ -263,6 +263,7 @@ public class GestorEmpleado {
 				Emp = montaEmpleado(rs);
 			}
 			else {
+				gd.rollback();
 				throw new GestorEmpleadoException("No existe empleado");
 			}
 			rs.close();
@@ -351,7 +352,8 @@ public class GestorEmpleado {
 				+ "desactivado,id_rol "
 				+ "FROM persona,usuario,empleado "
 				+ "WHERE empleado.cod_empleado = usuario.cod_usuario AND "
-				+ "empleado.cod_empleado = persona.id "
+				+ "empleado.cod_empleado = persona.id AND "
+				+ "desactivado = false "
 				+ strConsulta
 				+ "ORDER BY nif";
 		
@@ -452,6 +454,7 @@ public class GestorEmpleado {
 				gRol.liberarRecursos();
 			}
 			catch (SQLException e) {
+				gd.rollback();
 				throw new errorSQL(e.toString());
 			}
 		}
