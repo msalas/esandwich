@@ -139,7 +139,6 @@ public class GestorRol {
 			gd.begin();
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(strSQL);
-			
 			while(rs.next()){
 				pRol = montaRol(rs);
 				v.add(pRol);

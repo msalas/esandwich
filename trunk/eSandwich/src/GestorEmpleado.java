@@ -105,8 +105,51 @@ public class GestorEmpleado {
 		}
 		return pEmpleado;
 	}
+
+	public void eliminaEmpleado(Empleado pEmpleado) throws errorSQL, 
+	errorConexionBD{
+		String strSQL = "";
+
+		if(gd.isConectado()) con = gd.getConexion();
+		else throw new errorConexionBD("No hay conexión!");
+		
+		
+		PreparedStatement pstmt = null;
+					
+		try {
+			gd.begin();
+			strSQL = "DELETE FROM empleado WHERE cod_empleado = " + pEmpleado.getId();					
+			pstmt = con.prepareStatement(strSQL);			
+			pstmt.execute();
+			pstmt.close();
+		} catch (SQLException e) {
+			gd.rollback();
+			throw new errorSQL("Error SQL en eliminar empleado numero: " + e.getErrorCode());
+		}
+		try {
+			strSQL = "DELETE FROM usuario WHERE cod_usuario = " + pEmpleado.getId();
+			pstmt = con.prepareStatement(strSQL);						
+			pstmt.execute();
+			pstmt.close();
+		} catch (SQLException e) {
+			gd.rollback();
+			throw new errorSQL("Error SQL en eliminar usuario numero: " + e.getErrorCode());
+		}
+		try {
+			strSQL = "DELETE FROM persona WHERE id = " + pEmpleado.getId();
+			pstmt = con.prepareStatement(strSQL);			
+			pstmt.execute();
+			pstmt.close();
+			pstmt = null;
+			
+			gd.commit();
+		} catch (SQLException e) {
+			gd.rollback();
+			throw new errorSQL("Error SQL en eliminar persona numero: " + e.getErrorCode());
+		}
+	}	
 	
-	//Tanto para dar de baja como para modificar usuario
+	//Tanto para dar de baja lógica como para modificar usuario
 	public void setEmpleado(Empleado pEmpleado) throws errorSQL, 
 	errorConexionBD{
 		String strSQL = "";
@@ -270,23 +313,36 @@ public class GestorEmpleado {
 	
 	
 	//Excluimos a los que estan dados de baja
-	public Vector lista(int pIdRol, String pNif, String pNombre, String pApellido1) throws errorSQL, errorConexionBD {
-		Vector v = new Vector();
+	public Vector <Empleado> lista(int pIdRol, String pNif, String pNombre, String pApellido1) throws errorSQL, errorConexionBD {
+		Vector <Empleado> v = new Vector <Empleado> ();
 		String strSQL = "";
 		String strConsulta  = "";
 		if (pIdRol > 0) {
 			strConsulta = "AND id_rol = " + pIdRol + " ";
 		}
-		if (pNif != null) {
-			strConsulta = "AND nif like '" + pNif + "' ";
+		if (!pNif.isEmpty()) {
+			if (strConsulta.isEmpty()) {
+				strConsulta = "AND nif like '" + pNif + "' ";
+			} else {
+				strConsulta = strConsulta + "AND nif like '" + pNif + "' ";
+			}
+			
 		}
-		if (pNombre != null) {
-			strConsulta = "AND nombre like '" + pNombre + "' ";
+		if (!pNombre.isEmpty()) {
+			if (strConsulta.isEmpty()) {
+				strConsulta = "AND nombre like '" + pNombre + "' ";
+			} else {
+				strConsulta = strConsulta + "AND nombre like '" + pNombre + "' ";
+			}	
 		}
-		if (pApellido1 != null) {
-			strConsulta = "AND apellido1 like '" + pApellido1 + "' ";
+		if (!pApellido1.isEmpty()) {
+			if (strConsulta.isEmpty()) {
+				strConsulta = "AND apellido1 like '" + pApellido1 + "' ";
+			} else {
+				strConsulta = strConsulta + "AND apellido1 like '" + pApellido1 + "' ";
+			}
 		}
-
+		
 		strSQL = "SELECT cod_empleado,nif,nombre,apellido1,apellido2,"
 				+ "direccion,poblacion,telefono,movil,email,cod_Usuario,pasword,"
 				+ "desactivado,id_rol "
@@ -296,6 +352,7 @@ public class GestorEmpleado {
 				+ "desactivado = false "
 				+ strConsulta
 				+ "ORDER BY nif";
+		
 		
 		Empleado emplAux = null;
 			
@@ -321,6 +378,8 @@ public class GestorEmpleado {
 		}
 		return v;
 	}
+	
+	
 	
 	private void verifCampos(Empleado pEmpl) throws GestorEmpleadoException {
 		if (!Util.compruebaCampoNif(pEmpl.getNif().toCharArray())) 

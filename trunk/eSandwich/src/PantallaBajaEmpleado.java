@@ -58,10 +58,12 @@ public class PantallaBajaEmpleado extends JDialog {
 	private Empleado emp = null; 	
 	private AplicacionEmpleado ae;
 	private ControladorPantallaBajaEmpleado cpl = null;
+	private int idRegAux;
 	
-	public PantallaBajaEmpleado(AplicacionEmpleado ae) {
+	public PantallaBajaEmpleado(AplicacionEmpleado ae,int idRegistro) {
 		super(ae,"Baja Empleado",true);
 		this.ae = ae;
+		idRegAux = idRegistro;
 		initialize();
 	}
 
@@ -79,7 +81,7 @@ public class PantallaBajaEmpleado extends JDialog {
 		this.setLocationRelativeTo(null);
 		cpl = new ControladorPantallaBajaEmpleado(this,ae);
 		jButtonCrear.addActionListener(cpl);
-		cpl.consulta();		
+		cpl.consulta(idRegAux);		
 	}
 
 	/**
