@@ -67,21 +67,18 @@ public class ControladorPantallaLogin implements ActionListener {
       pl.setVisible(false);
 
     } catch (MalformedURLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+    	ae.mostrarError(e.getMessage(), "URL incorrecta");
     } catch (RemoteException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+    	ae.mostrarError(e.getMessage(), "Excepcion remota");
     } catch (errorConexionBD e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+    	ae.mostrarError(e.getMessage(), "Error BD");
     } catch (errorSQL e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+    	ae.mostrarError(e.getMessage(), "Error SQL");
     } catch (NotBoundException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    	ae.mostrarError(e.getMessage(), "Error de servicios");
+    }catch (Exception e) {
+    	ae.mostrarError(e.getMessage(), "Error aplicacion");
+	}
 
   }
 
