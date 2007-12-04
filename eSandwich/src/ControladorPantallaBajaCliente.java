@@ -6,27 +6,25 @@ import java.rmi.RemoteException;
 
 
 
-public class ControladorPantallaBajaEmpleado implements ActionListener {
+public class ControladorPantallaBajaCliente implements ActionListener {
 	private static final long serialVersionUID = 1L;
-	PantallaBajaEmpleado Pe;
+	PantallaBajaCliente Pe;
 	AplicacionEmpleado ae = null;
 	ServiciosAdAuxModelo scrm = null;
 	private int idAux = 0;
-	private Rol rolAux = null;
 	
-	public ControladorPantallaBajaEmpleado(PantallaBajaEmpleado pModEmp, AplicacionEmpleado ae) {
+	public ControladorPantallaBajaCliente(PantallaBajaCliente pModEmp, AplicacionEmpleado ae) {
 		Pe = pModEmp;	
 		this.ae = ae;
 	}
 
 	public void consulta(int idReg) {
-		Empleado empP;
+		Cliente cliP;
 		try {
 			scrm = (ServiciosAdAuxModelo) ae.getSm();
-			empP = scrm.consulEmpleado(idReg);
-			idAux = empP.getId();
-			rolAux = empP.getRol();
-			Pe.entraCampos(empP);
+			cliP = scrm.consultarCliente(idReg);
+			idAux = cliP.getId();
+			Pe.entraCampos(cliP);
 			ae.setSm(scrm);
 		}
 		catch (MalformedURLException e) {
@@ -53,34 +51,19 @@ public class ControladorPantallaBajaEmpleado implements ActionListener {
 	public void actionPerformed(ActionEvent evt)  {
 		
 		
-		Empleado emp = null;
-		int n = 0;
+		Cliente cli = null;
 			
-		Pe.montaEmpleado();		
-		emp = Pe.getEmp();
+		Pe.montaCliente();		
+		cli = Pe.getCli();
 		
-		emp.setId(idAux);
-		emp.setRol(rolAux);
-		
-		emp.setFechaBaja(new java.util.Date());
+		cli.setId(idAux);
 
 		try {
-			if (emp.getRol().getDescripcion().equals("Cocina")) {
-				// No ha sido implementado consultar pedidos pendientes en el gestor
-				// pertinente, pero sería algo como sigue:
-				// n = miraPedidosPendientes(emp);
-				if (n > 0) {
-					ae.mostrarError("Cocinero con pedidos pendientes","No se puede efectura Baja");
-				}
-			}
-			if (n == 0) {
-				scrm = (ServiciosAdAuxModelo) ae.getSm();
-				scrm.borrarEmpleado(emp);
-				//scrm.modificaEmpleado(emp); Posibilidad de baja lógica
-				ae.setSm(scrm);
-				//ae.mostrarInformacion("Baja realizada", "Empleados");
-				Pe.dispose();				
-			}
+			scrm = (ServiciosAdAuxModelo) ae.getSm();
+			scrm.borraCliente(cli);
+			ae.setSm(scrm);
+			//ae.mostrarInformacion("Baja realizada", "Clientes");
+			Pe.dispose();				
 		}catch (MalformedURLException e) {
 			ae.mostrarError(e.getMessage(),"Error Url");
 		} catch (RemoteException e) {
@@ -93,6 +76,6 @@ public class ControladorPantallaBajaEmpleado implements ActionListener {
 			ae.mostrarError(e.getMessage(),"Error de servicios");
 		} catch (Exception e) {
 			ae.mostrarError(e.getMessage(),"Error general");
-		}				 
+		} 
 	}
 }

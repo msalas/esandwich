@@ -77,8 +77,10 @@ public class ControladorPantallaBuscarEmpleado implements ActionListener {
 					if (Pe.getPantallaDestino().equals("CE")) {
 						new PantallaConsultaEmpleado(ae,idSelec).setVisible(true);
 					}
-					Pe.dispose();
+					Pe.setListaData(scrm.listEmpleados(idRol, Pe.getNifBusqueda(), 
+							Pe.getNombreBusqueda(), Pe.getApellidoBusqueda()));
 				}
+				Pe.setIdSelecTabla(0);
 			}
 		}catch (MalformedURLException e) {
 			ae.mostrarError(e.getMessage(),"Error Url");

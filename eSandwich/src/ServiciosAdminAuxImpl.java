@@ -9,6 +9,7 @@ implements ServiciosRemotosAdminAux {
 	private static final long serialVersionUID = 1L;
 
 	GestorEmpleado ge;
+	GestorCliente gc;
 	GestorProducto gp;
 	GestorFamiliaProd gfp;
 	GestorStock gs;
@@ -20,6 +21,7 @@ implements ServiciosRemotosAdminAux {
 	RemoteException {
 		try {
 			ge = new GestorEmpleado();
+			gc = new GestorCliente();
 			gp = new GestorProducto();
 			gfp = new GestorFamiliaProd();
 			gs = new GestorStock();
@@ -37,6 +39,7 @@ implements ServiciosRemotosAdminAux {
 	errorConexionBD, RemoteException {
 		ge.eliminaEmpleado(pEmpleado);
 	}
+	
 	
 	public Empleado anadirEmpleado (Empleado e) throws errorSQL, errorConexionBD,
 	RemoteException {
@@ -88,6 +91,32 @@ implements ServiciosRemotosAdminAux {
 		}
 		return vRet;
 	}
+
+	public Vector <Cliente> listaClientes(int id, String pNombre, String pApellido1) throws 
+	errorSQL, errorConexionBD,RemoteException {
+		Vector<Cliente> v;
+		try {
+			
+			v = gc.lista(id, pNombre, pApellido1);
+		}
+		catch (errorSQL err) {
+			throw new errorSQL(err.getMessage());
+		}
+		
+		return v;		
+	}
+
+	public Cliente consultarCliente(int id) throws errorSQL, errorConexionBD,RemoteException {
+		Cliente pCli;
+		try {
+			pCli= gc.getCliente(id);
+		}
+		catch (errorSQL err) {
+			throw new errorSQL(err.getMessage());
+		}
+		return pCli;	
+		
+	}
 	
 	public Vector <Empleado> listaEmpleados(int pIdRol, String pNif, String pNombre, String pApellido1) throws errorSQL, errorConexionBD,	
 	RemoteException {
@@ -127,6 +156,12 @@ implements ServiciosRemotosAdminAux {
 		}
 		return pEmp;		
 	}
+
+	public void borraCliente(Cliente pCliente) throws errorSQL, 
+	errorConexionBD, RemoteException {
+		gc.elimina(pCliente);
+	}
+	
 	
 	public int añadirProducto (Producto p) throws errorSQL, errorConexionBD,
 	RemoteException {
@@ -354,6 +389,7 @@ implements ServiciosRemotosAdminAux {
 	
 	public void desactivarRecursos() {
 		ge.liberarRecursos();
+		gc.liberarRecursos();
 		gp.liberarRecursos();
 		gfp.liberarRecursos();
 		gs.liberarRecursos();
