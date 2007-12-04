@@ -49,8 +49,7 @@ public class GestorUsuario {
    * GestorUsuario(); try { gUsu.login("C0001", "prueba", false); } catch
    * (errorSQL e) { System.out.println(e.getMessage()); }
    * gUsu.liberarRecursos(); } catch (errorConexionBD e) {
-   * System.out.println(e.getMessage()); }
-   *  }
+   * System.out.println(e.getMessage()); } }
    */
 
 }
