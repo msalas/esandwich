@@ -107,7 +107,7 @@ public class PantallaMantenimientoSandwich extends JDialog {
 	 * @throws errorConexionBD 
 	 * @throws RemoteException 
 	 */
-	private JTable getJSandwichTable() {
+	JTable getJSandwichTable() {
 		if (jSandwichTable == null) {
 			Object [][] listaSandwich=cPantallaMantenimientoSandwich.listaSandwich();
 			Object [] names=new String[2];

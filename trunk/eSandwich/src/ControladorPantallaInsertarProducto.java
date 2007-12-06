@@ -27,33 +27,34 @@ public class ControladorPantallaInsertarProducto implements ActionListener {
 		// On tenim els serveis? L'aplicacio té els serveis actuals
 		Producto p = new Producto();
 		
-		p.setIdProducto(new Integer(pip.getJcodiarticle().getText()));
+		
+		//p.setIdProducto(new Integer(pip.getJcodiarticle().getText()));
+		
 		p.setDescripcion((pip.getJquantitat()).getText());
 		p.setDescripcionAmpliada((pip.getJarticle()).getText());
 		p.setExistencias(new Integer(pip.getJarticle1().getText()));
 		p.setIdFamilia(new Integer(pip.getJTextField().getText()));
 		p.setPrecio(new Float(pip.getJTextField1().getText()));
 		
+		
 		sm = (ServiciosAdAuxModelo) ae.getSm();
 		try {
-			sm.nuevoProducto(p);
-			
+			int i = sm.nuevoProducto(p);
+		
+			ae.mostrarInformacion("Producto con id: "+i, "Producto insertado");
 			
 		} catch (MalformedURLException e) {
 			ae.mostrarError(e.getMessage(), "Posar titol");
-			e.printStackTrace();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+ae.mostrarError(e.getMessage(), "Posar titol");
 		} catch (errorConexionBD e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ae.mostrarError(e.getMessage(), "Posar titol");
 		} catch (errorSQL e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ae.mostrarError(e.getMessage(), "Posar titol");
 		} catch (NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ae.mostrarError(e.getMessage(), "Posar titol");
+		}catch (Exception e) {
+			ae.mostrarError(e.getMessage(), "Posar titol");
 		}
 		
 		

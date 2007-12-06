@@ -65,8 +65,8 @@ public class ServiciosAdAuxModelo extends ServiciosAccesoModelo {
 		return sraa.consultarCliente(id);
 	}
 	
-	public void nuevoProducto(Producto p) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
-		sraa.añadirProducto(p);
+	public int nuevoProducto(Producto p) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
+		return sraa.añadirProducto(p);
 	}
 	
 	public void eliminarProducto(int id) throws errorConexionBD, errorSQL, MalformedURLException, RemoteException, NotBoundException{
