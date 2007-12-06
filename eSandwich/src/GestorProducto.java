@@ -73,7 +73,7 @@ public class GestorProducto {
 	public int insertarProducto(Producto p) throws  errorSQL, errorConexionBD {
 	
 		int id=0;
-		PreparedStatement pstmt = null;
+		PreparedStatement ps = null;
 		Statement stmt = null;
 		
 		if(gd.isConectado()) con = gd.getConexion();
@@ -81,7 +81,10 @@ public class GestorProducto {
 		
 		try {
 			gd.begin();
-			String s = "INSERT INTO producto (id, descripcion, descripcion_ampliada, existencias, id_familia, precio )"
+		
+			
+			
+		/*	String s = "INSERT INTO producto (id, descripcion, descripcion_ampliada, existencias, id_familia, precio )"
 				+ "VALUES (?,?,?,?,?,?)";	
 			
 			
@@ -91,8 +94,28 @@ public class GestorProducto {
 			pstmt.setString(3,p.getDescripcionAmpliada());
 			pstmt.setInt(4, p.getExistencias());
 			pstmt.setInt(5,p.getIdFamilia());
-			pstmt.setFloat(6,p.getPrecio());
-			gd.commit();
+			pstmt.setFloat(6,p.getPrecio());*/
+			String sql="INSERT INTO producto(descripcion,descripcion_ampliada,existencias, id_familia" +
+			",precio)  VALUES (?,?,?,?,?) RETURNING id; ";
+	
+	
+		ps=con.prepareStatement(sql);
+		
+	
+		ps.setString(2,p.getDescripcion());
+		ps.setString(3,p.getDescripcionAmpliada());
+		ps.setInt(4, p.getExistencias());
+		ps.setInt(5,p.getIdFamilia());
+		ps.setFloat(6,p.getPrecio());
+		//ps.setDate(4, new java.sql.Date((sandwich.getFechaBaja()).getTime()));
+		
+		ResultSet rs=ps.executeQuery();
+		
+		if (rs.next()) id = rs.getInt(1);
+		rs.close();
+		ps.close();
+		gd.commit();	
+/*			
 			pstmt.execute();
 			pstmt.close();
 			pstmt = null;
@@ -102,7 +125,7 @@ public class GestorProducto {
 			ResultSet rs = stmt.executeQuery(str);
 			if (rs.next()) id = rs.getInt(1);
 			rs.close();
-			stmt.close();
+			stmt.close();*/
 					
 		} catch (SQLException e) {
 			gd.rollback();

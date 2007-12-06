@@ -99,12 +99,12 @@ public class PantallaInsertarProducto extends JDialog {
 			jquant = new JLabel();
 			jquant.setBounds(new Rectangle(45, 63, 79, 16));
 			jquant.setText("Descripcion");
-			jCodi = new JLabel();
-			jCodi.setBounds(new Rectangle(45, 32, 112, 16));
-			jCodi.setText("Codigo Producto");
+//			jCodi = new JLabel();
+//			jCodi.setBounds(new Rectangle(45, 32, 112, 16));
+		//	jCodi.setText("Codigo Producto");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
-			jContentPane.add(jCodi, null);
+//			jContentPane.add(jCodi, null);
 			jContentPane.add(getJcodiarticle(), null);
 			jContentPane.add(jquant, null);
 			jContentPane.add(getJquantitat(), null);
